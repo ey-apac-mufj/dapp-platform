@@ -35,14 +35,15 @@
 }
 
 .connect {
-  margin-bottom: 2rem;
+  width: 100%;
+  margin-bottom: 3rem;
   display: flex;
-  justify-content: center;
+  justify-content: right;
 }
 
 .description {
   margin-top: 3rem;
-  margin-bottom: 2rem;
+  margin-bottom: 4rem;
   line-height: 1.5;
   font-size: 1.5rem;
 }

@@ -5,6 +5,7 @@ import {
   ThirdwebProvider,
   localWallet,
   metamaskWallet,
+  paperWallet,
   smartWallet,
 } from "@thirdweb-dev/react";
 import "./styles/globals.css";
@@ -23,6 +24,9 @@ root.render(
           gasless: true,
           personalWallets: [metamaskWallet(), localWallet({ persist: true })],
         }),
+        paperWallet({
+          clientId: "5e8b0e46-c434-4a92-a2f1-4f0e7ecd9888"
+        })
       ]}
     >
       <App />

@@ -25,14 +25,6 @@ export default function Home() {
   return (
     <div className="container">
       <main className="main">
-        <h1 className="title">
-          Welcome to <a href="https://thirdweb.com/">thirdweb</a>!
-        </h1>
-
-        <p className="description">
-          Claim your test access pass by creating an account!
-        </p>
-
         <div className="connect">
           <ConnectWallet
             dropdownPosition={{
@@ -42,11 +34,19 @@ export default function Home() {
             btnTitle="Login"
           />
         </div>
+        <h1 className="title">
+          Welcome to <a href="https://thirdweb.com/">Acics NFT Drop Page</a>!
+        </h1>
+
+        <p className="description">
+        Please connect to your <a href="https://goerli.etherscan.io/address/0x90A063aeC1412bEfE6E0977fbAd0A8dc9D8a2EE3">MUFG Smart Contract Wallet (ERC-4337)</a>.
+        </p>
 
         {isNftLoading ? (
           "Loading..."
         ) : (
           <div className="card">
+            <p>Acics Membership Pass</p>
             <img
               className="nftImage"
               src={nft.metadata.image}
@@ -54,7 +54,7 @@ export default function Home() {
             />
             {address ? (
               <>
-                <p>You own {ownedNfts?.[0]?.quantityOwned || "0"}</p>
+                <p>You own {ownedNfts?.[0]?.quantityOwned || "0"} <a href="https://goerli.etherscan.io/nft/0x8d9919db3cd6af84e8a12cedc3c5a694bf026ab8/0">NFT(s)</a>.</p>
                 <Web3Button
                   contractAddress={editionDropAddress}
                   action={(contract) =>
@@ -66,11 +66,11 @@ export default function Home() {
                   }}
                   style={{ width: "100%", marginTop: "10px" }}
                 >
-                  Claim!
+                  Mint NFT Drop!
                 </Web3Button>
               </>
             ) : (
-              <p>Login to claim!</p>
+              <p>Login to mint NFT drop!</p>
             )}
           </div>
         )}
