@@ -1,9 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=MuseoModerno&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.container {
+.museoFont{
+  font-family: 'MuseoModerno', serif;
+}
+
+.landing-page{
+  font-family: 'Lora', serif;
+}
+
+.container-home {
   padding: 0 2rem;
+  color: #e7e8e8;
+  background: #0f1318;
+}
+
+.stat-section{
+  background: #535353;
+}
+
+.gray-color{
+  color: #535353;
 }
 
 .profile-btn{
