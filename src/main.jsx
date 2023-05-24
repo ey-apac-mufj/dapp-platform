@@ -11,7 +11,7 @@ import {
   magicLink,
   ChainId,
 } from "@thirdweb-dev/react";
-import "./styles/globals.css";
+import "./globals.css";
 import {
   TWApiKey,
   TWFactoryAddress,
