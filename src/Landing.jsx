@@ -7,6 +7,7 @@ import com3 from "./images/com3.png";
 import com4 from "./images/com4.png";
 import insta from "./images/insta.png";
 import twitter from "./images/twitter.png";
+import ConnectWalletButton from "./components/ConnectWalletButton";
 
 export default function Landing() {
   return (
@@ -21,11 +22,10 @@ export default function Landing() {
         placeholder="Search Community"
       />
       <div className="stat-section w-100 mx-4 md:mx-20 mt-14 mb-7 px-3 md:px-8 pb-8 rounded-2xl text-white shadow-xl">
-        <div className="mx-auto mb-10">
-          <button className="px-5 py-3 bg-pink-600 mt-4 rounded-xl shadow-lg">
-            Connect Wallet
-          </button>
+        <div>
+          <ConnectWalletButton />
         </div>
+
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="md:border-r-2 md:border-white py-5">
             <h5 className="museoFont">Communities</h5>
