@@ -5,6 +5,7 @@ import {
   useContract,
   useNFT,
   useOwnedNFTs,
+  useConnect,
 } from "@thirdweb-dev/react";
 import "./styles/Home.css";
 import { editionDropAddress, editionDropTokenId } from "../const/yourDetails";
@@ -39,7 +40,7 @@ export default function Home() {
         <div className="connect">
           <ConnectWallet
             dropdownPosition={{
-              align: "center",
+              align: "right",
               side: "bottom",
             }}
             btnTitle="Login"
