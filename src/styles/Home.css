@@ -1,6 +1,19 @@
 .container {
   padding: 0 2rem;
 }
+.profile-btn{
+  background-color: #F212A3;
+  border-radius: 8px;
+  padding: 10px 35px;
+  margin-left: 12px;
+  border: none;
+  font-size: 14.5px;
+  cursor: pointer;
+}
+
+.profile-btn:hover {
+  background-color: #b20977;
+}
 
 .main {
   min-height: 100vh;
