@@ -12,7 +12,12 @@ import {
   ChainId,
 } from "@thirdweb-dev/react";
 import "./styles/globals.css";
-import { TWApiKey, TWFactoryAddress, activeChain } from "../const/yourDetails";
+import {
+  TWApiKey,
+  TWFactoryAddress,
+  activeChain,
+  magicLinkKey,
+} from "../const/yourDetails";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -29,7 +34,7 @@ root.render(
           personalWallets: [
             metamaskWallet(),
             magicLink({
-              apiKey: "pk_live_41D75AEA3BB94386",
+              apiKey: magicLinkKey,
               magicSdkConfiguration: {
                 network: "goerli",
               },
