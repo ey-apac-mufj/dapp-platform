@@ -2,6 +2,7 @@ import { Web3Button } from "@thirdweb-dev/react";
 import React from "react";
 import Modal from "react-responsive-modal";
 import { useNavigate } from "react-router-dom";
+import "react-responsive-modal/styles.css";
 
 export default function BuyMembership({
   open,

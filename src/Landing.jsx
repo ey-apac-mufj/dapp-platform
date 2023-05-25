@@ -70,15 +70,16 @@ export default function Landing() {
         autoClose: 3000,
       });
     } else {
-      // Check if user already has the NFT or not
-      // if(ownedNfts)
-      console.log(ownedNfts);
-      if (ownedNfts && ownedNfts.length > 0) {
-        console.log("hi man");
-        return navigate("/community-details");
-      } else {
-        onOpenModal();
-      }
+      return navigate("/community-details");
+      // // Check if user already has the NFT or not
+      // // if(ownedNfts)
+      // console.log(ownedNfts);
+      // if (ownedNfts && ownedNfts.length > 0) {
+      //   console.log("hi man");
+      //   return navigate("/community-details");
+      // } else {
+      //   onOpenModal();
+      // }
     }
   };
 
