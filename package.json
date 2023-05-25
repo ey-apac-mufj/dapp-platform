@@ -29,7 +29,8 @@
     "react-dom": "^18.2.0",
     "react-responsive-modal": "^6.4.1",
     "react-router-dom": "^6.11.2",
-    "solidity-coverage": "^0.7.21"
+    "solidity-coverage": "^0.7.21",
+    "react-toastify": "^7.0.4"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^2",

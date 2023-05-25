@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import CommunityDetails from "./CommunityDetails";
 import Home from "./Home";
 import Landing from "./Landing";
 
@@ -8,8 +9,9 @@ function App() {
     <Router>
       <div>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/landing" element={<Landing />} />
+          <Route path="/old" element={<Home />} />
+          <Route path="/" element={<Landing />} />
+          <Route path="/community-details" element={<CommunityDetails />} />
         </Routes>
       </div>
     </Router>

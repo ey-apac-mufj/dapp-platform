@@ -55,9 +55,20 @@
 }
 
 .customModal {
-  width: 500px;
+  width: 90%;
+  animation-fill-mode: forwards !important;
+  @apply mx-auto;
   color: #000;
   text-align: center;
+}
+@media only screen and (min-width: 700px) {
+  .customModal {
+    width: 40%;
+    animation-fill-mode: forwards !important;
+    @apply mx-auto;
+    color: #000;
+    text-align: center;
+  }
 }
 
 .text-center{

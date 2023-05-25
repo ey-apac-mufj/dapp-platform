@@ -181,7 +181,6 @@ export default function Home() {
               Submit
             </button>
           </form>
-          {/* <h5 className="text-center">Hi man</h5> */}
         </div>
       </Modal>
     </div>
