@@ -1,118 +1,75 @@
 import React from "react";
-import CommunityThumbnail from "../components/CommunityThumbnail";
-import logo from "../images/logo.png";
-import com1 from "../images/com1.png";
-import com2 from "../images/com2.png";
-import com3 from "../images/com3.png";
-import com4 from "../images/com4.png";
-import insta from "../images/insta.png";
-import twitter from "../images/twitter.png";
-import ConnectWalletButton from "../components/ConnectWalletButton";
-import { useAddress } from "@thirdweb-dev/react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
-import Stat from "../components/Stat";
+import wallet from "../images/wallet.png";
+import community from "../images/community.png";
+import googleplay from "../images/googleplay.png";
+import appstore from "../images/appstore.png";
+import { Link } from "react-router-dom";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 export default function Landing() {
-  const communities = [
-    {
-      id: 1,
-      image: com1,
-      title: "Bokemon Learn and Play",
-    },
-    {
-      id: 2,
-      image: com2,
-      title: "Acics Running",
-    },
-    {
-      id: 3,
-      image: com3,
-      title: "Nurse Circle",
-    },
-    {
-      id: 4,
-      image: com4,
-      title: "Virtual Apparel",
-    },
-  ];
-  const address = useAddress();
-  const navigate = useNavigate();
-
-  const handleCommunityRedirect = () => {
-    if (!address || address === undefined) {
-      // Check if wallet is connected or not
-      toast.error("Please connect your wallet first!", {
-        position: "top-right",
-        autoClose: 3000,
-      });
-    } else {
-      return navigate("/community-details");
-      // // Check if user already has the NFT or not
-      // // if(ownedNfts)
-      // console.log(ownedNfts);
-      // if (ownedNfts && ownedNfts.length > 0) {
-      //   console.log("hi man");
-      //   return navigate("/community-details");
-      // } else {
-      //   onOpenModal();
-      // }
-    }
-  };
-
   return (
-    <div className="container text-center mx-auto px-5 md:px-20 py-5 justify-center landing-page">
-      <img src={logo} alt="" className="mx-auto w-30" />
-      <h3 className="mt-5 text-3xl font-semi-bold text-red-900">
-        Web3 Community Platform
-      </h3>
-      <input
-        type="text"
-        className="w-90 md:w-80 mt-5 ml-2 pl-5 pr-3 py-2 rounded-full text-center"
-        placeholder="Search Community"
-      />
-      <div className="stat-section w-100 mx-4 md:mx-20 mt-14 mb-7 px-3 md:px-8 pb-8 rounded-2xl text-white shadow-xl">
-        <div>
-          <ConnectWalletButton />
+    <>
+      <Header />
+      {/* <div className="w-100 bg-black">sfdd</div> */}
+      <div className="container mx-auto px-5 md:px-20 py-5 justify-center landing-page">
+        {/* Wallet section starts */}
+        <div className="grid grid-cols-1 md:grid-cols-2 antonFont">
+          <div className="mt-5 py-3 px-5">
+            <h1 className="text-4xl uppercase ">Web3 Wallet</h1>
+            <p className="mt-5 text-sm font-thin">
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum has been the industry's standard dummy text
+              ever since the 1500s, when an unknown printer took a galley of
+              type and scrambled it to make a type specimen book. It has
+              survived not only five centuries, but also the leap into
+              electronic typesetting, remaining essentially unchanged. <br />{" "}
+              <span className="underline cursor-pointer">Learn More</span>
+            </p>
+            <div>
+              <h2 className="mt-6 mb-3 text-xl">Get your own</h2>
+              <div className="flex gap-3">
+                <img src={googleplay} className="h-10 cursor-pointer" alt="" />
+                <img src={appstore} className="h-10 cursor-pointer" alt="" />
+              </div>
+            </div>
+          </div>
+          <div className="mt-5 py-3 px-5 order-first md:order-none">
+            <img src={wallet} className="mx-auto h-87 shadow-lg" alt="" />
+          </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <Stat title="Communities" number="149" />
-          <Stat title="Ambassadors" number="55" />
-          <Stat title="Metaverse" number="5" />
-          <Stat title="SBT Drops" number="13" border={false} />
-        </div>
-      </div>
-      <hr className="h-1 bg-gray-500" />
-      <h5 className="text-2xl mt-4 gray-color font-semi-bold">
-        Featured Communities
-      </h5>
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-8 my-6 mx-auto">
-        {communities.map((com, i) => {
-          return (
-            <div className="community" key={i}>
-              <CommunityThumbnail
-                community={com}
-                handleCommunityRedirect={handleCommunityRedirect}
-              />
+        {/* Wallet section ends */}
+
+        {/* Community section starts */}
+        <div className="grid grid-cols-1 md:grid-cols-2 antonFont">
+          <div className="mt-16 py-3 px-5">
+            <img src={community} className="mx-auto h-87 shadow-lg" alt="" />
+          </div>
+          <div className="mt-5 md:mt-16 py-3 px-5">
+            <h1 className="text-4xl uppercase">Multiverse Communities</h1>
+            <p className="mt-5 text-sm font-thin">
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum has been the industry's standard dummy text
+              ever since the 1500s, when an unknown printer took a galley of
+              type and scrambled it to make a type specimen book. It has
+              survived not only five centuries, but also the leap into
+              electronic typesetting, remaining essentially unchanged. <br />{" "}
+              <span className="underline cursor-pointer">Learn More</span>
+            </p>
+            <div>
+              <Link to="/community-home">
+                <button className="pink-button uppercase mt-8 text-xl font-thin">
+                  Enter
+                </button>
+              </Link>
             </div>
-          );
-        })}
-      </div>
-      <hr className="h-1 bg-gray-500" />
-      <div className="grid grid-cols-2 my-3">
-        <div className="left-section mr-auto text-left flex gap-4">
-          <h5>Privacy Policy</h5>
-          <h5>Terms of Use</h5>
-          <h5>Help</h5>
+          </div>
         </div>
-        <div className="right-section ml-auto flex gap-4">
-          <img src={insta} alt="" className="h-8" />
-          <img src={twitter} alt="" className="h-8" />
-        </div>
+
+        {/* Community section ends */}
       </div>
-      <ToastContainer />
-    </div>
+      <Footer />
+    </>
   );
 }
