@@ -1,25 +1,18 @@
-import React, { useState } from "react";
-import CommunityThumbnail from "./components/CommunityThumbnail";
-import logo from "./images/logo.png";
-import com1 from "./images/com1.png";
-import com2 from "./images/com2.png";
-import com3 from "./images/com3.png";
-import com4 from "./images/com4.png";
-import insta from "./images/insta.png";
-import twitter from "./images/twitter.png";
-import { editionDropAddress, editionDropTokenId } from "../const/yourDetails";
-import ConnectWalletButton from "./components/ConnectWalletButton";
-import {
-  useAddress,
-  useContract,
-  useNFT,
-  useOwnedNFTs,
-} from "@thirdweb-dev/react";
+import React from "react";
+import CommunityThumbnail from "../components/CommunityThumbnail";
+import logo from "../images/logo.png";
+import com1 from "../images/com1.png";
+import com2 from "../images/com2.png";
+import com3 from "../images/com3.png";
+import com4 from "../images/com4.png";
+import insta from "../images/insta.png";
+import twitter from "../images/twitter.png";
+import ConnectWalletButton from "../components/ConnectWalletButton";
+import { useAddress } from "@thirdweb-dev/react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import BuyMembership from "./components/BuyMembership";
-import { redirect } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Stat from "../components/Stat";
 
 export default function Landing() {
   const communities = [
@@ -46,21 +39,6 @@ export default function Landing() {
   ];
   const address = useAddress();
   const navigate = useNavigate();
-
-  const [open, setOpen] = useState(false); // For modal
-  const onOpenModal = () => setOpen(true);
-  const onCloseModal = () => setOpen(false);
-
-  // console.log(address);
-  const { contract: editionDropContract } = useContract(editionDropAddress);
-  const { data: nft, isLoading: isNftLoading } = useNFT(
-    editionDropContract,
-    editionDropTokenId
-  );
-  const { data: ownedNfts, refetch: refetchOwnedNfts } = useOwnedNFTs(
-    editionDropContract,
-    address
-  );
 
   const handleCommunityRedirect = () => {
     if (!address || address === undefined) {
@@ -100,22 +78,10 @@ export default function Landing() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="md:border-r-2 md:border-white py-5">
-            <h5 className="museoFont">Communities</h5>
-            <h5 className="museoFont">149</h5>
-          </div>
-          <div className="md:border-r-2 md:border-white py-5">
-            <h5 className="museoFont">Ambassadors</h5>
-            <h5 className="museoFont">55</h5>
-          </div>
-          <div className="md:border-r-2 md:border-white py-5">
-            <h5 className="museoFont">Metaverse</h5>
-            <h5 className="museoFont">5</h5>
-          </div>
-          <div className="py-5">
-            <h5 className="museoFont">SBT Drops</h5>
-            <h5 className="museoFont">13</h5>
-          </div>
+          <Stat title="Communities" number="149" />
+          <Stat title="Ambassadors" number="55" />
+          <Stat title="Metaverse" number="5" />
+          <Stat title="SBT Drops" number="13" border={false} />
         </div>
       </div>
       <hr className="h-1 bg-gray-500" />
@@ -147,18 +113,6 @@ export default function Landing() {
         </div>
       </div>
       <ToastContainer />
-      <BuyMembership
-        open={open}
-        onOpenModal={onOpenModal}
-        onCloseModal={onCloseModal}
-        address={address}
-        editionDropAddress={editionDropAddress}
-        editionDropTokenId={editionDropTokenId}
-        refetchOwnedNfts={refetchOwnedNfts}
-        ownedNfts={ownedNfts}
-        isNftLoading={isNftLoading}
-        nft={nft}
-      />
     </div>
   );
 }

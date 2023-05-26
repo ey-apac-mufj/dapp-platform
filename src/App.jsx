@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import CommunityDetails from "./CommunityDetails";
+import CommunityDetails from "./pages/CommunityDetails";
 // import Home from "./Home";
-import Landing from "./Landing";
+import Landing from "./pages/Landing";
 import "./styles/Home.css";
 
 function App() {

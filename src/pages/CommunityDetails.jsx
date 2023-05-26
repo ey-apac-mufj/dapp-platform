@@ -1,5 +1,5 @@
 import React from "react";
-import group from "./images/group.png";
+import group from "../images/group.png";
 import {
   useAddress,
   useContract,
@@ -7,9 +7,12 @@ import {
   useOwnedNFTs,
   Web3Button,
 } from "@thirdweb-dev/react";
-import { editionDropAddress, editionDropTokenId } from "../const/yourDetails";
+import {
+  editionDropAddress,
+  editionDropTokenId,
+} from "../../const/yourDetails";
 
-export default function CommunityDetails({ details }) {
+export default function CommunityDetails() {
   const address = useAddress();
   const { contract: editionDropContract } = useContract(editionDropAddress);
   const { data: nft, isLoading: isNftLoading } = useNFT(
@@ -23,7 +26,11 @@ export default function CommunityDetails({ details }) {
 
   return (
     <div className="mx-auto justify-center landing-page">
-      {ownedNfts && ownedNfts.length > 0 ? (
+      {isNftLoading ? (
+        <div className="text-center mt-8 font-bold text-2xl">
+          Loadiing... Please wait...
+        </div>
+      ) : ownedNfts && ownedNfts?.length > 0 ? (
         <div className="text-left">
           <div className="w-100 bg-blue-800 flex pt-8 pb-12 py-10">
             <div className="mr-auto pl-10">
