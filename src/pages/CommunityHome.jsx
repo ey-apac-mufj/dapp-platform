@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useRef } from "react";
 import CommunityThumbnail from "../components/CommunityThumbnail";
-import logo from "../images/logo.png";
 import com1 from "../images/com1.png";
 import com2 from "../images/com2.png";
 import com3 from "../images/com3.png";
@@ -55,6 +54,9 @@ export default function CommunityHome() {
   const address = useAddress();
   const navigate = useNavigate();
 
+  const featuredCommunity = useRef();
+  const yourCommunity = useRef();
+
   const handleCommunityRedirect = () => {
     if (!address || address === undefined) {
       // Check if wallet is connected or not
@@ -74,6 +76,20 @@ export default function CommunityHome() {
       //   onOpenModal();
       // }
     }
+  };
+
+  const scrollLeft = (divRef) => {
+    // setInterval(function () {
+    //   featuredCommunity.current.scrollBy(-20, 0);
+    // }, 2);
+    divRef.current.scrollBy(-500, 0);
+  };
+
+  const scrollRight = (divRef) => {
+    // setInterval(function () {
+    //   featuredCommunity.current.scrollBy(20, 0);
+    // }, 2);
+    divRef.current.scrollBy(500, 0);
   };
 
   return (
@@ -102,10 +118,49 @@ export default function CommunityHome() {
 
       {/* Your Communities */}
       <hr className="h-1 bg-gray-500" />
-      <h5 className="text-2xl mt-6 text-left text-black font-semi-bold antonFont">
-        Your Communities
-      </h5>
-      <div className="flex overflow-x-auto mt-6 mb-9 gap-6 scrolling">
+      <div className="grid gid-cols-1 md:grid-cols-2">
+        <div className="mr-auto">
+          <h5 className="text-2xl mt-6 text-black text-left font-semi-bold antonFont">
+            Your Communities
+          </h5>
+        </div>
+        <div className="ml-auto flex pt-4 hidden md:inline-flex">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6 mr-4 cursor-pointer"
+            onClick={() => scrollLeft(yourCommunity)}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5"
+            />
+          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6 cursor-pointer"
+            onClick={() => scrollRight(yourCommunity)}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5"
+            />
+          </svg>
+        </div>
+      </div>
+      <div
+        className="flex overflow-x-auto mt-6 mb-9 gap-6 scrolling"
+        ref={yourCommunity}
+      >
         {communities.map((com, i) => {
           if (i < 2) {
             return (
@@ -122,10 +177,50 @@ export default function CommunityHome() {
 
       {/* featured Communities */}
       <hr className="h-1 bg-gray-500" />
-      <h5 className="text-2xl mt-6 text-black text-left font-semi-bold antonFont">
-        Featured Communities
-      </h5>
-      <div className="flex overflow-x-auto mt-6 mb-9 gap-6 scrolling">
+      <div className="grid gid-cols-1 md:grid-cols-2">
+        <div className="mr-auto">
+          <h5 className="text-2xl mt-6 text-black text-left font-semi-bold antonFont">
+            Featured Communities
+          </h5>
+        </div>
+        <div className="ml-auto flex pt-4 hidden md:inline-flex">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6 mr-4 cursor-pointer"
+            onClick={() => scrollLeft(featuredCommunity)}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5"
+            />
+          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6 cursor-pointer"
+            onClick={() => scrollRight(featuredCommunity)}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5"
+            />
+          </svg>
+        </div>
+      </div>
+
+      <div
+        className="flex overflow-x-auto mt-6 mb-9 gap-6 scrolling"
+        ref={featuredCommunity}
+      >
         {communities.map((com, i) => {
           return (
             <div className="community flex-none" key={i}>
