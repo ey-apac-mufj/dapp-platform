@@ -29,8 +29,16 @@ export default function Landing() {
             <div>
               <h2 className="mt-6 mb-3 text-xl">Get your own</h2>
               <div className="flex gap-3">
-                <img src={googleplay} className="h-10 cursor-pointer" alt="" />
-                <img src={appstore} className="h-10 cursor-pointer" alt="" />
+                <a href="https://play.google.com/store/apps" target="_blank">
+                  <img
+                    src={googleplay}
+                    className="h-10 cursor-pointer"
+                    alt=""
+                  />
+                </a>
+                <a href="https://www.apple.com/app-store/" target="_blank">
+                  <img src={appstore} className="h-10 cursor-pointer" alt="" />
+                </a>
               </div>
             </div>
           </div>

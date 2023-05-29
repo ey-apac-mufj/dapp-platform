@@ -6,7 +6,7 @@ export default function CommunityThumbnail({
 }) {
   return (
     <div className="relative cursor-pointer" onClick={handleCommunityRedirect}>
-      <img src={community.image} alt="" className="h-full mx-auto" />
+      <img src={community.image} alt="" className="h-80 mx-auto" />
       <div className="absolute bottom-0 px-4 py-3 bg-gray-500/50 w-full">
         <h1 className="text-white font-semibold text-4xl museoFont">
           {community.title}

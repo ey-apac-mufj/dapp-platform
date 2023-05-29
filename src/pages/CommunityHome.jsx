@@ -36,6 +36,21 @@ export default function CommunityHome() {
       image: com4,
       title: "Virtual Apparel",
     },
+    {
+      id: 4,
+      image: com3,
+      title: "Demo Community 1",
+    },
+    {
+      id: 4,
+      image: com2,
+      title: "Demo Community 2",
+    },
+    {
+      id: 4,
+      image: com1,
+      title: "Demo Community 3",
+    },
   ];
   const address = useAddress();
   const navigate = useNavigate();
@@ -90,11 +105,11 @@ export default function CommunityHome() {
       <h5 className="text-2xl mt-6 text-left text-black font-semi-bold antonFont">
         Your Communities
       </h5>
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-8 my-6 mx-auto">
+      <div className="flex overflow-x-auto mt-6 mb-9 gap-6 scrolling">
         {communities.map((com, i) => {
           if (i < 2) {
             return (
-              <div className="community" key={i}>
+              <div className="community flex-none" key={i}>
                 <CommunityThumbnail
                   community={com}
                   handleCommunityRedirect={handleCommunityRedirect}
@@ -110,10 +125,10 @@ export default function CommunityHome() {
       <h5 className="text-2xl mt-6 text-black text-left font-semi-bold antonFont">
         Featured Communities
       </h5>
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-8 my-6 mx-auto">
+      <div className="flex overflow-x-auto mt-6 mb-9 gap-6 scrolling">
         {communities.map((com, i) => {
           return (
-            <div className="community" key={i}>
+            <div className="community flex-none" key={i}>
               <CommunityThumbnail
                 community={com}
                 handleCommunityRedirect={handleCommunityRedirect}
@@ -122,6 +137,7 @@ export default function CommunityHome() {
           );
         })}
       </div>
+
       <hr className="h-1 bg-gray-500" />
       <div className="grid grid-cols-2 my-3">
         <div className="left-section mr-auto text-left flex gap-4">
