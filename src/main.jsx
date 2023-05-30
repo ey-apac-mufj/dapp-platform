@@ -27,6 +27,7 @@ root.render(
       supportedChains={[Goerli]}
       activeChain={activeChain}
       supportedWallets={[
+        // myWallet(),
         smartWallet({
           factoryAddress: TWFactoryAddress,
           thirdwebApiKey: TWApiKey,
@@ -39,6 +40,7 @@ root.render(
                 network: "goerli",
               },
             }),
+            // myWallet(),
             localWallet({ persist: true }),
           ],
         }),

@@ -11,6 +11,8 @@
   "dependencies": {
     "@ethersproject/abi": "^5.4.7",
     "@ethersproject/providers": "^5.4.7",
+    "@headlessui/react": "^1.7.14",
+    "@heroicons/react": "^2.0.18",
     "@nomicfoundation/hardhat-chai-matchers": "^1.0.0",
     "@nomicfoundation/hardhat-network-helpers": "^1.0.0",
     "@nomicfoundation/hardhat-toolbox": "^1.0.1",
@@ -29,8 +31,8 @@
     "react-dom": "^18.2.0",
     "react-responsive-modal": "^6.4.1",
     "react-router-dom": "^6.11.2",
-    "solidity-coverage": "^0.7.21",
-    "react-toastify": "^7.0.4"
+    "react-toastify": "^7.0.4",
+    "solidity-coverage": "^0.7.21"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^2",

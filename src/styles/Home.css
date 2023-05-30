@@ -1,11 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora&family=MuseoModerno&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Lora&family=MuseoModerno&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrolling::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrolling {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 .museoFont{
   font-family: 'MuseoModerno', serif;
+}
+
+.antonFont{
+  font-family: 'Anton', sans-serif;
 }
 
 .landing-page{
@@ -34,6 +49,10 @@
   border: none;
   font-size: 16px;
   cursor: pointer;
+}
+
+.pink-button{
+  @apply px-12 rounded-3xl py-2 bg-pink-600 text-white hover:bg-pink-700 hover:text-gray-200;
 }
 
 .logo-img{
