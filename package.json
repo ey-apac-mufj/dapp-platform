@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
-    "preview": "vite preview",
+    "heroku-postbuild": "yarn build",
+    "serve": "vite preview",
     "deploy": "yarn build && npx thirdweb@latest upload dist",
     "start": "serve -s dist"
   },
