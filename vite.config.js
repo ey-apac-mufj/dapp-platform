@@ -14,8 +14,9 @@ export default defineConfig({
 		'process.env': {},
 	},
 	build:{//この部分を追加
-    outDir:"./build"
+    outDir:"./dist"
   },
+	root: "dist/",
   server:{
     host:'0.0.0.0'
   }
