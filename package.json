@@ -6,7 +6,8 @@
     "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "yarn build && npx thirdweb@latest upload dist"
+    "deploy": "yarn build && npx thirdweb@latest upload dist",
+    "start": "serve -s dist"
   },
   "dependencies": {
     "@ethersproject/abi": "^5.4.7",
