@@ -78,18 +78,15 @@ export default function CommunityHome() {
     }
   };
 
-  const scrollLeft = (divRef) => {
+  const scrollHorizontal = (divRef, direction) => {
     // setInterval(function () {
     //   featuredCommunity.current.scrollBy(-20, 0);
     // }, 2);
-    divRef.current.scrollBy(-500, 0);
-  };
-
-  const scrollRight = (divRef) => {
-    // setInterval(function () {
-    //   featuredCommunity.current.scrollBy(20, 0);
-    // }, 2);
-    divRef.current.scrollBy(500, 0);
+    if (direction == "left") {
+      divRef.current.scrollBy(-500, 0);
+    } else {
+      divRef.current.scrollBy(500, 0);
+    }
   };
 
   return (
@@ -118,7 +115,7 @@ export default function CommunityHome() {
 
       {/* Your Communities */}
       <hr className="h-1 bg-gray-500" />
-      <div className="grid gid-cols-1 md:grid-cols-2">
+      <div className="grid gid-cols-1 md:grid-cols-2 max-w-full">
         <div className="mr-auto">
           <h5 className="text-2xl mt-6 text-black text-left font-semi-bold antonFont">
             Your Communities
@@ -132,7 +129,7 @@ export default function CommunityHome() {
             strokeWidth={1.5}
             stroke="currentColor"
             className="w-6 h-6 mr-4 cursor-pointer"
-            onClick={() => scrollLeft(yourCommunity)}
+            onClick={() => scrollHorizontal(yourCommunity, "left")}
           >
             <path
               strokeLinecap="round"
@@ -147,7 +144,7 @@ export default function CommunityHome() {
             strokeWidth={1.5}
             stroke="currentColor"
             className="w-6 h-6 cursor-pointer"
-            onClick={() => scrollRight(yourCommunity)}
+            onClick={() => scrollHorizontal(yourCommunity, "right")}
           >
             <path
               strokeLinecap="round"
@@ -177,7 +174,7 @@ export default function CommunityHome() {
 
       {/* featured Communities */}
       <hr className="h-1 bg-gray-500" />
-      <div className="grid gid-cols-1 md:grid-cols-2">
+      <div className="grid gid-cols-1 md:grid-cols-2 max-w-full">
         <div className="mr-auto">
           <h5 className="text-2xl mt-6 text-black text-left font-semi-bold antonFont">
             Featured Communities
@@ -191,7 +188,7 @@ export default function CommunityHome() {
             strokeWidth={1.5}
             stroke="currentColor"
             className="w-6 h-6 mr-4 cursor-pointer"
-            onClick={() => scrollLeft(featuredCommunity)}
+            onClick={() => scrollHorizontal(featuredCommunity, "left")}
           >
             <path
               strokeLinecap="round"
@@ -206,7 +203,7 @@ export default function CommunityHome() {
             strokeWidth={1.5}
             stroke="currentColor"
             className="w-6 h-6 cursor-pointer"
-            onClick={() => scrollRight(featuredCommunity)}
+            onClick={() => scrollHorizontal(featuredCommunity, "right")}
           >
             <path
               strokeLinecap="round"
@@ -234,7 +231,7 @@ export default function CommunityHome() {
       </div>
 
       <hr className="h-1 bg-gray-500" />
-      <div className="grid grid-cols-2 my-3">
+      <div className="grid grid-cols-2 my-3 max-w-full">
         <div className="left-section mr-auto text-left flex gap-4">
           <h5>Privacy Policy</h5>
           <h5>Terms of Use</h5>
