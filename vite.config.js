@@ -16,7 +16,6 @@ export default defineConfig({
 	build:{//この部分を追加
     outDir:"./dist"
   },
-	root: "dist/",
   server:{
     host:'0.0.0.0'
   }
