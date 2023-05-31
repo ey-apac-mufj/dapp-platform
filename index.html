@@ -11,3 +11,25 @@
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
+<script
+  src="https://code.jquery.com/jquery-3.7.0.min.js"
+  integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+  crossorigin="anonymous"></script>
+
+
+<script>
+  function showMUFG(){
+    setInterval(()=>{
+      // console.log($(".css-17eqtko"))
+      $('.css-ytz34g').on('click', function(){
+        // console.log("yesss");
+        // console.log($(".css-17eqtko"));
+        setTimeout(()=>{
+          $('.css-ytz34g').find('img').attr('src', 'logo.png')
+          $(".css-17eqtko").html('MUFG Wallet')
+        },10)
+    })
+    },100)
+    
+  }
+</script>

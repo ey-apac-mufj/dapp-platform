@@ -4,6 +4,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* .css-17eqtko {
+  visibility: hidden;
+} */
+.newtest {
+  /* visibility: visible; */
+  content: "MUFG Wallet";
+}
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 .scrolling::-webkit-scrollbar {
   display: none;
