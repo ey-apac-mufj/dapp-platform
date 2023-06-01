@@ -37,20 +37,20 @@ root.render(
           gasless: true,
           personalWallets: [
             metamaskWallet(),
-            magicLink({
-              apiKey: magicLinkKey,
-              magicSdkConfiguration: {
-                network: "goerli",
-              },
-            }),
+            // magicLink({
+            //   apiKey: magicLinkKey,
+            //   magicSdkConfiguration: {
+            //     network: "goerli",
+            //   },
+            // }),
             // myWallet(),
             walletConnectV1({ projectId: walletConnetKey }),
             localWallet({ persist: true }),
           ],
         }),
-        paperWallet({
-          clientId: "5e8b0e46-c434-4a92-a2f1-4f0e7ecd9888",
-        }),
+        // paperWallet({
+        //   clientId: "5e8b0e46-c434-4a92-a2f1-4f0e7ecd9888",
+        // }),
       ]}
     >
       <App />
