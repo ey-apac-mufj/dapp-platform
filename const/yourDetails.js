@@ -9,3 +9,5 @@ export const editionDropAddress = "0x8D9919db3CD6aF84e8A12CedC3c5A694Bf026aB8";
 export const editionDropTokenId = "0";
 
 export const magicLinkKey = "pk_live_41D75AEA3BB94386";
+
+export const walletConnetKey = "4078812e3d11593676900b0dd00d15dc";

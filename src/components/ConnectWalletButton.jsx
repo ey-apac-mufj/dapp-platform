@@ -2,8 +2,12 @@ import React from "react";
 import { ConnectWallet } from "@thirdweb-dev/react";
 
 export default function ConnectWalletButton() {
+  const showMUFGWallet = () => {
+    // console.log("asasd");
+    window.showMUFG();
+  };
   return (
-    <div className="mx-auto mb-10 pt-4">
+    <div className="mx-auto mb-10 pt-4" onClick={showMUFGWallet}>
       <ConnectWallet
         dropdownPosition={{
           align: "right",

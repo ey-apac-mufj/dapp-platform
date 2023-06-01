@@ -10,6 +10,7 @@ import {
   smartWallet,
   magicLink,
   ChainId,
+  walletConnect,
 } from "@thirdweb-dev/react";
 import "./styles//globals.css";
 import {
@@ -17,7 +18,9 @@ import {
   TWFactoryAddress,
   activeChain,
   magicLinkKey,
+  walletConnetKey,
 } from "../const/yourDetails";
+import { walletConnectV1 } from "@thirdweb-dev/react";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -41,6 +44,7 @@ root.render(
               },
             }),
             // myWallet(),
+            walletConnectV1({ projectId: walletConnetKey }),
             localWallet({ persist: true }),
           ],
         }),
