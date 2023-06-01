@@ -7,10 +7,14 @@
 /* .css-17eqtko {
   visibility: hidden;
 } */
-.newtest {
-  /* visibility: visible; */
+/* .newtest:first-child {
+  visibility: hidden;
+  content: "MUFG Wallet"; 
+} */
+/* .newtest:first-child:after {
+  visibility: visible;
   content: "MUFG Wallet";
-}
+} */
 
 /* Hide scrollbar for Chrome, Safari and Opera */
 .scrolling::-webkit-scrollbar {
