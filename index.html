@@ -20,15 +20,17 @@
 <script>
   function showMUFG() {
     setInterval(() => {
+      $(".css-ytz34g").first().find("img").attr("src", "mufgLogoT.png");
+      $(".css-17eqtko").first().html("Mullet");
       // console.log($(".css-17eqtko"))
-      $(".css-ytz34g").on("click", function () {
-        // console.log($(".w3m-toolbar"));
-        setTimeout(() => {
-          $(".css-ytz34g").first().find("img").attr("src", "mufgLogoT.png");
-          $(".css-17eqtko").first().html("Mullet");
-          // $(".css-17eqtko").addClass('newtest')
-        }, 10);
-      });
+      // $(".css-ytz34g").on("click", function () {
+      // console.log($(".w3m-toolbar"));
+      // setTimeout(() => {
+      //   $(".css-ytz34g").first().find("img").attr("src", "mufgLogoT.png");
+      //   $(".css-17eqtko").first().html("Mullet");
+      //   // $(".css-17eqtko").addClass('newtest')
+      //   // }, 10);
+      // });
     }, 100);
   }
 </script>
