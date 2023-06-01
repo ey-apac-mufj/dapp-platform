@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef } from "react"; //, useEffect, useState
 import CommunityThumbnail from "../components/CommunityThumbnail";
 import com1 from "../images/com1.png";
 import com2 from "../images/com2.png";
@@ -14,24 +14,24 @@ import { useNavigate } from "react-router-dom";
 import Stat from "../components/Stat";
 
 export default function CommunityHome() {
-  const [lastClick, setLastClick] = useState(Date.now());
+  // const [lastClick, setLastClick] = useState(Date.now());
 
-  useEffect(() => {
-    const onClick = () => {
-      setLastClick(Date.now());
-    };
+  // useEffect(() => {
+  //   const onClick = () => {
+  //     setLastClick(Date.now());
+  //   };
 
-    document.addEventListener('click', onClick);
+  //   document.addEventListener('click', onClick);
 
-    return () => {
-      // cleanup - remove the listener when the component unmounts
-      document.removeEventListener('click', onClick);
-    };
-  }, []);
+  //   return () => {
+  //     // cleanup - remove the listener when the component unmounts
+  //     document.removeEventListener('click', onClick);
+  //   };
+  // }, []);
 
-  useEffect(() => {
-    window.showMUFG();
-  }, [lastClick]);
+  // useEffect(() => {
+  //   window.showMUFG();
+  // }, [lastClick]);
 
   const communities = [
     {
