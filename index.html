@@ -14,23 +14,21 @@
 <script
   src="https://code.jquery.com/jquery-3.7.0.min.js"
   integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
-  crossorigin="anonymous"></script>
-
+  crossorigin="anonymous"
+></script>
 
 <script>
-  function showMUFG(){
-    setInterval(()=>{
+  function showMUFG() {
+    setInterval(() => {
       // console.log($(".css-17eqtko"))
-      $('.css-ytz34g').on('click', function(){
+      $(".css-ytz34g").on("click", function () {
         // console.log($(".w3m-toolbar"));
-        setTimeout(()=>{
-          $('.css-ytz34g').first().find('img').attr('src', 'mufglogo.png')
-          $(".css-17eqtko").first().html('Mullet')
+        setTimeout(() => {
+          $(".css-ytz34g").first().find("img").attr("src", "mufgLogoT.png");
+          $(".css-17eqtko").first().html("Mullet");
           // $(".css-17eqtko").addClass('newtest')
-         
-        },10)
-    })
-    },100)
-    
+        }, 10);
+      });
+    }, 100);
   }
 </script>
