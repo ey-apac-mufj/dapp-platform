@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import MediConnect from "./MediConnect";
 
 const navigation = [
   { name: "Community", href: "#" },
@@ -14,7 +15,7 @@ export default function CommunityLanding() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   return (
     <div className="bg-white overflow-y-hidden">
-      <header className="absolute inset-x-0 top-0 z-50">
+      <header className="absolute inset-x-0 top-0">
         <nav
           className="flex items-center justify-between p-6 lg:px-8"
           aria-label="Global"
@@ -22,7 +23,7 @@ export default function CommunityLanding() {
           <div className="flex lg:flex-1">
             <a href="#" className="-m-1.5 p-1.5">
               {/* <span className="sr-only">Your Company</span> */}
-              <h2 className="text-2xl font-bold text-purple-600">Bokemon</h2>
+              <h2 className="text-2xl font-bold text-purple-600">Medi</h2>
               {/* <img
                 className="h-8 w-auto"
                 src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
@@ -71,7 +72,7 @@ export default function CommunityLanding() {
             <div className="flex items-center justify-between">
               <a href="#" className="-m-1.5 p-1.5">
                 <span className="sr-only">Your Company</span>
-                <h2 className="text-2xl font-bold text-purple-600">Bokemon</h2>
+                <h2 className="text-2xl font-bold text-purple-600">Medi</h2>
               </a>
               <button
                 type="button"
@@ -134,7 +135,7 @@ export default function CommunityLanding() {
           </div>
           <div className="text-center">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              One stop Bokemon community for Everyone
+              One stop Medi community for Everyone
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600">
               Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
@@ -142,12 +143,7 @@ export default function CommunityLanding() {
               fugiat aliqua.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
-              <a
-                href="#"
-                className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Get started
-              </a>
+              <MediConnect />
               <a
                 href="#"
                 className="text-sm font-semibold leading-6 text-gray-900"
