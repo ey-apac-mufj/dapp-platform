@@ -144,12 +144,12 @@ export default function CommunityLanding() {
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <MediConnect />
-              <a
+              {/* <a
                 href="#"
                 className="text-sm font-semibold leading-6 text-gray-900"
               >
                 Learn more <span aria-hidden="true">→</span>
-              </a>
+              </a> */}
             </div>
           </div>
         </div>
