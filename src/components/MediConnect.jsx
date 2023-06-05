@@ -47,24 +47,31 @@ const MediConnect = (props) => {
   return (
     <>
       {/* <Toaster /> */}
+      {signature && signature != null ? (
+        <button
+          href="#"
+          disabled={waitingMsg}
+          className={
+            (waitingMsg
+              ? "bg-indigo-300"
+              : "bg-indigo-600 hover:bg-indigo-500") +
+            " rounded-md  px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          }
+        >
+          {waitingMsg ? "Connecting to Medi..." : "Explore Community"}
+        </button>
+      ) : (
+        <button
+          onClick={handleMediConnect}
+          href="#"
+          className={
+            "bg-indigo-600 hover:bg-indigo-500 rounded-md  px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          }
+        >
+          Connect Medi Account
+        </button>
+      )}
 
-      <button
-        onClick={handleMediConnect}
-        href="#"
-        disabled={waitingMsg || (signature && signature != null)}
-        className={
-          (waitingMsg || (signature && signature != null)
-            ? "bg-indigo-300"
-            : "bg-indigo-600 hover:bg-indigo-500") +
-          " rounded-md  px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        }
-      >
-        {waitingMsg
-          ? "Connecting to Medi..."
-          : signature && signature != null
-          ? "Connected to Medi Account"
-          : "Connect Medi Account"}
-      </button>
       <ToastContainer />
     </>
   );
