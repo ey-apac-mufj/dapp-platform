@@ -44,7 +44,7 @@ const MediConnect = (props) => {
     }
   };
   return (
-    <>
+    <div>
       {/* <Toaster /> */}
       {signature && signature != null ? (
         <button
@@ -54,7 +54,7 @@ const MediConnect = (props) => {
             (waitingMsg
               ? "bg-indigo-300"
               : "bg-indigo-600 hover:bg-indigo-500") +
-            " rounded-md  px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            " rounded-md font-thin px-3.5 py-2.5 text-sm text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           }
         >
           {waitingMsg ? (
@@ -70,7 +70,7 @@ const MediConnect = (props) => {
           onClick={handleMediConnect}
           href="#"
           className={
-            "bg-indigo-600 hover:bg-indigo-500 rounded-md  px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            "bg-indigo-600 font-thin hover:bg-indigo-500 rounded-3xl px-3.5 py-2.5 text-sm text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           }
         >
           Connect Medi Account
@@ -78,7 +78,7 @@ const MediConnect = (props) => {
       )}
 
       <ToastContainer />
-    </>
+    </div>
   );
 };
 

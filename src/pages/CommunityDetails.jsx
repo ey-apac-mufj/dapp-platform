@@ -25,7 +25,7 @@ export default function CommunityDetails() {
   );
 
   return (
-    <>
+    <div>
       {isNftLoading ? (
         <div className="text-center mt-8 font-bold text-2xl">
           Loading... Please wait...
@@ -43,6 +43,6 @@ export default function CommunityDetails() {
           refetchOwnedNfts={refetchOwnedNfts}
         />
       )}
-    </>
+    </div>
   );
 }
