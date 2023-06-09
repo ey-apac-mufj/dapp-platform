@@ -16,6 +16,18 @@
   content: "MUFG Wallet";
 } */
 
+.connectWalletButton{
+  @apply bg-black text-white hover:bg-gray-700 !important;
+}
+
+.menu-btn{
+  @apply cursor-pointer px-3 py-2 rounded-lg border-2 border-gray-400 hover:bg-gray-200;
+}
+
+.service-card{
+  @apply bg-white text-black rounded-lg shadow-xl h-full w-full px-5 py-5 cursor-pointer hover:bg-gray-200;
+}
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 .scrolling::-webkit-scrollbar {
   display: none;

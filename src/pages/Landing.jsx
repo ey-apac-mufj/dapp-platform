@@ -14,8 +14,39 @@ export default function Landing() {
       {/* <div className="w-100 bg-black">sfdd</div> */}
       <div className="container mx-auto px-5 md:px-20 py-5 justify-center landing-page">
         {/* Wallet section starts */}
-        <div className="grid grid-cols-1 md:grid-cols-2 antonFont">
+        <div className="grid grid-cols-1 md:grid-cols-2 antonFont mx-auto">
           <div className="mt-5 py-3 px-5">
+            <h1 className="text-4xl uppercase">Multiverse Communities</h1>
+            <p className="mt-5 text-sm font-thin">
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum has been the industry's standard dummy text
+              ever since the 1500s, when an unknown printer took a galley of
+              type and scrambled it to make a type specimen book. It has
+              survived not only five centuries, but also the leap into
+              electronic typesetting, remaining essentially unchanged. <br />{" "}
+              <span className="underline cursor-pointer">Learn More</span>
+            </p>
+            <div>
+              <Link to="/community-home">
+                <button className="pink-button uppercase mt-8 text-xl font-thin">
+                  Enter
+                </button>
+              </Link>
+            </div>
+          </div>
+          <div className="mt-8 py-3 px-5 order-first md:order-none">
+            <img src={community} className="mx-auto h-87 shadow-lg" alt="" />
+          </div>
+        </div>
+
+        {/* Wallet section ends */}
+
+        {/* Community section starts */}
+        <div className="grid grid-cols-1 md:grid-cols-2 antonFont mx-auto">
+          <div className="mt-10 py-3 px-5 order-first md:order-none">
+            <img src={wallet} className="h-87 shadow-lg" alt="" />
+          </div>
+          <div className="mt-5 md:mt-10 py-3 px-5 ml-4">
             <h1 className="text-4xl uppercase ">Web3 Wallet</h1>
             <p className="mt-5 text-sm font-thin">
               Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -40,37 +71,6 @@ export default function Landing() {
                   <img src={appstore} className="h-10 cursor-pointer" alt="" />
                 </a>
               </div>
-            </div>
-          </div>
-          <div className="mt-5 py-3 px-5 order-first md:order-none">
-            <img src={wallet} className="mx-auto h-87 shadow-lg" alt="" />
-          </div>
-        </div>
-
-        {/* Wallet section ends */}
-
-        {/* Community section starts */}
-        <div className="grid grid-cols-1 md:grid-cols-2 antonFont">
-          <div className="mt-16 py-3 px-5">
-            <img src={community} className="mx-auto h-87 shadow-lg" alt="" />
-          </div>
-          <div className="mt-5 md:mt-16 py-3 px-5">
-            <h1 className="text-4xl uppercase">Multiverse Communities</h1>
-            <p className="mt-5 text-sm font-thin">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. <br />{" "}
-              <span className="underline cursor-pointer">Learn More</span>
-            </p>
-            <div>
-              <Link to="/community-home">
-                <button className="pink-button uppercase mt-8 text-xl font-thin">
-                  Enter
-                </button>
-              </Link>
             </div>
           </div>
         </div>

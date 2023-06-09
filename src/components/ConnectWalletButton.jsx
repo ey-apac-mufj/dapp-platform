@@ -1,7 +1,7 @@
 import React from "react";
 import { ConnectWallet } from "@thirdweb-dev/react";
 
-export default function ConnectWalletButton() {
+export default function ConnectWalletButton({ customClass = "" }) {
   return (
     <div className="mx-auto mb-10 pt-4">
       <ConnectWallet
@@ -9,6 +9,7 @@ export default function ConnectWalletButton() {
           align: "right",
           side: "bottom",
         }}
+        className={customClass}
         btnTitle="Connect Wallet"
       />
     </div>

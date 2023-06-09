@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   useAddress,
   useContract,
@@ -14,6 +14,7 @@ import PurchaseNFT from "../components/PurchaseNFT";
 
 export default function CommunityDetails() {
   const address = useAddress();
+  const [loading, setLoading] = useState(true);
   const { contract: editionDropContract } = useContract(editionDropAddress);
   const { data: nft, isLoading: isNftLoading } = useNFT(
     editionDropContract,
@@ -24,9 +25,17 @@ export default function CommunityDetails() {
     address
   );
 
+  useEffect(() => {
+    if (ownedNfts) {
+      setTimeout(() => {
+        setLoading(false);
+      }, 50);
+    }
+  }, [ownedNfts]);
+
   return (
-    <>
-      {isNftLoading ? (
+    <div>
+      {loading ? (
         <div className="text-center mt-8 font-bold text-2xl">
           Loading... Please wait...
         </div>
@@ -43,6 +52,6 @@ export default function CommunityDetails() {
           refetchOwnedNfts={refetchOwnedNfts}
         />
       )}
-    </>
+    </div>
   );
 }
