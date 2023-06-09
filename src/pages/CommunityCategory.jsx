@@ -5,7 +5,7 @@ import CommunityThumbnail from "../components/CommunityThumbnail";
 import ConnectWalletButton from "../components/ConnectWalletButton";
 import com2 from "../images/com2.png";
 import com3 from "../images/com3.png";
-import com4 from "../images/com4.png";
+import com1 from "../images/com1.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -22,20 +22,20 @@ export default function CommunityCategory() {
     },
     {
       id: 4,
-      image: com4,
-      title: "Health Care 2",
+      image: com1,
+      title: "Education 2",
       active: false,
     },
     {
       id: 4,
       image: com2,
-      title: "Health Care 3",
+      title: "Education 3",
       active: false,
     },
     {
       id: 5,
       image: com3,
-      title: "Health Care 4",
+      title: "Education 4",
       active: false,
     },
   ];

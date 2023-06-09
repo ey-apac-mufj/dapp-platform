@@ -91,18 +91,18 @@ export default function CommunityHome() {
 
   const categories = [
     {
-      id: 1,
-      title: "Healthcare",
-      slug: "healthcare",
-      active: true,
-      image: com3,
-    },
-    {
       id: 2,
       title: "Education",
       slug: "education",
-      active: false,
+      active: true,
       image: com1,
+    },
+    {
+      id: 1,
+      title: "Healthcare",
+      slug: "healthcare",
+      active: false,
+      image: com3,
     },
     {
       id: 3,
