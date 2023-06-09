@@ -1,4 +1,14 @@
 import React, { useRef, useEffect, useState } from "react";
+import {
+  useAddress,
+  useContract,
+  useNFT,
+  useOwnedNFTs,
+} from "@thirdweb-dev/react";
+import {
+  editionDropAddress,
+  editionDropTokenId,
+} from "../../const/yourDetails";
 import CommunityThumbnail from "../components/CommunityThumbnail";
 import com1 from "../images/com1.png";
 import com2 from "../images/com2.png";
@@ -7,25 +17,26 @@ import com4 from "../images/com4.png";
 import insta from "../images/insta.png";
 import twitter from "../images/twitter.png";
 import ConnectWalletButton from "../components/ConnectWalletButton";
-import { useAddress } from "@thirdweb-dev/react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import Stat from "../components/Stat";
+import CategoryThumbnail from "../components/CategoryThumbnail";
 
 export default function CommunityHome() {
   const [lastClick, setLastClick] = useState(Date.now());
+  const [nftPresent, setNftPresent] = useState(false);
 
   useEffect(() => {
     const onClick = () => {
       setLastClick(Date.now());
     };
 
-    document.addEventListener('click', onClick);
+    document.addEventListener("click", onClick);
 
     return () => {
       // cleanup - remove the listener when the component unmounts
-      document.removeEventListener('click', onClick);
+      document.removeEventListener("click", onClick);
     };
   }, []);
 
@@ -35,45 +46,84 @@ export default function CommunityHome() {
 
   const communities = [
     {
+      id: 3,
+      image: com3,
+      title: "Medi - LX",
+      active: true,
+    },
+    {
       id: 1,
       image: com1,
       title: "Bokemon Learn and Play",
+      active: false,
     },
     {
       id: 2,
       image: com2,
       title: "Acics Running",
-    },
-    {
-      id: 3,
-      image: com3,
-      title: "Nurse Circle",
+      active: false,
     },
     {
       id: 4,
       image: com4,
       title: "Virtual Apparel",
+      active: false,
     },
     {
       id: 4,
       image: com3,
       title: "Demo Community 1",
+      active: false,
     },
     {
       id: 4,
       image: com2,
       title: "Demo Community 2",
+      active: false,
     },
     {
       id: 4,
       image: com1,
       title: "Demo Community 3",
+      active: false,
     },
   ];
+
+  const categories = [
+    {
+      id: 1,
+      title: "Healthcare",
+      slug: "healthcare",
+      active: true,
+      image: com3,
+    },
+    {
+      id: 2,
+      title: "Education",
+      slug: "education",
+      active: false,
+      image: com1,
+    },
+    {
+      id: 3,
+      title: "Sport",
+      slug: "sport",
+      active: false,
+      image: com2,
+    },
+    {
+      id: 4,
+      title: "Fashion",
+      slug: "fashion",
+      active: false,
+      image: com4,
+    },
+  ];
+
   const address = useAddress();
   const navigate = useNavigate();
 
-  const featuredCommunity = useRef();
+  const communityCategory = useRef();
   const yourCommunity = useRef();
 
   const handleCommunityRedirect = () => {
@@ -99,7 +149,7 @@ export default function CommunityHome() {
 
   const scrollHorizontal = (divRef, direction) => {
     // setInterval(function () {
-    //   featuredCommunity.current.scrollBy(-20, 0);
+    //   communityCategory.current.scrollBy(-20, 0);
     // }, 2);
     if (direction == "left") {
       divRef.current.scrollBy(-500, 0);
@@ -107,6 +157,35 @@ export default function CommunityHome() {
       divRef.current.scrollBy(500, 0);
     }
   };
+
+  const { contract: editionDropContract } = useContract(editionDropAddress);
+
+  const { data: ownedNfts, refetch: refetchOwnedNfts } = useOwnedNFTs(
+    editionDropContract,
+    address
+  );
+
+  const checkIfHaveNft = () => {
+    // console.log(address);
+    if (address) {
+      if (ownedNfts && ownedNfts?.length > 0) {
+        setTimeout(() => {
+          setNftPresent(true);
+          // console.log("yes");
+        }, 100);
+      }
+    } else {
+      setNftPresent(false);
+    }
+  };
+
+  // useEffect(() => {
+  //   checkIfHaveNft();
+  // }, [address]);
+
+  useEffect(() => {
+    checkIfHaveNft();
+  }, [ownedNfts]);
 
   return (
     <div className="container text-center mx-auto px-5 md:px-20 py-5 justify-center landing-page">
@@ -173,30 +252,38 @@ export default function CommunityHome() {
           </svg>
         </div>
       </div>
-      <div
-        className="flex overflow-x-auto mt-6 mb-9 gap-6 scrolling"
-        ref={yourCommunity}
-      >
-        {communities.map((com, i) => {
-          if (i < 2) {
-            return (
-              <div className="community flex-none" key={i}>
-                <CommunityThumbnail
-                  community={com}
-                  handleCommunityRedirect={handleCommunityRedirect}
-                />
-              </div>
-            );
-          }
-        })}
-      </div>
+      {nftPresent ? (
+        <div
+          className="flex overflow-x-auto mt-6 mb-9 gap-6 scrolling"
+          ref={yourCommunity}
+        >
+          {communities.map((com, i) => {
+            if (i < 1) {
+              return (
+                <div className="community flex-none" key={i}>
+                  <CommunityThumbnail
+                    community={com}
+                    handleCommunityRedirect={handleCommunityRedirect}
+                  />
+                </div>
+              );
+            }
+          })}
+        </div>
+      ) : (
+        <div className="w-full bg-orange-200 my-9 py-8 px-8">
+          <h5 className="text-xl">
+            You haven't entered in any community till now
+          </h5>
+        </div>
+      )}
 
       {/* featured Communities */}
       <hr className="h-1 bg-gray-500" />
       <div className="grid gid-cols-1 md:grid-cols-2 max-w-full">
         <div className="mr-auto">
           <h5 className="text-2xl mt-6 text-black text-left font-semi-bold antonFont">
-            Featured Communities
+            Community Categories
           </h5>
         </div>
         <div className="ml-auto flex pt-4 hidden md:inline-flex">
@@ -207,7 +294,7 @@ export default function CommunityHome() {
             strokeWidth={1.5}
             stroke="currentColor"
             className="w-6 h-6 mr-4 cursor-pointer"
-            onClick={() => scrollHorizontal(featuredCommunity, "left")}
+            onClick={() => scrollHorizontal(communityCategory, "left")}
           >
             <path
               strokeLinecap="round"
@@ -222,7 +309,7 @@ export default function CommunityHome() {
             strokeWidth={1.5}
             stroke="currentColor"
             className="w-6 h-6 cursor-pointer"
-            onClick={() => scrollHorizontal(featuredCommunity, "right")}
+            onClick={() => scrollHorizontal(communityCategory, "right")}
           >
             <path
               strokeLinecap="round"
@@ -234,16 +321,13 @@ export default function CommunityHome() {
       </div>
 
       <div
-        className="flex overflow-x-auto mt-6 mb-9 gap-6 scrolling"
-        ref={featuredCommunity}
+        className="flex overflow-x-auto mt-6 mb-9 gap-6 scrolling mx-auto"
+        ref={communityCategory}
       >
-        {communities.map((com, i) => {
+        {categories.map((cat, i) => {
           return (
             <div className="community flex-none" key={i}>
-              <CommunityThumbnail
-                community={com}
-                handleCommunityRedirect={handleCommunityRedirect}
-              />
+              <CategoryThumbnail category={cat} />
             </div>
           );
         })}

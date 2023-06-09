@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import CommunityCategory from "./pages/CommunityCategory";
 import CommunityDetails from "./pages/CommunityDetails";
 // import Home from "./Home";
 import CommunityHome from "./pages/CommunityHome";
@@ -14,6 +15,10 @@ function App() {
           {/* <Route path="/old" element={<Home />} /> */}
           <Route path="/" element={<Landing />} />
           <Route path="/community-home" element={<CommunityHome />} />
+          <Route
+            path="/community-category/:category"
+            element={<CommunityCategory />}
+          />
           <Route path="/community-details" element={<CommunityDetails />} />
         </Routes>
       </div>

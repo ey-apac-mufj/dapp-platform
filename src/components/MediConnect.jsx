@@ -25,20 +25,20 @@ const MediConnect = (props) => {
         setTimeout(() => {
           setWaitingMsg(false);
           toast.success("You have connected to Medi succesfully!", {
-            position: "top-right",
+            position: "bottom-right",
             autoClose: 3000,
           });
         }, 3000);
       } else {
         toast.error("Could not sign! Please try again!", {
-          position: "top-right",
+          position: "bottom-right",
           autoClose: 3000,
         });
       }
     } catch (error) {
       //   console.log("yeeee");
       toast.error("Could not sign! Please try again!", {
-        position: "top-right",
+        position: "bottom-right",
         autoClose: 3000,
       });
     }
@@ -61,7 +61,7 @@ const MediConnect = (props) => {
             "Connecting to Medi..."
           ) : (
             <>
-              Explore Community <span aria-hidden="true">→</span>
+              Refer Curriculum <span aria-hidden="true">→</span>
             </>
           )}
         </button>
@@ -77,7 +77,7 @@ const MediConnect = (props) => {
         </button>
       )}
 
-      <ToastContainer />
+      <ToastContainer className="z-60" />
     </div>
   );
 };

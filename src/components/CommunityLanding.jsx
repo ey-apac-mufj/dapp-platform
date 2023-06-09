@@ -11,11 +11,10 @@ import ser2 from "../images/studying.png";
 import ser3 from "../images/nurse.png";
 import ser4 from "../images/headset.png";
 
-const navigation = [
+const mobileNavigation = [
   { name: "Community", href: "#" },
-  { name: "Chat", href: "#" },
-  { name: "Marketplace", href: "#" },
-  { name: "Forum", href: "#" },
+  { name: "Communication", href: "#" },
+  { name: "Support", href: "#" },
 ];
 
 export default function CommunityLanding() {
@@ -111,7 +110,7 @@ export default function CommunityLanding() {
               </svg>
               Support
             </button>
-            {/* {navigation.map((item) => (
+            {/* {mobileNavigation.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
@@ -158,7 +157,7 @@ export default function CommunityLanding() {
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y divide-gray-500/10">
                 <div className="space-y-2 py-6">
-                  {navigation.map((item) => (
+                  {mobileNavigation.map((item) => (
                     <a
                       key={item.name}
                       href={item.href}
@@ -167,14 +166,6 @@ export default function CommunityLanding() {
                       {item.name}
                     </a>
                   ))}
-                </div>
-                <div className="py-6">
-                  <a
-                    href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    Start your journey
-                  </a>
                 </div>
               </div>
             </div>
@@ -208,7 +199,7 @@ export default function CommunityLanding() {
               </div>
             </div>
             <div className="text-left">
-              <h1 className="text-4xl font-semi-bold tracking-tight text-gray-900 sm:text-6xl">
+              <h1 className="text-4xl font-semi-bold tracking-tight text-gray-900 mt-6 md:mt-3 sm:text-6xl">
                 One stop Medi community for Everyone
               </h1>
               <p className="mt-6 text-lg leading-8 text-gray-600">
@@ -227,7 +218,7 @@ export default function CommunityLanding() {
               </div>
             </div>
           </div>
-          <div className="img mx-auto align-items-center">
+          <div className="img mx-auto align-items-center order-first md:order-none">
             <img
               src={nurse1}
               className="mx-auto shadow-xl rounded-2xl"
@@ -266,7 +257,7 @@ export default function CommunityLanding() {
           <div className="mt-8 py-3 px-5 order-first md:order-none">
             <img
               src={NurseImage}
-              className="mx-auto h-87 shadow-xl rounded-lg"
+              className="mx-auto h-87 shadow-xl rounded-xl"
               alt=""
             />
           </div>
@@ -277,7 +268,7 @@ export default function CommunityLanding() {
         {/* Second section starts */}
         <div className="grid grid-cols-1 md:grid-cols-2 antonFont mx-auto">
           <div className="mt-10 py-3 px-5 order-first md:order-none">
-            <img src={nurse2} className="h-87 shadow-xl rounded-lg" alt="" />
+            <img src={nurse2} className="h-87 shadow-xl rounded-xl" alt="" />
           </div>
           <div className="mt-5 md:mt-10 py-3 px-5 ml-4">
             <h1 className="text-4xl uppercase">Students Community</h1>
