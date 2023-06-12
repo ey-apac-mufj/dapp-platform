@@ -10,6 +10,7 @@ import ser1 from "../images/healthcare.png";
 import ser2 from "../images/studying.png";
 import ser3 from "../images/nurse.png";
 import ser4 from "../images/headset.png";
+import { Link } from "react-router-dom";
 
 const mobileNavigation = [
   { name: "Community", href: "#" },
@@ -281,6 +282,11 @@ export default function CommunityLanding() {
               electronic typesetting, remaining essentially unchanged. <br />{" "}
               <span className="underline cursor-pointer">Learn More</span>
             </p>
+            <Link to="/student-list">
+              <button className="bg-indigo-600 hover:bg-indigo-500 rounded-xl font-thin px-3.5 py-2.5 text-sm text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-8">
+                Student List
+              </button>
+            </Link>
           </div>
         </div>
 
@@ -291,7 +297,7 @@ export default function CommunityLanding() {
       <div className="h-full w-full bg-gray-100 py-14 px-8 md:px-20 mx-auto">
         <h5 className="font-semibold text-5xl text-center">Our Services</h5>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mx-auto mt-10">
-          <div className="service-card">
+          <div className="white-card">
             <img src={ser2} className="mx-auto h-20" alt="" />
             <h5 className="mt-6 text-center text-xl">Medi-EYE</h5>
             <p className="mt-3 font-thin text-sm text-center mb-2">
@@ -300,7 +306,7 @@ export default function CommunityLanding() {
               ever since the 1500s.
             </p>
           </div>
-          <div className="service-card">
+          <div className="white-card">
             <img src={ser1} className="mx-auto h-20" alt="" />
             <h5 className="mt-6 text-center text-xl">Medi-L</h5>
             <p className="mt-3 font-thin text-sm text-center mb-2">
@@ -309,7 +315,7 @@ export default function CommunityLanding() {
               ever since the 1500s.
             </p>
           </div>
-          <div className="service-card">
+          <div className="white-card">
             <img src={ser3} className="mx-auto h-20" alt="" />
             <h5 className="mt-6 text-center text-xl">Home-Care-Medi-EYE</h5>
             <p className="mt-3 font-thin text-sm text-center mb-2">
@@ -318,7 +324,7 @@ export default function CommunityLanding() {
               ever since the 1500s.
             </p>
           </div>
-          <div className="service-card">
+          <div className="white-card">
             <img src={ser4} className="mx-auto h-20" alt="" />
             <h5 className="mt-6 text-center text-xl">Medi-EYE×VR</h5>
             <p className="mt-3 font-thin text-sm text-center mb-2">

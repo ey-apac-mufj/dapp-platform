@@ -16,6 +16,8 @@
   content: "MUFG Wallet";
 } */
 
+.react-responsive-modal-overlay, .react-responsive-modal-container, .react-responsive-modal-modal { animation-fill-mode: forwards!important; }
+
 .connectWalletButton{
   @apply bg-black text-white hover:bg-gray-700 !important;
 }
@@ -24,7 +26,7 @@
   @apply cursor-pointer px-3 py-2 rounded-lg border-2 border-gray-400 hover:bg-gray-200;
 }
 
-.service-card{
+.white-card{
   @apply bg-white text-black rounded-lg shadow-xl h-full w-full px-5 py-5 cursor-pointer hover:bg-gray-200;
 }
 
@@ -91,7 +93,7 @@
   border: 1px solid #a6a7a8;
   width: 100%;
   margin-top: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 .modalDiv{
   margin-top: 20px;

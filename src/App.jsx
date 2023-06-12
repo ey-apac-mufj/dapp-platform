@@ -5,6 +5,7 @@ import CommunityDetails from "./pages/CommunityDetails";
 // import Home from "./Home";
 import CommunityHome from "./pages/CommunityHome";
 import Landing from "./pages/Landing";
+import StudentList from "./pages/StudentList";
 import "./styles/Home.css";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
             element={<CommunityCategory />}
           />
           <Route path="/community-details" element={<CommunityDetails />} />
+          <Route path="/student-list" element={<StudentList />} />
         </Routes>
       </div>
     </Router>

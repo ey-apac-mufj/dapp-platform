@@ -1,0 +1,32 @@
+{
+    "students": [
+        {
+            "id": 1,
+            "name": "Angela Smith",
+            "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+            "walletAddress": "0x....",
+            "image": "student1.png"
+        },
+        {
+            "id": 2,
+            "name": "Clair Roberts",
+            "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+            "walletAddress": "0x....",
+            "image": "student2.png"
+        },
+        {
+            "id": 3,
+            "name": "Peter Parker",
+            "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+            "walletAddress": "0x2....",
+            "image": "student3.png"
+        },
+        {
+            "id": 4,
+            "name": "Bruce Wayne",
+            "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+            "walletAddress": "0x....",
+            "image": "student4.png"
+        }
+    ]
+}
