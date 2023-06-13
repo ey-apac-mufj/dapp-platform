@@ -18,6 +18,8 @@ export default function StudentList() {
   const onCloseModal = () => setOpen(false);
   const navigate = useNavigate();
 
+  const imgArr = [Student1, Student2, Student3, Student4];
+
   const [inputs, setInputs] = useState({}); // For form
 
   const handleChange = (event) => {
@@ -62,7 +64,7 @@ export default function StudentList() {
       <hr className="h-1 bg-gray-500" />
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mx-auto mt-8">
         {StudentData.students.map((student, i) => {
-          student.image = eval("Student" + (i + 1));
+          student.image = imgArr[i];
           return <StudentThumbnail student={student} onHire={onHire} key={i} />;
         })}
       </div>
