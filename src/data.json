@@ -1,0 +1,48 @@
+{
+    "students": [
+        {
+            "id": 1,
+            "name": "Angela Smith",
+            "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+            "walletAddress": "0x....",
+            "image": "student1.png"
+        },
+        {
+            "id": 2,
+            "name": "Clair Roberts",
+            "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+            "walletAddress": "0x....",
+            "image": "student2.png"
+        },
+        {
+            "id": 3,
+            "name": "Peter Parker",
+            "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+            "walletAddress": "0x2....",
+            "image": "student3.png"
+        },
+        {
+            "id": 4,
+            "name": "Bruce Wayne",
+            "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+            "walletAddress": "0x....",
+            "image": "student4.png"
+        }
+    ],
+    "offers": [
+        {
+            "id": 1,
+            "company": "XYZ Corporation Inc",
+            "salary": "$10000",
+            "jobDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam efficitur fermentum sapien, a luctus tellus facilisis a. Integer felis erat, vestibulum ut sollicitudin nec, bibendum at ipsum.",
+            "contract": "0x67shds..."
+        },
+        {
+            "id": 2,
+            "company": "ABC Corporation Inc",
+            "salary": "$9000",
+            "jobDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam efficitur fermentum sapien, a luctus tellus facilisis a. Integer felis erat, vestibulum ut sollicitudin nec, bibendum at ipsum.",
+            "contract": "0x67shds..."
+        }
+    ]
+}
