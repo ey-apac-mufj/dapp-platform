@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function StudentThumbnail({ student, onHire }) {
   const copyText = (text) => {
-    console.log(text);
+    // console.log(text);
     navigator.clipboard.writeText(text);
     toast.success("Text is copied to your clipboard", {
       position: "bottom-right",
@@ -17,7 +17,7 @@ export default function StudentThumbnail({ student, onHire }) {
       <img src={student.image} alt="" className="mx-auto h-40" />
       <div className="text-center px-4 py-4">
         <h5 className="my-1 font-bold text-xl">{student.name}</h5>
-        <h5 className="my-1"> {student.bio}</h5>
+        <h5 className="my-1">{student.bio}</h5>
         <h5 className="my-2">
           {" "}
           {student.walletAddress}{" "}

@@ -7,11 +7,16 @@ import Student1 from "../images/student1.png";
 import Student2 from "../images/student2.png";
 import Student3 from "../images/student3.png";
 import Student4 from "../images/student4.png";
+import { useSDK } from "@thirdweb-dev/react";
+import { useNavigate } from "react-router-dom";
 
 export default function StudentList() {
+  const sdk = useSDK(); // Get SDK
+  const [signature, setSignature] = useState(null);
   const [open, setOpen] = useState(false); // For modal
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
+  const navigate = useNavigate();
 
   const [inputs, setInputs] = useState({}); // For form
 
@@ -21,9 +26,21 @@ export default function StudentList() {
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
-  const onHireSubmit = (e) => {
+  const onHireSubmit = async (e) => {
     e.preventDefault();
-    console.log(inputs);
+    // console.log(inputs);
+    const message = "Please confirm Contract Deployment";
+    try {
+      // console.log("i am here");
+      const signature = await sdk.wallet.sign(message);
+      // console.log(signature);
+      if (signature && signature != undefined) {
+        setSignature(signature);
+        navigate("/deposit-contract");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const onHire = () => {
@@ -65,6 +82,7 @@ export default function StudentList() {
                 placeholder="Enter Company Name"
                 type="text"
                 className="form-control"
+                required
               />
             </div>
             <div>
@@ -76,6 +94,7 @@ export default function StudentList() {
                 type="text"
                 placeholder="Enter Salary details"
                 className="form-control"
+                required
               />
             </div>
             <div className="col-span-1 md:col-span-2">
@@ -87,10 +106,11 @@ export default function StudentList() {
                 name="jobDescription"
                 value={inputs.jobDescription || ""}
                 onChange={handleChange}
+                required
               />
             </div>
           </div>
-          <div className="mr-auto">
+          <div className="mr-auto text-right">
             <button
               type="submit"
               className="bg-indigo-600 hover:bg-indigo-500 rounded-lg px-3.5 py-2.5 text-sm text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-2 ml-auto"

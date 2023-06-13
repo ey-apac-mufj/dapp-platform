@@ -2,9 +2,10 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CommunityCategory from "./pages/CommunityCategory";
 import CommunityDetails from "./pages/CommunityDetails";
-// import Home from "./Home";
 import CommunityHome from "./pages/CommunityHome";
+import ContractDeposit from "./pages/ContractDeposit";
 import Landing from "./pages/Landing";
+import NurseOffers from "./pages/NurseOffers";
 import StudentList from "./pages/StudentList";
 import "./styles/Home.css";
 
@@ -22,6 +23,8 @@ function App() {
           />
           <Route path="/community-details" element={<CommunityDetails />} />
           <Route path="/student-list" element={<StudentList />} />
+          <Route path="/deposit-contract" element={<ContractDeposit />} />
+          <Route path="/nurse-offers" element={<NurseOffers />} />
         </Routes>
       </div>
     </Router>
