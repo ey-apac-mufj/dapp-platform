@@ -13,6 +13,8 @@ export default function CommunityCategory() {
   let { category } = useParams();
   const address = useAddress();
   const navigate = useNavigate();
+
+  // Dummy community data
   const communities = [
     {
       id: 3,
@@ -40,6 +42,7 @@ export default function CommunityCategory() {
     },
   ];
 
+  // Handling redirect based on wallet connection
   const handleCommunityRedirect = () => {
     if (!address || address === undefined) {
       // Check if wallet is connected or not
@@ -76,6 +79,7 @@ export default function CommunityCategory() {
           );
         })}
       </div>
+      {/* for showing toast message */}
       <ToastContainer />
     </div>
   );
