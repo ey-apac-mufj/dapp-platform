@@ -9,6 +9,20 @@ import Student3 from "../images/student3.png";
 import Student4 from "../images/student4.png";
 import { useSDK } from "@thirdweb-dev/react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import {
+  stablecoinAddress,
+  splitMainAddress,
+  splitDestinations,
+  splitPercentages,
+  platformAddress,
+  nurseAddress,
+  depositAmount,
+  splitABI,
+  stablecoinABI,
+} from "../../const/yourDetails";
 
 export default function StudentList() {
   const sdk = useSDK(); // Get SDK
@@ -30,15 +44,40 @@ export default function StudentList() {
 
   const onHireSubmit = async (e) => {
     e.preventDefault();
-    // console.log(inputs);
-    const message = "Please confirm Contract Deployment";
+
     try {
-      // console.log("i am here");
-      const signature = await sdk.wallet.sign(message);
-      // console.log(signature);
-      if (signature && signature != undefined) {
-        setSignature(signature);
-        navigate("/deposit-contract");
+      const stablecoinContract = await sdk.getContract(
+        stablecoinAddress,
+        stablecoinABI
+      );
+
+      const rc = await stablecoinContract.call("approve", [
+        splitMainAddress,
+        depositAmount,
+      ]);
+
+      if (rc && rc != undefined) {
+        const splitMainContract = await sdk.getContract(
+          splitMainAddress,
+          splitABI
+        );
+        const PERCENTAGE_SCALE = 1000000;
+        const percentAllocations = [
+          PERCENTAGE_SCALE * splitPercentages[0],
+          PERCENTAGE_SCALE * splitPercentages[1],
+          PERCENTAGE_SCALE * splitPercentages[2],
+        ];
+        const data = await splitMainContract.call("createOfferAndDeposit", [
+          splitDestinations,
+          percentAllocations,
+          nurseAddress,
+          depositAmount,
+        ]);
+        onCloseModal();
+        toast.success("Your transaction is Successful!", {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
       }
     } catch (error) {
       console.log(error);
@@ -52,11 +91,11 @@ export default function StudentList() {
 
   return (
     <div className="container text-center mx-auto px-5 md:px-20 py-5 justify-center">
-      <h5 className="text-center text-3xl font-thin antonFont">Student List</h5>
+      <h5 className="text-center text-3xl font-thin antonFont">Talent List</h5>
       <input
         type="text"
         className="w-90 md:w-80 mt-5 ml-2 pl-5 pr-3 py-2 rounded-full text-center"
-        placeholder="Search Students"
+        placeholder="Search Talents"
       />
       <div className="mx-auto mt-4">
         <ConnectWalletButton customClass="connectWalletButton" />
@@ -122,6 +161,7 @@ export default function StudentList() {
           </div>
         </form>
       </CustomModal>
+      <ToastContainer />
     </div>
   );
 }

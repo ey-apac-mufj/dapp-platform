@@ -23,7 +23,7 @@ function App() {
           />
           <Route path="/community-details" element={<CommunityDetails />} />
           <Route path="/student-list" element={<StudentList />} />
-          <Route path="/deposit-contract" element={<ContractDeposit />} />
+          <Route path="/deposit-contract/:splitAddress" element={<ContractDeposit />} />
           <Route path="/nurse-offers" element={<NurseOffers />} />
         </Routes>
       </div>

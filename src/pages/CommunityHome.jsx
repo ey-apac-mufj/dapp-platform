@@ -257,6 +257,7 @@ export default function CommunityHome() {
           </svg>
         </div>
       </div>
+
       {nftPresent ? (
         <div
           className="flex overflow-x-auto mt-6 mb-9 gap-6 scrolling"
