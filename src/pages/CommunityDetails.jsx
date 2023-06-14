@@ -39,18 +39,8 @@ export default function CommunityDetails() {
         <div className="text-center mt-8 font-bold text-2xl">
           Loading... Please wait...
         </div>
-      ) : ownedNfts && ownedNfts?.length > 0 ? (
-        <CommunityLanding />
       ) : (
-        <PurchaseNFT
-          isNftLoading={isNftLoading}
-          address={address}
-          nft={nft}
-          editionDropAddress={editionDropAddress}
-          editionDropTokenId={editionDropTokenId}
-          ownedNfts={ownedNfts}
-          refetchOwnedNfts={refetchOwnedNfts}
-        />
+        <CommunityLanding />
       )}
     </div>
   );

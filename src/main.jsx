@@ -31,6 +31,7 @@ root.render(
       activeChain={activeChain}
       supportedWallets={[
         // myWallet(),
+        metamaskWallet(),
         smartWallet({
           factoryAddress: TWFactoryAddress,
           thirdwebApiKey: TWApiKey,

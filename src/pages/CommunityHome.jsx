@@ -252,7 +252,7 @@ export default function CommunityHome() {
           </svg>
         </div>
       </div>
-      {nftPresent ? (
+      (
         <div
           className="flex overflow-x-auto mt-6 mb-9 gap-6 scrolling"
           ref={yourCommunity}
@@ -270,13 +270,7 @@ export default function CommunityHome() {
             }
           })}
         </div>
-      ) : (
-        <div className="w-full bg-orange-200 my-9 py-8 px-8">
-          <h5 className="text-xl">
-            You haven't entered in any community till now
-          </h5>
-        </div>
-      )}
+      )
 
       {/* featured Communities */}
       <hr className="h-1 bg-gray-500" />
