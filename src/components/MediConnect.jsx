@@ -9,19 +9,19 @@ const MediConnect = (props) => {
   const [signature, setSignature] = useState(null);
   const [waitingMsg, setWaitingMsg] = useState(false);
 
+  // Handle Medi API call
   const handleMediConnect = async () => {
-    const message = "Please confirm to connect to Medi API Services"; // Signing message
-
-    // sign the message with the connected wallet
+    const message = "Please confirm to connect to Medi API Services"; // Message to show at the time of signing
 
     try {
-      const signature = await sdk.wallet.sign(message);
+      const signature = await sdk.wallet.sign(message); // Signing message using wallet
       setWaitingMsg(true);
       console.log(signature);
       if (signature && signature != undefined) {
         setSignature(signature);
 
-        // TODO: Call Medi API with the signature
+        // Simulate API call by waiting few seconds
+        // TODO: Integrate Medi API with the signature
         setTimeout(() => {
           setWaitingMsg(false);
           toast.success("You have connected to Medi succesfully!", {
@@ -36,7 +36,6 @@ const MediConnect = (props) => {
         });
       }
     } catch (error) {
-      //   console.log("yeeee");
       toast.error("Could not sign! Please try again!", {
         position: "bottom-right",
         autoClose: 3000,
@@ -45,8 +44,8 @@ const MediConnect = (props) => {
   };
   return (
     <div>
-      {/* <Toaster /> */}
       {signature && signature != null ? (
+        // If signature present, show Refer Curriculum button
         <button
           href="#"
           disabled={waitingMsg}
@@ -76,7 +75,7 @@ const MediConnect = (props) => {
           Connect Medi Account
         </button>
       )}
-
+      {/* For toast message */}
       <ToastContainer className="z-60" />
     </div>
   );

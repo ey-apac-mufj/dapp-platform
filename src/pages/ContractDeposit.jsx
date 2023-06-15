@@ -19,10 +19,12 @@ export default function ContractDeposit() {
   const [contractVerified, setContractVerified] = useState(true);
   const [coinAmount, setCoinAmount] = useState(0);
 
+  // Handling form input change
   const handleAmountChange = (event) => {
     setCoinAmount(event.target.value);
   };
 
+  // Sunmit number of coins to submit
   const onCoinSubmit = async (event) => {
     event.preventDefault();
     if (coinAmount > 0) {
@@ -70,6 +72,7 @@ export default function ContractDeposit() {
           <ConnectWalletButton customClass="connectWalletButton" />
         </div>
         <hr className="h-1 bg-gray-500 my-6" />
+        {/* if the contract is whitelisted then show the deposit coin form */}
         {contractVerified && (
           <div className="text-left mt-8 px-10">
             <h5 className="text-center font-medium text-xl">

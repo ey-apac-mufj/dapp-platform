@@ -19,7 +19,7 @@ const mobileNavigation = [
 ];
 
 export default function CommunityLanding() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // For mobile menu
   return (
     <div className="antonFont">
       <header className="absolute inset-x-0 top-0">
@@ -209,6 +209,7 @@ export default function CommunityLanding() {
                 fugiat aliqua.
               </p>
               <div className="mt-6 gap-x-6">
+                {/* Button For connecting to Medi API  */}
                 <MediConnect />
                 {/* <a
                 href="#"
@@ -282,6 +283,7 @@ export default function CommunityLanding() {
               electronic typesetting, remaining essentially unchanged. <br />{" "}
               <span className="underline cursor-pointer">Learn More</span>
             </p>
+            {/* Redirect Employer to student profile listing page */}
             <Link to="/student-list">
               <button className="bg-indigo-600 hover:bg-indigo-500 rounded-xl font-thin px-3.5 py-2.5 text-sm text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-8">
                 Student Profiles

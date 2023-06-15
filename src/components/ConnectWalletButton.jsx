@@ -9,7 +9,7 @@ export default function ConnectWalletButton({ customClass = "" }) {
           align: "right",
           side: "bottom",
         }}
-        className={customClass}
+        className={customClass} // custom styles passed by props
         btnTitle="Connect Wallet"
       />
     </div>
