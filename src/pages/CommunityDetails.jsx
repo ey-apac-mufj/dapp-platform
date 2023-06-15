@@ -39,7 +39,7 @@ export default function CommunityDetails() {
 
   return (
     <div>
-      {/* if wallet has particular NFT then show landing page else show Purchase NFT component */}
+      {/* If wallet has particular NFT then show landing page else show Purchase NFT component */}
       {loading ? (
         <div className="text-center mt-8 font-bold text-2xl">
           Loading... Please wait...
