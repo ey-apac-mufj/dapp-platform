@@ -1,6 +1,6 @@
 # MULLET DApp Platform
 
-> In this project using React.js, React Router and Tailwind CSS are used to develop the UI. Thirdweb (https://thirdweb.com/) library is used for interacting with blockchain.
+> In this project React.js, React Router and Tailwind CSS are used to develop the UI. Thirdweb (https://thirdweb.com/) library is used for interacting with blockchain.
 
 > In this project you can connect to ERC 4337 wallet using your personal MULLET wallet. Then you can check the list of communities based on the categories. You can enter into a particular category by purchasing their NFT. Once you have the NFT you can enjoy the features of the community.
 
