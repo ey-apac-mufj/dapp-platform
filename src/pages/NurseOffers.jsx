@@ -7,6 +7,15 @@ import {
   useAddress,
 } from "@thirdweb-dev/react";
 
+import {
+  splitMainAddress,
+  splitDestinations,
+  splitPercentages,
+  stablecoinAddress,
+  platformAddress,
+  nurseAddress
+} from "../../const/yourDetails";
+
 const splitMainABI = [
   {
     "inputs": [],
@@ -761,7 +770,7 @@ export default function NurseOffers() {
   useEffect(() => {
     async function getOffers() {
       if (address) {
-        const splitMainContract = await sdk.getContract("0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512", splitMainABI);
+        const splitMainContract = await sdk.getContract(splitMainAddress, splitMainABI);
         const offers = await splitMainContract.call(
           "getOffersReceivedByAddress",
           [
@@ -776,25 +785,19 @@ export default function NurseOffers() {
   }, [address]);
 
   const onAccept = async (splitAddress) => {
-    const splitMainContract = await sdk.getContract("0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512", splitMainABI);
-    const percents = [0.2, 0.3, 0.5];
+    const splitMainContract = await sdk.getContract(splitMainAddress, splitMainABI);
     const PERCENTAGE_SCALE = 1000000;
-    const accounts = [
-      "0x70997970C51812dc3A010C7d01b50e0d17dc79C8", 
-      "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC", 
-      "0x90F79bf6EB2c4f870365E785982E1f101E93b906"
-    ];
     const percentAllocations = [
-      PERCENTAGE_SCALE * percents[0], 
-      PERCENTAGE_SCALE * percents[1],
-      PERCENTAGE_SCALE * percents[2]
+      PERCENTAGE_SCALE * splitPercentages[0], 
+      PERCENTAGE_SCALE * splitPercentages[1],
+      PERCENTAGE_SCALE * splitPercentages[2]
     ];
     const data = await splitMainContract.call(
       "distributeAndWithdrawERC20",
       [
         splitAddress,
-        "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
-        accounts,
+        stablecoinAddress,
+        splitDestinations,
         percentAllocations,
         0,
         address
@@ -803,25 +806,19 @@ export default function NurseOffers() {
   };
 
   const onDecline = async (splitAddress) => {
-    const splitMainContract = await sdk.getContract("0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512", splitMainABI);
-    const percents = [0.2, 0.3, 0.5];
+    const splitMainContract = await sdk.getContract(splitMainAddress, splitMainABI);
     const PERCENTAGE_SCALE = 1000000;
-    const accounts = [
-      "0x70997970C51812dc3A010C7d01b50e0d17dc79C8", 
-      "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC", 
-      "0x90F79bf6EB2c4f870365E785982E1f101E93b906"
-    ];
     const percentAllocations = [
-      PERCENTAGE_SCALE * percents[0], 
-      PERCENTAGE_SCALE * percents[1],
-      PERCENTAGE_SCALE * percents[2]
+      PERCENTAGE_SCALE * splitPercentages[0], 
+      PERCENTAGE_SCALE * splitPercentages[1],
+      PERCENTAGE_SCALE * splitPercentages[2]
     ];
     const data = await splitMainContract.call(
       "returnDeposit",
       [
         splitAddress,
-        "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
-        accounts,
+        stablecoinAddress,
+        splitDestinations,
         percentAllocations,
         0,
         address

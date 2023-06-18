@@ -10,6 +10,14 @@ import Student4 from "../images/student4.png";
 import { useSDK } from "@thirdweb-dev/react";
 import { useNavigate } from "react-router-dom";
 
+import {
+  splitMainAddress,
+  splitDestinations,
+  splitPercentages,
+  platformAddress,
+  nurseAddress
+} from "../../const/yourDetails";
+
 const splitMainABI = [
   {
     "inputs": [],
@@ -779,27 +787,21 @@ export default function StudentList() {
 
     try {
       // console.log("i am here");
-      const splitMainContract = await sdk.getContract("0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512", splitMainABI);
-      const percents = [0.2, 0.3, 0.5];
+      const splitMainContract = await sdk.getContract(splitMainAddress, splitMainABI);
       const PERCENTAGE_SCALE = 1000000;
-      const accounts = [
-        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8", 
-        "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC", 
-        "0x90F79bf6EB2c4f870365E785982E1f101E93b906"
-      ];
       const percentAllocations = [
-        PERCENTAGE_SCALE * percents[0], 
-        PERCENTAGE_SCALE * percents[1],
-        PERCENTAGE_SCALE * percents[2]
+        PERCENTAGE_SCALE * splitPercentages[0], 
+        PERCENTAGE_SCALE * splitPercentages[1],
+        PERCENTAGE_SCALE * splitPercentages[2]
       ];
       const data = await splitMainContract.call(
         "createSplit",
         [
-          accounts,
+          splitDestinations,
           percentAllocations,
           0,
-          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
-          "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65"
+          platformAddress,
+          nurseAddress
         ],
       );
       const splitAddress = data.receipt.events[0].args[0];

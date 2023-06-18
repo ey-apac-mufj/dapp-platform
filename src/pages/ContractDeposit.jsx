@@ -6,6 +6,10 @@ import ConnectWalletButton from "../components/ConnectWalletButton";
 import { useSDK } from "@thirdweb-dev/react";
 import { useParams } from "react-router-dom";
 
+import {
+  stablecoinAddress,
+} from "../../const/yourDetails";
+
 const myTokenABI = [
   {
     "inputs": [],
@@ -603,7 +607,7 @@ export default function ContractDeposit() {
 
   useEffect(() => {
     async function checkWhitelist() {
-      const myTokenContract = await sdk.getContract("0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9", myTokenABI);
+      const myTokenContract = await sdk.getContract(stablecoinAddress, myTokenABI);
       const status = await myTokenContract.call(
         "checkWhitelist",
         [
@@ -627,7 +631,7 @@ export default function ContractDeposit() {
         const data = await sdk.wallet.transfer(
           splitAddress,
           coinAmount,
-          "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+          stablecoinAddress
         );
         // console.log(data);
         if (data && data != undefined) {
