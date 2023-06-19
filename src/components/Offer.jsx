@@ -9,10 +9,10 @@ export default function Offer({ offer, onAccept, onDecline }) {
         <h5 className="my-1">Contract: {offer.contract}</h5>
         <h5 className="my-2"> {offer.jobDescription} </h5>
         <div className="mx-auto flex justify-content text-center mb-2">
-          <button onClick={() => onAccept(offer.contract)} className="font-medium bg-green-600 hover:bg-green-500 rounded-lg px-3.5 py-2.5 text-sm text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 mt-2 mx-auto">
+          <button onClick={() => onAccept(offer.offerIndex)} className="font-medium bg-green-600 hover:bg-green-500 rounded-lg px-3.5 py-2.5 text-sm text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 mt-2 mx-auto">
             Accept
           </button>
-          <button onClick={() => onDecline(offer.contract)} className="font-medium bg-red-600 hover:bg-red-500 rounded-lg px-3.5 py-2.5 text-sm text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 mt-2 mx-auto">
+          <button onClick={() => onDecline(offer.offerIndex)} className="font-medium bg-red-600 hover:bg-red-500 rounded-lg px-3.5 py-2.5 text-sm text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 mt-2 mx-auto">
             Decline
           </button>
         </div>
