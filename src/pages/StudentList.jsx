@@ -86,11 +86,11 @@ export default function StudentList() {
 
   return (
     <div className="container text-center mx-auto px-5 md:px-20 py-5 justify-center">
-      <h5 className="text-center text-3xl font-thin antonFont">Student List</h5>
+      <h5 className="text-center text-3xl font-thin antonFont">Talent List</h5>
       <input
         type="text"
         className="w-90 md:w-80 mt-5 ml-2 pl-5 pr-3 py-2 rounded-full text-center"
-        placeholder="Search Students"
+        placeholder="Search Talents"
       />
       <div className="mx-auto mt-4">
         <ConnectWalletButton customClass="connectWalletButton" />

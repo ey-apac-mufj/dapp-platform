@@ -13,8 +13,8 @@ export const magicLinkKey = "pk_live_41D75AEA3BB94386";
 export const walletConnetKey = "4078812e3d11593676900b0dd00d15dc";
 
 
-export const splitMainAddress = "0xE97E1d4F4129De81999C6722a431e989DE6eBCb3"
-export const stablecoinAddress = "0x538ebce9062847Ba6983ad8FA9bC314643B6d1fE"
+export const splitMainAddress = "0x1F99d085050C4763f1C1fB4494897bbd333cE5bc"
+export const stablecoinAddress = "0x8a8C8FB21F3099e787b5ad1221310663d73b1d81"
 export const platformAddress = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
 export const splitDestinations = [platformAddress, "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC", "0x90F79bf6EB2c4f870365E785982E1f101E93b906"]
 export const splitPercentages = [0.2, 0.3, 0.5]
