@@ -9,6 +9,8 @@ import Student3 from "../images/student3.png";
 import Student4 from "../images/student4.png";
 import { useSDK } from "@thirdweb-dev/react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import {
   stablecoinAddress,
@@ -19,7 +21,7 @@ import {
   nurseAddress,
   depositAmount,
   splitABI,
-  stablecoinABI
+  stablecoinABI,
 } from "../../const/yourDetails";
 
 export default function StudentList() {
@@ -44,35 +46,40 @@ export default function StudentList() {
     e.preventDefault();
 
     try {
-      const stablecoinContract = await sdk.getContract(stablecoinAddress, stablecoinABI);
-
-      const rc = await stablecoinContract.call(
-        "approve",
-        [
-          splitMainAddress,
-          "10000000000000000000000"
-        ],
+      const stablecoinContract = await sdk.getContract(
+        stablecoinAddress,
+        stablecoinABI
       );
 
+      const rc = await stablecoinContract.call("approve", [
+        splitMainAddress,
+        "10000000000000000000000",
+      ]);
+
       if (rc && rc != undefined) {
-        const splitMainContract = await sdk.getContract(splitMainAddress, splitABI);
+        const splitMainContract = await sdk.getContract(
+          splitMainAddress,
+          splitABI
+        );
         const PERCENTAGE_SCALE = 1000000;
         const percentAllocations = [
           PERCENTAGE_SCALE * splitPercentages[0],
           PERCENTAGE_SCALE * splitPercentages[1],
-          PERCENTAGE_SCALE * splitPercentages[2]
+          PERCENTAGE_SCALE * splitPercentages[2],
         ];
-        const data = await splitMainContract.call(
-          "createOfferAndDeposit",
-          [
-            splitDestinations,
-            percentAllocations,
-            nurseAddress,
-            "10000000000000000000000"
-          ],
-        );
+        const data = await splitMainContract.call("createOfferAndDeposit", [
+          splitDestinations,
+          percentAllocations,
+          nurseAddress,
+          "10000000000000000000000",
+        ]);
         const offerIndex = data.receipt.events[0].args[0];
         console.log(data.receipt);
+        onCloseModal();
+        toast.success("Your transaction is Successful!", {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
       }
     } catch (error) {
       console.log(error);
@@ -156,6 +163,7 @@ export default function StudentList() {
           </div>
         </form>
       </CustomModal>
+      <ToastContainer />
     </div>
   );
 }

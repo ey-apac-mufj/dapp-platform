@@ -14,7 +14,7 @@ import PurchaseNFT from "../components/PurchaseNFT";
 
 export default function CommunityDetails() {
   const address = useAddress();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { contract: editionDropContract } = useContract(editionDropAddress);
   const { data: nft, isLoading: isNftLoading } = useNFT(
     editionDropContract,

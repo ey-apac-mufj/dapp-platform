@@ -252,25 +252,24 @@ export default function CommunityHome() {
           </svg>
         </div>
       </div>
-      (
-        <div
-          className="flex overflow-x-auto mt-6 mb-9 gap-6 scrolling"
-          ref={yourCommunity}
-        >
-          {communities.map((com, i) => {
-            if (i < 1) {
-              return (
-                <div className="community flex-none" key={i}>
-                  <CommunityThumbnail
-                    community={com}
-                    handleCommunityRedirect={handleCommunityRedirect}
-                  />
-                </div>
-              );
-            }
-          })}
-        </div>
-      )
+
+      <div
+        className="flex overflow-x-auto mt-6 mb-9 gap-6 scrolling"
+        ref={yourCommunity}
+      >
+        {communities.map((com, i) => {
+          if (i < 1) {
+            return (
+              <div className="community flex-none" key={i}>
+                <CommunityThumbnail
+                  community={com}
+                  handleCommunityRedirect={handleCommunityRedirect}
+                />
+              </div>
+            );
+          }
+        })}
+      </div>
 
       {/* featured Communities */}
       <hr className="h-1 bg-gray-500" />
