@@ -7,6 +7,7 @@ import ContractDeposit from "./pages/ContractDeposit";
 import Landing from "./pages/Landing";
 import NurseOffers from "./pages/NurseOffers";
 import StudentList from "./pages/StudentList";
+import Stablecoin from './pages/Stablecoin';
 import "./styles/Home.css";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path="/student-list" element={<StudentList />} />
           <Route path="/deposit-contract/:splitAddress" element={<ContractDeposit />} />
           <Route path="/nurse-offers" element={<NurseOffers />} />
+          <Route path="/stablecoin" element={<Stablecoin />} />
         </Routes>
       </div>
     </Router>
