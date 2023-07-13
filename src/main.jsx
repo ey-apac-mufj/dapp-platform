@@ -26,17 +26,20 @@ const container = document.getElementById("root");
 const root = createRoot(container);
 root.render(
   <React.StrictMode>
+    {/* Thirdweb provider for blockchain activities */}
     <ThirdwebProvider
-      supportedChains={[Goerli, Localhost]}
+      supportedChains={[Goerli]} // test network
       activeChain={activeChain}
       supportedWallets={[
         // myWallet(),
         metamaskWallet(),
         smartWallet({
+          // Smart contract wallet is the only supported wallet
           factoryAddress: TWFactoryAddress,
           thirdwebApiKey: TWApiKey,
           gasless: true,
           personalWallets: [
+            // Smart contract wallet requires a personal wallet to work
             metamaskWallet(),
             // magicLink({
             //   apiKey: magicLinkKey,

@@ -44,6 +44,7 @@ export default function CommunityHome() {
     window.showMUFG();
   }, [lastClick]);
 
+  // DUmmy community data
   const communities = [
     {
       id: 3,
@@ -89,6 +90,7 @@ export default function CommunityHome() {
     },
   ];
 
+  // Dummy categories
   const categories = [
     {
       id: 2,
@@ -127,6 +129,7 @@ export default function CommunityHome() {
   const yourCommunity = useRef();
 
   const handleCommunityRedirect = () => {
+    // if wallet is not connected show error message else redirect to community details page
     if (!address || address === undefined) {
       // Check if wallet is connected or not
       toast.error("Please connect your wallet first!", {
@@ -166,6 +169,7 @@ export default function CommunityHome() {
   );
 
   const checkIfHaveNft = () => {
+    // Check if wallet has the required NFT or not
     // console.log(address);
     if (address) {
       if (ownedNfts && ownedNfts?.length > 0) {
@@ -200,6 +204,7 @@ export default function CommunityHome() {
       />
       <div className="stat-section w-100 mx-4 md:mx-20 mt-14 mb-7 px-3 md:px-8 pb-8 rounded-2xl text-white shadow-xl">
         <div>
+          {/* Show connect wallet button */}
           <ConnectWalletButton />
         </div>
 
@@ -253,23 +258,31 @@ export default function CommunityHome() {
         </div>
       </div>
 
-      <div
-        className="flex overflow-x-auto mt-6 mb-9 gap-6 scrolling"
-        ref={yourCommunity}
-      >
-        {communities.map((com, i) => {
-          if (i < 1) {
-            return (
-              <div className="community flex-none" key={i}>
-                <CommunityThumbnail
-                  community={com}
-                  handleCommunityRedirect={handleCommunityRedirect}
-                />
-              </div>
-            );
-          }
-        })}
-      </div>
+      {nftPresent ? (
+        <div
+          className="flex overflow-x-auto mt-6 mb-9 gap-6 scrolling"
+          ref={yourCommunity}
+        >
+          {communities.map((com, i) => {
+            if (i < 1) {
+              return (
+                <div className="community flex-none" key={i}>
+                  <CommunityThumbnail
+                    community={com}
+                    handleCommunityRedirect={handleCommunityRedirect}
+                  />
+                </div>
+              );
+            }
+          })}
+        </div>
+      ) : (
+        <div className="w-full bg-orange-200 my-9 py-8 px-8">
+          <h5 className="text-xl">
+            You haven't entered in any community till now
+          </h5>
+        </div>
+      )}
 
       {/* featured Communities */}
       <hr className="h-1 bg-gray-500" />
@@ -320,6 +333,7 @@ export default function CommunityHome() {
         {categories.map((cat, i) => {
           return (
             <div className="community flex-none" key={i}>
+              {/* Show category thumbnail for each category */}
               <CategoryThumbnail category={cat} />
             </div>
           );

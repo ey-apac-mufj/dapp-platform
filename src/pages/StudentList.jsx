@@ -53,7 +53,7 @@ export default function StudentList() {
 
       const rc = await stablecoinContract.call("approve", [
         splitMainAddress,
-        "10000000000000000000000",
+        depositAmount,
       ]);
 
       if (rc && rc != undefined) {
@@ -71,10 +71,8 @@ export default function StudentList() {
           splitDestinations,
           percentAllocations,
           nurseAddress,
-          "10000000000000000000000",
+          depositAmount,
         ]);
-        const offerIndex = data.receipt.events[0].args[0];
-        console.log(data.receipt);
         onCloseModal();
         toast.success("Your transaction is Successful!", {
           position: "bottom-right",

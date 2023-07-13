@@ -13,16 +13,18 @@ export default function PurchaseNFT({
   return (
     <div className="modalDiv text-center">
       <h1 className="text-2xl font-bold mb-8">Please buy Membership First!</h1>
+      {/* If NFT is loading show loading message */}
       {isNftLoading ? (
         "Loading..."
       ) : (
         <div className="mx-auto">
-          <p>Acics Membership Pass</p>
+          <p>Medi Membership Pass</p>
           <img
             className="nftImage mx-auto mt-2 border border-gray-300 rounded-lg"
             src={nft.metadata.image}
             alt={nft.metadata.description}
           />
+          {/* Check if address is available */}
           {address ? (
             <>
               <p>

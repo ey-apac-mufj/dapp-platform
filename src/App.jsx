@@ -22,8 +22,11 @@ function App() {
             element={<CommunityCategory />}
           />
           <Route path="/community-details" element={<CommunityDetails />} />
-          <Route path="/talent-list" element={<StudentList />} />
-          <Route path="/deposit-contract/:splitAddress" element={<ContractDeposit />} />
+          <Route path="/student-list" element={<StudentList />} />
+          <Route
+            path="/deposit-contract/:splitAddress"
+            element={<ContractDeposit />}
+          />
           <Route path="/nurse-offers" element={<NurseOffers />} />
         </Routes>
       </div>
