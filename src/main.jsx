@@ -1,7 +1,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
-import { Goerli } from "@thirdweb-dev/chains";
+import { Goerli, Localhost } from "@thirdweb-dev/chains";
 import {
   ThirdwebProvider,
   localWallet,
@@ -32,6 +32,7 @@ root.render(
       activeChain={activeChain}
       supportedWallets={[
         // myWallet(),
+        metamaskWallet(),
         smartWallet({
           // Smart contract wallet is the only supported wallet
           factoryAddress: TWFactoryAddress,
