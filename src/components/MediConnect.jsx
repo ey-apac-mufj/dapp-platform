@@ -3,14 +3,38 @@ import React, { useState } from "react";
 import { useSDK } from "@thirdweb-dev/react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Login from "../apiCall/Login";
+import { useAddress } from "@thirdweb-dev/react";
 
 const MediConnect = (props) => {
   const sdk = useSDK(); // Get SDK
   const [signature, setSignature] = useState(null);
   const [waitingMsg, setWaitingMsg] = useState(false);
+  const address = useAddress();
 
   // Handle Medi API call
   const handleMediConnect = async () => {
+    try {
+      let initiateLogin = await Login.initiateLogin(address);
+      // console.log(initiateLogin);
+      if (
+        initiateLogin?.statusCode === 200 ||
+        initiateLogin?.statusCode === 201
+      ) {
+        let msgToSign = initiateLogin?.messageToSign;
+        if (msgToSign) {
+          // Todo: sign the message and call verify sign API
+        }
+      }
+    } catch (error) {
+      toast.error("Could not complete the sign in process! please try again!", {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
+    }
+  };
+
+  const handleMediConnectOld = async () => {
     const message = "Please confirm to connect to Medi API Services"; // Message to show at the time of signing
 
     try {
