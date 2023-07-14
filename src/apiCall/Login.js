@@ -16,14 +16,11 @@ class Login {
           walletAddress: walletAddress,
         },
       });
-      let resStatus = initiateLogin.status;
       let initiateLoginRes = await initiateLogin.json();
-      initiateLoginRes.statusCode = resStatus;
       return initiateLoginRes;
     } catch (error) {
-      console.log(error);
       return {
-        error: true,
+        message: "Something went wrong! Please try again.",
         status: 400,
       };
     }

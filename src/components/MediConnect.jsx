@@ -17,14 +17,17 @@ const MediConnect = (props) => {
     try {
       let initiateLogin = await Login.initiateLogin(address);
       // console.log(initiateLogin);
-      if (
-        initiateLogin?.statusCode === 200 ||
-        initiateLogin?.statusCode === 201
-      ) {
-        let msgToSign = initiateLogin?.messageToSign;
-        if (msgToSign) {
+      if (initiateLogin?.status === 200 || initiateLogin?.status === 201) {
+        let msgToSign = initiateLogin?.data?.messageToSign;
+        if (msgToSign && msgToSign != "") {
           // Todo: sign the message and call verify sign API
         }
+      } else {
+        // Show error message
+        toast.error(initiateLogin?.message, {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
       }
     } catch (error) {
       toast.error("Could not complete the sign in process! please try again!", {
