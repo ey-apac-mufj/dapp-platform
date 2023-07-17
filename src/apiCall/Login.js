@@ -9,12 +9,14 @@ class Login {
     try {
       let initiateLogin = await fetch(`${apiurl}/login/initiate`, {
         method: "POST",
-        // headers: { // this is for authorized api calls
-        //   Authorization: "Bearer " + token,
-        // },
-        body: {
-          walletAddress: walletAddress,
+        headers: {
+          "Content-Type": "application/json",
+          // Authorization: "Bearer " + token // --> this is for authorized call
+          // Add any additional headers here
         },
+        body: JSON.stringify({
+          walletAddress: walletAddress,
+        }),
       });
       let initiateLoginRes = await initiateLogin.json();
       return initiateLoginRes;
