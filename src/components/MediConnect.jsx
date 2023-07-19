@@ -65,15 +65,10 @@ const MediConnect = (props) => {
           )}
         </button>
       ) : (
-        <button
-          onClick={handleMediConnect}
-          href="#"
-          className={
-            "bg-indigo-600 font-thin hover:bg-indigo-500 rounded-3xl px-3.5 py-2.5 text-sm text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          }
-        >
-          Connect Medi Account
-        </button>
+        <form method='post' action='https://medi-lx.xyz/site/login'>
+          <input type='hidden' name='LoginForm[username]' value='0x437C69D879D8f4AB609cABB52039a6df10789E6a'/>
+          <input type="submit" value="Connect Medi" />
+        </form>
       )}
       {/* For toast message */}
       <ToastContainer className="z-60" />
