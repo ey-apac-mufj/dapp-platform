@@ -12,7 +12,7 @@ const MediConnect = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let getUser = await fetch('https://medi-lx.xyz/api/get_user', {
+        let getUser = await fetch('https://medi-lx.xyz/api.php', {
           method: "GET",
           credentials: 'include',
           headers: {
