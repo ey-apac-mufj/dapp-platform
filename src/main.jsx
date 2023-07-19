@@ -15,6 +15,7 @@ import {
 import "./styles//globals.css";
 import {
   TWApiKey,
+  TWClientID,
   TWFactoryAddress,
   activeChain,
   magicLinkKey,
@@ -36,7 +37,8 @@ root.render(
         smartWallet({
           // Smart contract wallet is the only supported wallet
           factoryAddress: TWFactoryAddress,
-          thirdwebApiKey: TWApiKey,
+          // secretKey: TWApiKey,
+          clientId: TWClientID,
           gasless: true,
           personalWallets: [
             // Smart contract wallet requires a personal wallet to work

@@ -1,8 +1,9 @@
 import { Goerli, Localhost } from "@thirdweb-dev/chains";
 
-export const TWFactoryAddress = "0x6e5B36dE095aaEA75a9D9014Aa69168224C5d3ac";
+export const TWFactoryAddress = "0x3084B8B244D2d4a43fbF137165580FD4676E08c2";
 export const TWApiKey =
-  "Pp-yMCi3csVA2NBc5trHpLHyT5uErD1q-ZDVzriH4gPEhkW-sGdPXT72UFXDStwm6RwHY2ZqwgqKip-dZoCM9Q"; //a3d61ce5edfbb566f88f6a3e8076ef81
+  "Pp-yMCi3csVA2NBc5trHpLHyT5uErD1q-ZDVzriH4gPEhkW-sGdPXT72UFXDStwm6RwHY2ZqwgqKip-dZoCM9Q";
+export const TWClientID = "a3d61ce5edfbb566f88f6a3e8076ef81";
 export const activeChain = Goerli;
 
 export const editionDropAddress = "0x8D9919db3CD6aF84e8A12CedC3c5A694Bf026aB8";
