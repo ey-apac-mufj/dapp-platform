@@ -11,23 +11,26 @@ const MediConnect = (props) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      let getUser = await fetch('https://medi-lx.xyz/api/get_user', {
-        method: "GET",
-        credentials: 'include',
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      let getUserRes = await getUser.json();
-      return getUserRes;
+      try {
+        let getUser = await fetch('https://medi-lx.xyz/api/get_user', {
+          method: "GET",
+          credentials: 'include',
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        let getUserRes = await getUser.json();
+        console.log('--------------------------------------');
+        console.log(getUserRes);
+        return getUserRes;
+      } catch (error) {
+        console.log(error);
+      }
     }
-    try {
-      const data = fetchData();
-      console.log('--------------------------------------');
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
+
+    fetchData()// make sure to catch any error
+    .catch(console.error);
+
   },[]);
 
   // Handle Medi API call
