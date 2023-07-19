@@ -1,5 +1,5 @@
 // import { ThirdwebSDK } from "@thirdweb-dev/sdk";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSDK } from "@thirdweb-dev/react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,6 +8,27 @@ const MediConnect = (props) => {
   const sdk = useSDK(); // Get SDK
   const [signature, setSignature] = useState(null);
   const [waitingMsg, setWaitingMsg] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      let getUser = await fetch('https://medi-lx.xyz/api/get_user', {
+        method: "GET",
+        credentials: 'include',
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      let getUserRes = await getUser.json();
+      return getUserRes;
+    }
+    try {
+      const data = fetchData();
+      console.log('--------------------------------------');
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  },[]);
 
   // Handle Medi API call
   const handleMediConnect = async () => {
