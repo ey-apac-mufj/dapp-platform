@@ -119,7 +119,7 @@ export default function Stablecoin() {
 
   return (
     <div className="container text-center mx-auto px-5 md:px-40 py-5 justify-center">
-      <h5 className="font-medium text-2xl">Stablecion Management</h5>
+      <h5 className="font-medium text-2xl">Stablecoin Management</h5>
       <div className="mx-auto mt-4">
         <ConnectWalletButton customClass="connectWalletButton" />
       </div>
