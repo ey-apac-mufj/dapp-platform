@@ -15,9 +15,6 @@ const MediConnect = (props) => {
         let getUser = await fetch('https://medi-lx.xyz/api.php', {
           method: "GET",
           credentials: 'include',
-          headers: {
-            "Content-Type": "application/json",
-          },
         });
         let getUserRes = await getUser.json();
         console.log('--------------------------------------');
