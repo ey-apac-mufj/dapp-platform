@@ -8,9 +8,11 @@ const MediConnect = (props) => {
   const sdk = useSDK(); // Get SDK
   const [signature, setSignature] = useState(null);
   const [waitingMsg, setWaitingMsg] = useState(false);
+  const [result1, setResult1] = useState('Waiting for result1');
+  const [result2, setResult2] = useState('Waiting for result2');
 
   useEffect(() => {
-    const fetchData = async (method, url) => {
+    const fetchData = async (method, url, setResult) => {
       try {
         let getUser = await fetch(url, {
           headers: {
@@ -22,16 +24,17 @@ const MediConnect = (props) => {
         let getUserRes = await getUser.json();
         console.log('--------------------------------------');
         console.log(getUserRes);
+        setResult(getUserRes);
         return getUserRes;
       } catch (error) {
         console.log(error);
       }
     }
 
-    fetchData('GET', 'https://medi-lx.xyz/api.php')
+    fetchData('GET', 'https://medi-lx.xyz/api.php', setResult1)
     .catch(console.error);
 
-    fetchData('GET', 'https://medi-lx.xyz/api/get_user')
+    fetchData('GET', 'https://medi-lx.xyz/api/get_user', setResult2)
     .catch(console.error);
 
   },[]);
@@ -92,10 +95,14 @@ const MediConnect = (props) => {
           )}
         </button>
       ) : (
-        <form method='post' action='https://medi-lx.xyz/site/login'>
-          <input type='hidden' name='LoginForm[username]' value='0x437C69D879D8f4AB609cABB52039a6df10789E6a'/>
-          <input type="submit" value="Connect Medi" />
-        </form>
+        <div>
+          <form method='post' action='https://medi-lx.xyz/site/login'>
+            <input type='hidden' name='LoginForm[username]' value='0x437C69D879D8f4AB609cABB52039a6df10789E6a'/>
+            <input type="submit" value="Connect Medi" />
+          </form>
+          <p>{result1}</p>
+          <p>{result2}</p>
+        </div>
       )}
       {/* For toast message */}
       <ToastContainer className="z-60" />
