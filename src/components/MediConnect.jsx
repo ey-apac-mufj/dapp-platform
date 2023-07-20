@@ -10,10 +10,10 @@ const MediConnect = (props) => {
   const [waitingMsg, setWaitingMsg] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async (method, url) => {
       try {
-        let getUser = await fetch('https://medi-lx.xyz/api.php', {
-          method: "GET",
+        let getUser = await fetch(url, {
+          method: method,
           credentials: 'include',
         });
         let getUserRes = await getUser.json();
@@ -25,7 +25,10 @@ const MediConnect = (props) => {
       }
     }
 
-    fetchData()// make sure to catch any error
+    fetchData('GET', 'https://medi-lx.xyz/api.php')
+    .catch(console.error);
+
+    fetchData('GET', 'https://medi-lx.xyz/api/get_user')
     .catch(console.error);
 
   },[]);
