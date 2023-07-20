@@ -13,6 +13,9 @@ const MediConnect = (props) => {
     const fetchData = async (method, url) => {
       try {
         let getUser = await fetch(url, {
+          headers: {
+            "Content-Type": "application/json",
+          },
           method: method,
           credentials: 'include',
         });
