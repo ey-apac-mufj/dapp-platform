@@ -100,8 +100,8 @@ const MediConnect = (props) => {
             <input type='hidden' name='LoginForm[username]' value='0x437C69D879D8f4AB609cABB52039a6df10789E6a'/>
             <input type="submit" value="Connect Medi" />
           </form>
-          <p>{result1}</p>
-          <p>{result2}</p>
+          <p>{JSON.stringify(result1, null, 2) }</p>
+          <p>{JSON.stringify(result2, null, 2) }</p>
         </div>
       )}
       {/* For toast message */}
