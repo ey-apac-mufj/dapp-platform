@@ -1,5 +1,5 @@
 // import { ThirdwebSDK } from "@thirdweb-dev/sdk";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSDK } from "@thirdweb-dev/react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -11,6 +11,37 @@ const MediConnect = (props) => {
   const [signature, setSignature] = useState(null);
   const [waitingMsg, setWaitingMsg] = useState(false);
   const address = useAddress();
+
+  // Test code
+  const [result1, setResult1] = useState('Waiting for result1');
+  const [result2, setResult2] = useState('Waiting for result2');
+  useEffect(() => {
+    const fetchData = async (method, url, setResult) => {
+      try {
+        let getUser = await fetch(url, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: method,
+          credentials: 'include',
+        });
+        let getUserRes = await getUser.json();
+        console.log('--------------------------------------');
+        console.log(getUserRes);
+        setResult(getUserRes);
+        return getUserRes;
+      } catch (error) {
+        setResult(error);
+      }
+    }
+
+    fetchData('GET', 'https://medi-lx.xyz/api.php', setResult1)
+    .catch(console.error);
+
+    fetchData('GET', 'https://medi-lx.xyz/api/get_user', setResult2)
+    .catch(console.error);
+
+  },[]);
 
   const handleMediConnect = async () => {
     const message = "Please confirm to connect to Medi API Services at " + Date.now(); // Message to show at the time of signing
@@ -75,6 +106,7 @@ const MediConnect = (props) => {
           )}
         </button>
       ) : (
+        <div>
         <button
           onClick={handleMediConnect}
           href="#"
@@ -84,6 +116,9 @@ const MediConnect = (props) => {
         >
           Connect Medi Account
         </button>
+        <p>{JSON.stringify(result1, null, 2) }</p>
+        <p>{JSON.stringify(result2, null, 2) }</p>
+        </div>
       )}
       {/* For toast message */}
       <ToastContainer className="z-60" />
