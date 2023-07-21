@@ -12,33 +12,8 @@ const MediConnect = (props) => {
   const [waitingMsg, setWaitingMsg] = useState(false);
   const address = useAddress();
 
-  // Handle Medi API call
   const handleMediConnect = async () => {
-    try {
-      let initiateLogin = await Login.initiateLogin(address);
-      // console.log(initiateLogin);
-      if (initiateLogin?.status === 200 || initiateLogin?.status === 201) {
-        let msgToSign = initiateLogin?.data?.messageToSign;
-        if (msgToSign && msgToSign != "") {
-          // Todo: sign the message and call verify sign API
-        }
-      } else {
-        // Show error message
-        toast.error(initiateLogin?.message, {
-          position: "bottom-right",
-          autoClose: 3000,
-        });
-      }
-    } catch (error) {
-      toast.error("Could not complete the sign in process! please try again!", {
-        position: "bottom-right",
-        autoClose: 3000,
-      });
-    }
-  };
-
-  const handleMediConnectOld = async () => {
-    const message = "Please confirm to connect to Medi API Services"; // Message to show at the time of signing
+    const message = "Please confirm to connect to Medi API Services at " + Date.now(); // Message to show at the time of signing
 
     try {
       const signature = await sdk.wallet.sign(message); // Signing message using wallet
@@ -47,15 +22,23 @@ const MediConnect = (props) => {
       if (signature && signature != undefined) {
         setSignature(signature);
 
-        // Simulate API call by waiting few seconds
-        // TODO: Integrate Medi API with the signature
-        setTimeout(() => {
-          setWaitingMsg(false);
-          toast.success("You have connected to Medi succesfully!", {
+        try {
+          let login = await Login.login(address, message, signature);
+          if (login?.status === 200 || login?.status === 201) {
+            setWaitingMsg(false);
+          } else {
+            // Show error message
+            toast.error(login?.message, {
+              position: "bottom-right",
+              autoClose: 3000,
+            });
+          }
+        } catch (error) {
+          toast.error("Could not complete the sign in process! please try again!", {
             position: "bottom-right",
             autoClose: 3000,
           });
-        }, 3000);
+        }
       } else {
         toast.error("Could not sign! Please try again!", {
           position: "bottom-right",

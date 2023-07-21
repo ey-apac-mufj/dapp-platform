@@ -4,10 +4,10 @@ import { apiurl } from "../../const/yourDetails";
 // const cookies = new Cookies();
 
 class Login {
-  initiateLogin = async (walletAddress) => {
+  login = async (walletAddress, message, signature) => {
     // const token = cookies.get("token"); // get token from cookie when sending JWT in API request header
     try {
-      let initiateLogin = await fetch(`${apiurl}/login/initiate`, {
+      let login = await fetch(`${apiurl}/site/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -16,10 +16,12 @@ class Login {
         },
         body: JSON.stringify({
           walletAddress: walletAddress,
+          message: message,
+          signature: signature,
         }),
       });
-      let initiateLoginRes = await initiateLogin.json();
-      return initiateLoginRes;
+      let loginRes = await login.json();
+      return loginRes;
     } catch (error) {
       return {
         message: "Something went wrong! Please try again.",
