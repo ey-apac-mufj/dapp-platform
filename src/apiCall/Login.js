@@ -7,7 +7,7 @@ class Login {
   login = async (walletAddress, message, signature) => {
     // const token = cookies.get("token"); // get token from cookie when sending JWT in API request header
     try {
-      let login = await fetch(`${apiurl}/site/login`, {
+      let login = await fetch(`${apiurl}/api/verify_user`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
