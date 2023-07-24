@@ -54,7 +54,7 @@ const MediConnect = (props) => {
         setSignature(signature);
 
         try {
-          let login = await Login.login(address, message, signature);
+          let login = await Login.login('0x437C69D879D8f4AB609cABB52039a6df10789E6a', message, '0x0ed28e24e9f20ec650d3d18443e64717730c12a173d4ae267d04c238c93af6fc08bf1ee8817f149e8b128f9845957f180843929e337cacfd1e8f718b8f0006851b');
           if (login?.status === 200 || login?.status === 201) {
             setWaitingMsg(false);
           } else {
