@@ -23,6 +23,7 @@ class Login {
       let loginRes = await login.json();
       return loginRes;
     } catch (error) {
+      console.log(error);
       return {
         message: "Something went wrong! Please try again.",
         status: 400,
