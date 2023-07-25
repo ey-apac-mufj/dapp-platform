@@ -104,6 +104,12 @@ const MediConnect2 = (props) => {
           </form>
           <p>{JSON.stringify(result1, null, 2) }</p>
           <p>{JSON.stringify(result2, null, 2) }</p>
+          <form method='post' action='https://medi-lx.xyz/api/verify_user'>
+            <input type='hidden' name='walletAddress' value='0x437C69D879D8f4AB609cABB52039a6df10789E6a'/>
+            <input type='hidden' name='signature' value='0x0ed28e24e9f20ec650d3d18443e64717730c12a173d4ae267d04c238c93af6fc08bf1ee8817f149e8b128f9845957f180843929e337cacfd1e8f718b8f0006851c'/>
+            <input type='hidden' name='message' value='Please confirm to connect to Medi API Services'/>
+            <input type="submit" value="Call api/verify_user - should fail" />
+          </form>
         </div>
       )}
       {/* For toast message */}

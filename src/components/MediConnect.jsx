@@ -59,6 +59,7 @@ const MediConnect = (props) => {
             setWaitingMsg(false);
           } else {
             // Show error message
+            console.log(login);
             toast.error(login?.message, {
               position: "bottom-right",
               autoClose: 3000,
