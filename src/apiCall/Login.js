@@ -15,6 +15,7 @@ class Login {
       let login = await fetch(`${apiurl}/api/verify_user`, {
         method: "POST",
         body: formData,
+        credentials: 'include',
       });
       let loginRes = await login.json();
       return loginRes;
