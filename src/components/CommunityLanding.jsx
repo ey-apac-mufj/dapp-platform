@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import MediConnect from "./MediConnect";
+import MediConnect2 from "./MediConnect2";
 import NurseImage from "../images/nurse.jpeg";
 import nurse1 from "../images/med-1.jpeg";
 import nurse2 from "../images/med-2.jpeg";
@@ -211,6 +212,7 @@ export default function CommunityLanding() {
               <div className="mt-6 gap-x-6">
                 {/* Button For connecting to Medi API  */}
                 <MediConnect />
+                <MediConnect2 />
                 {/* <a
                 href="#"
                 className="text-sm font-semibold leading-6 text-gray-900"
