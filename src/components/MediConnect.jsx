@@ -43,6 +43,20 @@ const MediConnect = (props) => {
 
   },[]);
 
+  const handleMediLogout = async () => {
+    let logout = await fetch('https://medi-lx.xyz/api/logout', {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: 'POST',
+      credentials: 'include',
+    });
+    let logoutRes = await logout.json();
+    setSignature(null);
+    console.log('--------------------------------------');
+    console.log(logoutRes);
+  }
+
   const handleMediConnect = async () => {
     const message = "Please confirm to connect to Medi API Services at " + Date.now(); // Message to show at the time of signing
 
@@ -88,6 +102,7 @@ const MediConnect = (props) => {
     <div>
       {signature && signature != null ? (
         // If signature present, show Refer Curriculum button
+        <div>
         <button
           href="#"
           disabled={waitingMsg}
@@ -106,6 +121,16 @@ const MediConnect = (props) => {
             </>
           )}
         </button>
+        <button
+          onClick={handleMediLogout}
+          href="#"
+          className={
+            "bg-indigo-600 font-thin hover:bg-indigo-500 rounded-3xl px-3.5 py-2.5 text-sm text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          }
+        >
+          Logout
+        </button>
+        </div>
       ) : (
         <div>
         <button
