@@ -48,7 +48,7 @@ const MediConnect = (props) => {
       headers: {
         "Content-Type": "application/json",
       },
-      method: 'POST',
+      method: 'GET',
       credentials: 'include',
     });
     let logoutRes = await logout.json();
