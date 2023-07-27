@@ -35,7 +35,7 @@ const MediConnect = (props) => {
       }
     }
 
-    fetchData('GET', 'https://medi-lx.xyz/api.php', setResult1)
+    fetchData('GET', 'https://medi-lx.xyz/api/get_talent/' + address, setResult1)
     .catch(console.error);
 
     fetchData('GET', 'https://medi-lx.xyz/api/get_talents', setResult2)

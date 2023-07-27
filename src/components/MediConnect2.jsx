@@ -8,7 +8,6 @@ const MediConnect2 = (props) => {
   const sdk = useSDK(); // Get SDK
   const [signature, setSignature] = useState(null);
   const [waitingMsg, setWaitingMsg] = useState(false);
-  const [result1, setResult1] = useState('Waiting for result1');
   const [result2, setResult2] = useState('Waiting for result2');
 
   useEffect(() => {
@@ -30,9 +29,6 @@ const MediConnect2 = (props) => {
         console.log(error);
       }
     }
-
-    fetchData('GET', 'https://medi-lx.xyz/api.php', setResult1)
-    .catch(console.error);
 
     fetchData('GET', 'https://medi-lx.xyz/api/get_user', setResult2)
     .catch(console.error);
@@ -102,7 +98,6 @@ const MediConnect2 = (props) => {
             <input type='hidden' name='message' value='Please confirm to connect to Medi API Services'/>
             <input type="submit" value="Call api/verify_user" />
           </form>
-          <p>{JSON.stringify(result1, null, 2) }</p>
           <p>{JSON.stringify(result2, null, 2) }</p>
           <form method='post' action='https://medi-lx.xyz/api/verify_user'>
             <input type='hidden' name='walletAddress' value='0x437C69D879D8f4AB609cABB52039a6df10789E6a'/>
