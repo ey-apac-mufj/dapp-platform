@@ -17,11 +17,11 @@ export default function StudentThumbnail({ student, onHire }) {
     <div className="rounded-lg shadow-xl h-full w-full cursor-pointer bg-white pt-2">
       <img src={student.image} alt="" className="mx-auto h-40" />
       <div className="text-center px-4 py-4">
-        <h5 className="my-1 font-bold text-xl">{student.name}</h5>
-        <h5 className="my-1">{student.bio}</h5>
+        <h5 className="my-1 font-bold text-xl">{student.userName}</h5>
+        <h5 className="my-1">{student.age}</h5>
         <h5 className="my-2">
           {" "}
-          {student.walletAddress}{" "}
+          {student.walletAddress.substring(0, 8) + '...' + student.walletAddress.substring(student.walletAddress.length - 4)}{" "}
           <span
             className="px-1 py-1 bg-gray-200 rounded-lg"
             onClick={() => copyText(student.walletAddress)}

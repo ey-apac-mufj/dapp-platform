@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ConnectWalletButton from "../components/ConnectWalletButton";
 import CustomModal from "../components/CustomModal";
 import StudentThumbnail from "../components/StudentThumbnail";
@@ -11,6 +11,8 @@ import { useSDK } from "@thirdweb-dev/react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { apiurl } from "../../const/yourDetails";
+
 
 import {
   stablecoinAddress,
@@ -33,8 +35,32 @@ export default function StudentList() {
   const navigate = useNavigate();
 
   const imgArr = [Student1, Student2, Student3, Student4];
+  const [students, setStudents] = useState([]);
 
   const [inputs, setInputs] = useState({}); // For form
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let getData = await fetch(`${apiurl}/api/get_talents`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: 'GET',
+          credentials: 'include',
+        });
+        let getDataRes = await getData.json();
+        console.log('--------------------------------------');
+        console.log('getDataRes ',  getDataRes);
+        if (getDataRes.status === 200) {
+          setStudents(getDataRes.data);
+        }
+      } catch (error) {
+        console.log('checkLogInStatus error ', error);
+      }
+    }
+    fetchData();
+  },[]);
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -102,7 +128,7 @@ export default function StudentList() {
       </div>
       <hr className="h-1 bg-gray-500" />
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mx-auto mt-8">
-        {StudentData.students.map((student, i) => {
+        {students.map((student, i) => {
           student.image = imgArr[i];
           return <StudentThumbnail student={student} onHire={onHire} key={i} />;
         })}
