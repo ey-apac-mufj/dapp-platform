@@ -8,6 +8,8 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 export default function Landing() {
+  // const apiKey = process.env.REACT_APP_API_KEY;
+  console.log("hey man", import.meta.env.VITE_SOME_KEY);
   return (
     <>
       <Header />
