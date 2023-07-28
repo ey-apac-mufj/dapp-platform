@@ -29,6 +29,8 @@ const MediConnect = (props) => {
       console.log('getUserRes ',  getUserRes);
       if (getUserRes.status === 200) {
         setLoggedInStatus(true);
+      } else {
+        setLoggedInStatus(false);
       }
     } catch (error) {
       console.log('checkLogInStatus error ', error);
@@ -68,7 +70,7 @@ const MediConnect = (props) => {
     fetchData('GET', 'https://medi-lx.xyz/api/get_talents', setResult2)
     .catch(console.error);
 
-  },[]);
+  },[loggedInStatus]);
 
   const handleMediLogout = async () => {
     let logout = await fetch('https://medi-lx.xyz/api/logout', {
