@@ -5,12 +5,39 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Login from "../apiCall/Login";
 import { useAddress } from "@thirdweb-dev/react";
+import { apiurl } from "../../const/yourDetails";
+
 
 const MediConnect = (props) => {
   const sdk = useSDK(); // Get SDK
   const [signature, setSignature] = useState(null);
   const [waitingMsg, setWaitingMsg] = useState(false);
+  const [loggedInStatus, setLoggedInStatus] = useState(false);
   const address = useAddress();
+
+  const checkLogInStatus = async () => {
+    try {
+      let getUser = await fetch(`${apiurl}/api/get_user`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: 'GET',
+        credentials: 'include',
+      });
+      let getUserRes = await getUser.json();
+      console.log('--------------------------------------');
+      console.log('getUserRes ',  getUserRes);
+      if (getUserRes.status === 200) {
+        setLoggedInStatus(true);
+      }
+    } catch (error) {
+      console.log('checkLogInStatus error ', error);
+    }
+  }
+  useEffect(() => {
+    checkLogInStatus();
+  },[]);
+
 
   // Test code
   const [result1, setResult1] = useState('Waiting for result1');
@@ -55,6 +82,7 @@ const MediConnect = (props) => {
     setSignature(null);
     console.log('--------------------------------------');
     console.log(logoutRes);
+    checkLogInStatus();
   }
 
   const handleMediConnect = async () => {
@@ -71,6 +99,7 @@ const MediConnect = (props) => {
           let login = await Login.login(address, message, signature);
           if (login?.status === 200 || login?.status === 201) {
             setWaitingMsg(false);
+            setLoggedInStatus(true);
           } else {
             // Show error message
             console.log(login);
@@ -100,7 +129,7 @@ const MediConnect = (props) => {
   };
   return (
     <div>
-      {signature && signature != null ? (
+      {loggedInStatus ? (
         // If signature present, show Refer Curriculum button
         <div>
         <button
@@ -132,7 +161,6 @@ const MediConnect = (props) => {
         </button>
         </div>
       ) : (
-        <div>
         <button
           onClick={handleMediConnect}
           href="#"
@@ -142,11 +170,12 @@ const MediConnect = (props) => {
         >
           Connect Medi Account
         </button>
-        <p>{JSON.stringify(result1, null, 2) }</p>
-        <p>{JSON.stringify(result2, null, 2) }</p>
-        </div>
       )}
       {/* For toast message */}
+      <div>
+        <p>{JSON.stringify(result1, null, 2) }</p>
+        <p>{JSON.stringify(result2, null, 2) }</p>
+      </div>
       <ToastContainer className="z-60" />
     </div>
   );
