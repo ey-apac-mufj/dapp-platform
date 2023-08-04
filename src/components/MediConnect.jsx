@@ -102,6 +102,8 @@ const MediConnect = (props) => {
           if (login?.status === 200 || login?.status === 201) {
             setWaitingMsg(false);
             setLoggedInStatus(true);
+          } else if (login?.status === 404) {
+            window.location.href = 'https://medi-lx.xyz/site/login.html';
           } else {
             // Show error message
             console.log(login);
@@ -174,10 +176,10 @@ const MediConnect = (props) => {
         </button>
       )}
       {/* For toast message */}
-      <div>
+      {/* <div>
         <p>{JSON.stringify(result1, null, 2) }</p>
         <p>{JSON.stringify(result2, null, 2) }</p>
-      </div>
+      </div> */}
       <ToastContainer className="z-60" />
     </div>
   );
