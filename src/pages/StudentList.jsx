@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ConnectWalletButton from "../components/ConnectWalletButton";
 import CustomModal from "../components/CustomModal";
 import StudentThumbnail from "../components/StudentThumbnail";
@@ -12,6 +12,10 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { apiurl } from "../../const/yourDetails";
+import OfferAPI from "../apiCall/OfferAPI";
+import {
+  useAddress,
+} from "@thirdweb-dev/react";
 
 
 import {
@@ -28,6 +32,7 @@ import {
 
 export default function StudentList() {
   const sdk = useSDK(); // Get SDK
+  const address = useAddress();
   const [signature, setSignature] = useState(null);
   const [open, setOpen] = useState(false); // For modal
   const onOpenModal = () => setOpen(true);
@@ -36,8 +41,53 @@ export default function StudentList() {
 
   const imgArr = [Student1, Student2, Student3, Student4];
   const [students, setStudents] = useState([]);
+  const [studentWalletAddress, setStudentWalletAddress] = useState('');
 
-  const [inputs, setInputs] = useState({}); // For form
+  const [inputs, _setInputs] = useState({}); // For form
+  const inputsRef = useRef(inputs);
+  const setInputs = data => {
+    inputsRef.current = data;
+    _setInputs(data);
+  }
+
+  useEffect(() => {
+    const subscribe = async () => {
+      const splitMainContract = await sdk.getContract(
+        splitMainAddress,
+        splitABI
+      );
+
+      const unsubscribe = splitMainContract.events.addEventListener(
+        "CreateOffer",
+        async (event) => {
+          console.log('CreateOffer event', event);
+          const offerIndex = event.data._offerIndex._hex;
+          const creator = event.data._creator;
+          const trigger = event.data._trigger;
+          if (creator == address) {
+            responseToEvent = false;
+            try {
+              console.log('inputsRef.current', inputsRef.current);
+              await OfferAPI.createOffer(offerIndex, trigger, inputsRef.current.jobDescription);
+              toast.success("Your transaction is Successful!", {
+                position: "bottom-right",
+                autoClose: 3000,
+              });
+            } catch (error) {
+              console.log('CreateOffer error ', error);
+              toast.error("Problem occurs!", {
+                position: "bottom-right",
+                autoClose: 3000,
+              });
+            } finally {
+              onCloseModal();
+            }
+          }
+        },
+      );
+    }
+    subscribe();
+  },[]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,7 +106,7 @@ export default function StudentList() {
           setStudents(getDataRes.data);
         }
       } catch (error) {
-        console.log('checkLogInStatus error ', error);
+        console.log('get_talents error ', error);
       }
     }
     fetchData();
@@ -65,7 +115,7 @@ export default function StudentList() {
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    setInputs((values) => ({ ...values, [name]: value }));
+    setInputs({[name]: value });
   };
 
   const onHireSubmit = async (e) => {
@@ -96,21 +146,22 @@ export default function StudentList() {
         const data = await splitMainContract.call("createOfferAndDeposit", [
           splitDestinations,
           percentAllocations,
-          nurseAddress,
+          studentWalletAddress,
           depositAmount,
         ]);
-        onCloseModal();
-        toast.success("Your transaction is Successful!", {
-          position: "bottom-right",
-          autoClose: 3000,
-        });
       }
     } catch (error) {
-      console.log(error);
+      console.log('onHireSubmit ', error);
+      onCloseModal();
+      toast.error("Your transaction failed!", {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
     }
   };
 
-  const onHire = () => {
+  const onHire = (studentWalletAddress) => {
+    setStudentWalletAddress(studentWalletAddress);
     // console.log("on hire");
     onOpenModal();
   };
@@ -140,30 +191,6 @@ export default function StudentList() {
       >
         <form method="POST" onSubmit={onHireSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto text-left mt-8">
-            <div>
-              <label>Company Name</label>
-              <input
-                name="companyName"
-                value={inputs.companyName || ""}
-                onChange={handleChange}
-                placeholder="Enter Company Name"
-                type="text"
-                className="form-control"
-                required
-              />
-            </div>
-            <div>
-              <label>Salary</label>
-              <input
-                name="salary"
-                value={inputs.salary || ""}
-                onChange={handleChange}
-                type="text"
-                placeholder="Enter Salary details"
-                className="form-control"
-                required
-              />
-            </div>
             <div className="col-span-1 md:col-span-2">
               <label>Job Description</label>
               <textarea
