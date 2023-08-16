@@ -24,7 +24,6 @@ import {
   splitDestinations,
   splitPercentages,
   platformAddress,
-  nurseAddress,
   depositAmount,
   splitABI,
   stablecoinABI,

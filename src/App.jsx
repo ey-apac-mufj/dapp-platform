@@ -6,6 +6,8 @@ import CommunityHome from "./pages/CommunityHome";
 import ContractDeposit from "./pages/ContractDeposit";
 import Landing from "./pages/Landing";
 import NurseOffers from "./pages/NurseOffers";
+import OfferDetail from "./pages/OfferDetail";
+
 import StudentList from "./pages/StudentList";
 import "./styles/Home.css";
 
@@ -26,6 +28,10 @@ function App() {
           <Route
             path="/deposit-contract/:splitAddress"
             element={<ContractDeposit />}
+          />
+          <Route
+            path="/offers/:offerId"
+            element={<OfferDetail />}
           />
           <Route path="/nurse-offers" element={<NurseOffers />} />
         </Routes>

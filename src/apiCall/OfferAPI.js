@@ -2,6 +2,32 @@ import { apiurl } from "../../const/yourDetails";
 
 
 class OfferAPI {
+  statusToString = (status) => {
+    if (status === 0) {
+      return 'Open'
+    } else if (status === 1) {
+      return 'Close'
+    } else if (status === 2) {
+      return 'Accept'
+    } else if (status === 3) {
+      return 'Decline'
+    } else {
+      return 'Unknown'
+    }
+  }
+  contractToMediStatus = (status) => {
+    if (status === 0) {
+      return 10
+    } else if (status === 1) {
+      return 99
+    } else if (status === 2) {
+      return 100
+    } else if (status === 3) {
+      return 999
+    } else {
+      return 'Unknown'
+    }
+  }
   createOffer = async (offerID, talentWalletAddress, offerDetail) => {
     try {
       let formData = new FormData();
@@ -36,7 +62,7 @@ class OfferAPI {
       let responseJson = await response.json();
       return responseJson;
     } catch (error) {
-      console.log('getOffer ', error);
+      console.log('getOffer API call error', error);
       return {
         message: "Something went wrong! Please try again.",
         status: 400,
@@ -57,7 +83,7 @@ class OfferAPI {
       let responseJson = await response.json();
       return responseJson;
     } catch (error) {
-      console.log('modifyOffer ', error);
+      console.log('modifyOffer API call error', error);
       return {
         message: "Something went wrong! Please try again.",
         status: 400,

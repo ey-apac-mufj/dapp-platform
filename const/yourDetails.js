@@ -24,7 +24,6 @@ export const splitDestinations = [
   "0x490C1E2Fd1b5005ccdE3458B036b50fbF3704870",
 ];
 export const splitPercentages = [0.2, 0.3, 0.5];
-export const nurseAddress = "0x7781197f34A658688E207a9f11F54a6e5E583F51";
 export const depositAmount = "10000000000000000000";
 
 export const splitABI = [
@@ -321,7 +320,13 @@ export const splitABI = [
     "type": "function"
   },
   {
-    "inputs": [],
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      }
+    ],
     "name": "getCreatedOffers",
     "outputs": [
       {
@@ -346,12 +351,75 @@ export const splitABI = [
         "type": "uint256"
       }
     ],
+    "name": "getOffer",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "creator",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "trigger",
+        "type": "address"
+      },
+      {
+        "internalType": "enum SplitUpgradeable.OfferStatus",
+        "name": "status",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_offerIndex",
+        "type": "uint256"
+      }
+    ],
     "name": "getOfferStatus",
     "outputs": [
       {
         "internalType": "enum SplitUpgradeable.OfferStatus",
         "name": "status",
         "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      }
+    ],
+    "name": "getOffers",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "offerIndices",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "address[]",
+        "name": "creators",
+        "type": "address[]"
+      },
+      {
+        "internalType": "address[]",
+        "name": "triggers",
+        "type": "address[]"
+      },
+      {
+        "internalType": "enum SplitUpgradeable.OfferStatus[]",
+        "name": "status",
+        "type": "uint8[]"
       }
     ],
     "stateMutability": "view",
@@ -396,7 +464,13 @@ export const splitABI = [
     "type": "function"
   },
   {
-    "inputs": [],
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      }
+    ],
     "name": "getReceivedOffers",
     "outputs": [
       {
