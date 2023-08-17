@@ -7,6 +7,7 @@ import {
   useAddress,
 } from "@thirdweb-dev/react";
 import { Link } from 'react-router-dom';
+import OfferAPI from "../apiCall/OfferAPI";
 
 
 import {
@@ -24,6 +25,7 @@ export default function OfferList() {
   const address = useAddress();
 
   const [offers, setOffers] = useState([]);
+  const [mediOffers, setMediOffers] = useState({});
 
   async function getOffers() {
     if (address) {
@@ -35,7 +37,7 @@ export default function OfferList() {
         ]
       );
       setOffers(_offers);
-      console.log(offers);
+      console.log(_offers);
     };
   }
 
@@ -43,12 +45,27 @@ export default function OfferList() {
     getOffers();
   }, [address]);
 
+  async function getMediOffers() {
+    if (offers.length > 0) {
+      for (const offerID of offers[0]) {
+        const res = await OfferAPI.getOffer(offerID._hex);
+        if (res.status === 200) {
+          console.log('res', res)
+          setMediOffers((values) => ({ ...values, [offerID._hex]: res.data }));
+        }
+      }
+    }
+  }
+
+  useEffect(() => {
+    getMediOffers();
+  }, [offers]);
 
   function OfferItem(props) {
     const id = props.id;
     return <li><Link to={`/offers/${id}`}>OfferID: {id}</Link>
-        <p>From: {offers[1][props.index]}</p>
-        <p>To: {offers[2][props.index]}</p>
+        { offers[1][props.index] != address && <p>From: {offers[1][props.index]}, { mediOffers[id] && mediOffers[id].hospitalName } </p> }
+        { offers[2][props.index] != address && <p>To: {offers[2][props.index]}, { mediOffers[id] && mediOffers[id].talentName }</p> }
         <p>Status: {offers[3][props.index]}</p>
       </li>
   }
