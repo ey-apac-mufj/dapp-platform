@@ -19,7 +19,7 @@ import {
 } from "../../const/yourDetails";
 
 
-export default function NurseOffers() {
+export default function OfferList() {
   const sdk = useSDK(); // Get SDK
   const address = useAddress();
 
