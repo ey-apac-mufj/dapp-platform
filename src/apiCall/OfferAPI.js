@@ -72,8 +72,13 @@ class OfferAPI {
   modifyOffer = async (offerID, offerStatus, offerDetail) => {
     try {
       let formData = new FormData();
-      formData.append('offerStatus', offerStatus);
-      formData.append('offerDetail', offerDetail);
+      formData.append('offerID', offerID);
+      if (offerStatus) {
+        formData.append('offerStatus', offerStatus);
+      }
+      if (offerDetail) {
+        formData.append('offerDetail', offerDetail);
+      }
 
       let response = await fetch(`${apiurl}/api/modify_offer/${offerID}`, {
         method: "POST",
