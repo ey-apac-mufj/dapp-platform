@@ -64,9 +64,7 @@ export default function StudentList() {
           const creator = event.data._creator;
           const trigger = event.data._trigger;
           if (creator == address) {
-            responseToEvent = false;
             try {
-              console.log('inputsRef.current', inputsRef.current);
               await OfferAPI.createOffer(offerIndex, trigger, inputsRef.current.jobDescription);
               toast.success("Your transaction is Successful!", {
                 position: "bottom-right",
