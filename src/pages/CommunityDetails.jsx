@@ -14,7 +14,7 @@ import PurchaseNFT from "../components/PurchaseNFT";
 
 export default function CommunityDetails() {
   const address = useAddress(); // Provided by thirdweb for getting connected wallet address
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { contract: editionDropContract } = useContract(editionDropAddress); // Dummy NFT details
 
   // fetch NFT details
@@ -44,7 +44,8 @@ export default function CommunityDetails() {
         <div className="text-center mt-8 font-bold text-2xl">
           Loading... Please wait...
         </div>
-      ) : ownedNfts && ownedNfts?.length > 0 ? (
+      // ) : ownedNfts && ownedNfts?.length > 0 ? (
+      ) : true ? (
         // Commmunity landing Component
         <CommunityLanding />
       ) : (
