@@ -182,14 +182,14 @@ export default function OfferDetail() {
           <p>Detail:</p>
           <p>{ offer && offer.offerDetail  }</p>
 
-          { onChainOffer[0] != address && (
+          { onChainOffer[0] != address && onChainOffer[2] === 0 && (
             <div>
               <button className="bg-indigo-600" onClick={acceptOffer}>Accept</button>
               <button className="bg-indigo-600" onClick={declineOffer}>Decline</button>
             </div>
           ) }
 
-          { onChainOffer[1] != address && (
+          { onChainOffer[1] != address && onChainOffer[2] === 0 && (
             <div>
               <button className="bg-indigo-600" onClick={onOpenModal}>Update</button>
               <button className="bg-indigo-600" onClick={closeOffer}>Close</button>
@@ -216,7 +216,7 @@ export default function OfferDetail() {
                 rows="3"
                 placeholder="Enter Job Description"
                 name="jobDescription"
-                value={inputs.jobDescription || offer && offer.offerDetail}
+                value={inputs.jobDescription || offer && offer.offerDetail || ''}
                 onChange={handleChange}
                 required
               />
