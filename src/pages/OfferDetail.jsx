@@ -3,9 +3,7 @@ import ConnectWalletButton from "../components/ConnectWalletButton";
 import Offer from "../components/Offer";
 import jsonData from "../data.json";
 import { useSDK } from "@thirdweb-dev/react";
-import {
-  useAddress,
-} from "@thirdweb-dev/react";
+import { useAddress } from "@thirdweb-dev/react";
 import OfferAPI from "../apiCall/OfferAPI";
 import Login from "../apiCall/Login";
 import { useParams } from "react-router-dom";
@@ -13,16 +11,14 @@ import CustomModal from "../components/CustomModal";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
 import {
   splitMainAddress,
   splitDestinations,
   splitPercentages,
   stablecoinAddress,
   platformAddress,
-  splitABI
+  splitABI,
 } from "../../const/yourDetails";
-
 
 export default function OfferDetail() {
   let { offerId } = useParams();
@@ -41,21 +37,19 @@ export default function OfferDetail() {
 
   async function getOffer() {
     if (offerId) {
-      const splitMainContract = await sdk.getContract(splitMainAddress, splitABI);
-      const offerOnChain = await splitMainContract.call(
-        "getOffer",
-        [
-          offerId
-        ]
+      const splitMainContract = await sdk.getContract(
+        splitMainAddress,
+        splitABI
       );
-      console.log('offer on blockchain', offerOnChain);
+      const offerOnChain = await splitMainContract.call("getOffer", [offerId]);
+      console.log("offer on blockchain", offerOnChain);
       setOnChainOffer(offerOnChain);
       const res = await OfferAPI.getOffer(offerId);
       if (res.status === 200) {
         setOffer(res.data);
         console.log(res.data);
       } // otherwise Medi API returns { status: 404, data: [], message: "not_offer_error" }
-    };
+    }
   }
   useEffect(() => {
     getOffer();
@@ -64,14 +58,13 @@ export default function OfferDetail() {
   const getUser = async () => {
     const res = await Login.getUser();
     if (res.status === 200) {
-      setUser(res.data)
-      console.log(res.data)
+      setUser(res.data);
+      console.log(res.data);
     }
-  }
+  };
   useEffect(() => {
     getUser();
-  },[]);
-
+  }, []);
 
   const openToast = (res, successStatus, operationName) => {
     if (res.status === successStatus) {
@@ -85,60 +78,61 @@ export default function OfferDetail() {
         autoClose: 3000,
       });
     }
-  }
+  };
 
-  const updateOffer = async (offerDetail) => {
-
-  }
+  const updateOffer = async (offerDetail) => {};
 
   const acceptOffer = async () => {
     try {
-      const splitMainContract = await sdk.getContract(splitMainAddress, splitABI);
-      const data = await splitMainContract.call(
-        "accept",
-        [
-          offerId,
-        ]
+      const splitMainContract = await sdk.getContract(
+        splitMainAddress,
+        splitABI
       );
-      const res = await OfferAPI.modifyOffer(offerId, OfferAPI.contractToMediStatus(2));
-      openToast(res, 200, 'Accept offer')
+      const data = await splitMainContract.call("accept", [offerId]);
+      const res = await OfferAPI.modifyOffer(
+        offerId,
+        OfferAPI.contractToMediStatus(2)
+      );
+      openToast(res, 200, "Accept offer");
       getOffer(); // refetch data
     } catch (error) {
-      console.log('acceptOffer error', error)
+      console.log("acceptOffer error", error);
     }
   };
 
   const declineOffer = async () => {
     try {
-      const splitMainContract = await sdk.getContract(splitMainAddress, splitABI);
-      const data = await splitMainContract.call(
-        "decline",
-        [
-          offerId,
-        ]
+      const splitMainContract = await sdk.getContract(
+        splitMainAddress,
+        splitABI
       );
-      const res = await OfferAPI.modifyOffer(offerId, OfferAPI.contractToMediStatus(3));
-      openToast(res, 200, 'Decline offer')
+      const data = await splitMainContract.call("decline", [offerId]);
+      const res = await OfferAPI.modifyOffer(
+        offerId,
+        OfferAPI.contractToMediStatus(3)
+      );
+      openToast(res, 200, "Decline offer");
       getOffer(); // refetch data
     } catch (error) {
-      console.log('declineOffer error', error)
+      console.log("declineOffer error", error);
     }
   };
 
   const closeOffer = async () => {
     try {
-      const splitMainContract = await sdk.getContract(splitMainAddress, splitABI);
-      const data = await splitMainContract.call(
-        "close",
-        [
-          offerId,
-        ]
+      const splitMainContract = await sdk.getContract(
+        splitMainAddress,
+        splitABI
       );
-      const res = await OfferAPI.modifyOffer(offerId, OfferAPI.contractToMediStatus(1));
-      openToast(res, 200, 'Close offer')
+      const data = await splitMainContract.call("close", [offerId]);
+      const res = await OfferAPI.modifyOffer(
+        offerId,
+        OfferAPI.contractToMediStatus(1)
+      );
+      openToast(res, 200, "Close offer");
       getOffer(); // refetch data
     } catch (error) {
-      console.log('closeOffer error', error)
+      console.log("closeOffer error", error);
     }
   };
 
@@ -147,16 +141,24 @@ export default function OfferDetail() {
 
     try {
       if (offer) {
-        const res = await OfferAPI.modifyOffer(offerId, OfferAPI.contractToMediStatus(onChainOffer[2]), inputs.jobDescription);
-        openToast(res, 200, 'Modify offer');
+        const res = await OfferAPI.modifyOffer(
+          offerId,
+          OfferAPI.contractToMediStatus(onChainOffer[2]),
+          inputs.jobDescription
+        );
+        openToast(res, 200, "Modify offer");
       } else {
-        const res = await OfferAPI.createOffer(offerId, onChainOffer[1], inputs.jobDescription);
-        openToast(res, 200, 'Create offer');
+        const res = await OfferAPI.createOffer(
+          offerId,
+          onChainOffer[1],
+          inputs.jobDescription
+        );
+        openToast(res, 200, "Create offer");
       }
       onCloseModal();
       getOffer();
     } catch (error) {
-      console.log('onUpdateOffer ', error);
+      console.log("onUpdateOffer ", error);
       toast.error("Update offer failed!", {
         position: "bottom-right",
         autoClose: 3000,
@@ -170,42 +172,116 @@ export default function OfferDetail() {
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
+  const showButton = (onClickFun, ifDisabled, text, btnColor) => {
+    return (
+      <button
+        className={`px-3 py-2 rounded-lg cursor-pointer ml-3 ${btnColor}`}
+        onClick={onClickFun}
+        disabled={ifDisabled}
+      >
+        {text}
+      </button>
+    );
+  };
+
   return (
     <div className="container text-center mx-auto px-5 md:px-40 py-5 justify-center">
-      <h5 className="font-medium text-2xl">My Offers</h5>
+      <h5 className="font-medium text-2xl">Offer Details</h5>
       <div className="mx-auto mt-4">
         <ConnectWalletButton customClass="connectWalletButton" />
       </div>
       <hr className="h-1 bg-gray-500" />
-
-      {
-        onChainOffer && address ? (
-          <div>
-          { onChainOffer[0] != address && <p>From: {onChainOffer[0]}, { offer && offer.hospitalName } </p> }
-          { onChainOffer[1] != address && <p>To: {onChainOffer[1]}, { offer && offer.talentName }</p> }
-          <p>Status: {  OfferAPI.statusToString(onChainOffer[2]) }</p>
-          <p>Detail:</p>
-          <p>{ offer && offer.offerDetail  }</p>
-
-          { onChainOffer[0] != address && (
-            <div>
-              <button className="bg-indigo-600" onClick={acceptOffer} disabled={onChainOffer[2] != 0}>Accept</button>
-              <button className="bg-indigo-600" onClick={declineOffer} disabled={onChainOffer[2] != 0}>Decline</button>
+      {onChainOffer && address ? (
+        <div className="white-card-div mt-4">
+          <div className="flex flex-col md:flex-row gap-3">
+            {onChainOffer[0] != address && (
+              <div className="text-left break-words mx-right md:mx-auto">
+                <h3 className="text-xl font-medium">Offer Sender: </h3>
+                <h6>
+                  <span className="font-medium">Address: </span>
+                  {onChainOffer[0]}
+                </h6>
+                <h6>
+                  <span className="font-medium">Name: </span>{" "}
+                  {offer?.hospitalName ? offer?.hospitalName : "N/A"}
+                </h6>
+              </div>
+            )}
+            {onChainOffer[1] != address && (
+              <div className="text-left break-words mx-right md:mx-auto">
+                <h3 className="text-xl font-medium">Offer Receiver: </h3>
+                <h6>
+                  <span className="font-medium">Address: </span>
+                  {onChainOffer[1]}
+                </h6>
+                <h6>
+                  <span className="font-medium">Name: </span>{" "}
+                  {offer?.talentName ? offer?.talentName : "N/A"}
+                </h6>
+              </div>
+            )}
+            <div className="text-left break-words mx-right md:mx-auto">
+              <h3 className="text-xl font-medium">Status: </h3>
+              <h6>{OfferAPI.statusToString(onChainOffer[2])}</h6>
             </div>
-          ) }
-
-          { onChainOffer[1] != address && (
-            <div>
-              <button className="bg-indigo-600" onClick={onOpenModal} disabled={onChainOffer[2] != 0}>Update</button>
-              <button className="bg-indigo-600" onClick={closeOffer} disabled={onChainOffer[2] != 0}>Close</button>
+            <div className="text-left break-words mx-right md:mx-auto">
+              <h3 className="text-xl font-medium">Details: </h3>
+              <h6>{offer?.offerDetail ? offer?.offerDetail : "N/A"}</h6>
             </div>
-          ) }
-
           </div>
-        ) : (
-          <p>Offer doesn't exist</p>
-        )
-      }
+          {onChainOffer[0] != address && (
+            <div className="mt-8">
+              {showButton(
+                acceptOffer,
+                onChainOffer[2] != 0,
+                "Accept",
+                "bg-green-600 hover:bg-green-700"
+              )}
+              {showButton(
+                declineOffer,
+                onChainOffer[2] != 0,
+                "Decline",
+                "bg-red-600 hover:bg-red-700"
+              )}
+              {/* <button
+                className="bg-indigo-600"
+                onClick={acceptOffer}
+                disabled={onChainOffer[2] != 0}
+              >
+                Accept
+              </button> */}
+              {/* <button
+                className="bg-indigo-600"
+                onClick={declineOffer}
+                disabled={onChainOffer[2] != 0}
+              >
+                Decline
+              </button> */}
+            </div>
+          )}
+
+          {onChainOffer[1] != address && (
+            <div className="mt-8">
+              {showButton(
+                onOpenModal,
+                onChainOffer[2] != 0,
+                "Update",
+                "bg-blue-600 hover:bg-blue-700 text-white"
+              )}
+              {showButton(
+                closeOffer,
+                onChainOffer[2] != 0,
+                "Close",
+                "bg-yellow-600 hover:bg-yellow-700 text-white"
+              )}
+            </div>
+          )}
+        </div>
+      ) : (
+        <div>
+          <h5 className="text-xl">Offer doesn't exist</h5>
+        </div>
+      )}
 
       <CustomModal
         open={open}
@@ -221,7 +297,9 @@ export default function OfferDetail() {
                 rows="3"
                 placeholder="Enter Job Description"
                 name="jobDescription"
-                value={inputs.jobDescription || offer && offer.offerDetail || ''}
+                value={
+                  inputs.jobDescription || (offer && offer.offerDetail) || ""
+                }
                 onChange={handleChange}
                 required
               />

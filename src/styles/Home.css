@@ -30,6 +30,10 @@
   @apply bg-white text-black rounded-lg shadow-xl h-full w-full px-5 py-5 cursor-pointer hover:bg-gray-200;
 }
 
+.white-card-div{
+  @apply bg-white text-black rounded-lg shadow-xl h-full w-full px-5 py-5;
+}
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 .scrolling::-webkit-scrollbar {
   display: none;
