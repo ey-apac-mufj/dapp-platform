@@ -187,17 +187,17 @@ export default function OfferDetail() {
           <p>Detail:</p>
           <p>{ offer && offer.offerDetail  }</p>
 
-          { onChainOffer[0] != address && onChainOffer[2] === 0 && (
+          { onChainOffer[0] != address && (
             <div>
-              <button className="bg-indigo-600" onClick={acceptOffer}>Accept</button>
-              <button className="bg-indigo-600" onClick={declineOffer}>Decline</button>
+              <button className="bg-indigo-600" onClick={acceptOffer} disabled={onChainOffer[2] != 0}>Accept</button>
+              <button className="bg-indigo-600" onClick={declineOffer} disabled={onChainOffer[2] != 0}>Decline</button>
             </div>
           ) }
 
-          { onChainOffer[1] != address && onChainOffer[2] === 0 && (
+          { onChainOffer[1] != address && (
             <div>
-              <button className="bg-indigo-600" onClick={onOpenModal}>Update</button>
-              <button className="bg-indigo-600" onClick={closeOffer}>Close</button>
+              <button className="bg-indigo-600" onClick={onOpenModal} disabled={onChainOffer[2] != 0}>Update</button>
+              <button className="bg-indigo-600" onClick={closeOffer} disabled={onChainOffer[2] != 0}>Close</button>
             </div>
           ) }
 
