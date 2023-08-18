@@ -146,8 +146,13 @@ export default function OfferDetail() {
     e.preventDefault();
 
     try {
-      const res = await OfferAPI.modifyOffer(offerId, OfferAPI.contractToMediStatus(onChainOffer[2]), inputs.jobDescription);
-      openToast(res, 200, 'Modify offer');
+      if (offer) {
+        const res = await OfferAPI.modifyOffer(offerId, OfferAPI.contractToMediStatus(onChainOffer[2]), inputs.jobDescription);
+        openToast(res, 200, 'Modify offer');
+      } else {
+        const res = await OfferAPI.createOffer(offerId, onChainOffer[1], inputs.jobDescription);
+        openToast(res, 200, 'Create offer');
+      }
       onCloseModal();
       getOffer();
     } catch (error) {
