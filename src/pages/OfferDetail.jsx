@@ -264,7 +264,7 @@ export default function OfferDetail() {
                 onChainOffer[2] != 0 ? true : false,
                 "Accept",
                 onChainOffer[2] != 0
-                  ? "bg-blue-600 text-white"
+                  ? "bg-blue-600 text-gray-300"
                   : "bg-blue-600 hover:bg-blue-700 text-white"
               )}
               {showButton(
@@ -272,7 +272,7 @@ export default function OfferDetail() {
                 onChainOffer[2] != 0 ? true : false,
                 "Decline",
                 onChainOffer[2] != 0
-                  ? "bg-red-600 text-white"
+                  ? "bg-red-600 text-gray-300"
                   : "bg-red-600 hover:bg-red-700 text-white"
               )}
               {/* <button
@@ -299,7 +299,7 @@ export default function OfferDetail() {
                 onChainOffer[2] != 0 ? true : false,
                 "Update",
                 onChainOffer[2] != 0
-                  ? "bg-blue-600 text-white"
+                  ? "bg-blue-600 text-gray-300"
                   : "bg-blue-600 hover:bg-blue-700 text-white"
               )}
               {showButton(
@@ -307,7 +307,7 @@ export default function OfferDetail() {
                 onChainOffer[2] != 0 ? true : false,
                 "Close",
                 onChainOffer[2] != 0
-                  ? "bg-yellow-600 text-white"
+                  ? "bg-yellow-600 text-gray-300"
                   : "bg-yellow-600 hover:bg-yellow-700 text-white"
               )}
             </div>

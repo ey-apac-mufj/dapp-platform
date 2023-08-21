@@ -13,10 +13,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { apiurl } from "../../const/yourDetails";
 import OfferAPI from "../apiCall/OfferAPI";
-import {
-  useAddress,
-} from "@thirdweb-dev/react";
-
+import { useAddress } from "@thirdweb-dev/react";
+import { useContractEvents, useContract } from "@thirdweb-dev/react";
 
 import {
   stablecoinAddress,
@@ -36,55 +34,87 @@ export default function StudentList() {
   const [open, setOpen] = useState(false); // For modal
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
+  const [disableButton, setDisableButton] = useState(false);
   const navigate = useNavigate();
 
   const imgArr = [Student1, Student2, Student3, Student4];
   const [students, setStudents] = useState([]);
-  const [studentWalletAddress, setStudentWalletAddress] = useState('');
+  const [studentWalletAddress, setStudentWalletAddress] = useState("");
 
   const [inputs, _setInputs] = useState({}); // For form
+  const [offerOutput, setOfferOutput] = useState(null);
+
   const inputsRef = useRef(inputs);
-  const setInputs = data => {
+  const setInputs = (data) => {
     inputsRef.current = data;
     _setInputs(data);
-  }
+  };
+
+  const callOfferAPI = async () => {
+    try {
+      let offerCreate = await OfferAPI.createOffer(
+        offerOutput.offerIndex,
+        offerOutput.trigger,
+        offerOutput.jobDescription
+      );
+      console.log(offerCreate);
+      toast.success("Your transaction is Successful!", {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
+    } catch (error) {
+      console.log("CreateOffer error ", error);
+      toast.error("Problem occurs!", {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
+    }
+    setOfferOutput(null);
+  };
+
+  const subscribe = async (address) => {
+    const splitMainContract = await sdk.getContract(splitMainAddress, splitABI);
+
+    const unsubscribe = splitMainContract.events.addEventListener(
+      "CreateOffer",
+      async (event) => {
+        console.log("CreateOffer event", event);
+        const offerIndex = event.data._offerIndex._hex;
+        const creator = event.data._creator;
+        const trigger = event.data._trigger;
+        console.log("Creator address", creator);
+        console.log("Address address", address);
+        if (creator == address) {
+          if (!offerOutput) {
+            setOfferOutput({
+              offerIndex: offerIndex,
+              trigger: trigger,
+              jobDescription: inputsRef.current.jobDescription,
+            });
+          }
+          // callOfferAPI(offerIndex, trigger, inputsRef.current.jobDescription);
+        }
+        onCloseModal();
+      }
+    );
+  };
 
   useEffect(() => {
-    const subscribe = async () => {
-      const splitMainContract = await sdk.getContract(
-        splitMainAddress,
-        splitABI
-      );
-
-      const unsubscribe = splitMainContract.events.addEventListener(
-        "CreateOffer",
-        async (event) => {
-          console.log('CreateOffer event', event);
-          const offerIndex = event.data._offerIndex._hex;
-          const creator = event.data._creator;
-          const trigger = event.data._trigger;
-          if (creator == address) {
-            try {
-              await OfferAPI.createOffer(offerIndex, trigger, inputsRef.current.jobDescription);
-              toast.success("Your transaction is Successful!", {
-                position: "bottom-right",
-                autoClose: 3000,
-              });
-            } catch (error) {
-              console.log('CreateOffer error ', error);
-              toast.error("Problem occurs!", {
-                position: "bottom-right",
-                autoClose: 3000,
-              });
-            } finally {
-              onCloseModal();
-            }
-          }
-        },
-      );
+    if (offerOutput) {
+      callOfferAPI();
     }
-    subscribe();
-  },[]);
+  }, [offerOutput]);
+
+  useEffect(() => {
+    if (address) {
+      console.log("hi", address);
+      subscribe(address);
+    } else {
+      setTimeout(() => {
+        subscribe(address);
+      }, 1000);
+    }
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -93,30 +123,32 @@ export default function StudentList() {
           headers: {
             "Content-Type": "application/json",
           },
-          method: 'GET',
-          credentials: 'include',
+          method: "GET",
+          credentials: "include",
         });
         let getDataRes = await getData.json();
-        console.log('--------------------------------------');
-        console.log('getDataRes ',  getDataRes);
+        console.log("--------------------------------------");
+        console.log("getDataRes ", getDataRes);
         if (getDataRes.status === 200) {
           setStudents(getDataRes.data);
         }
       } catch (error) {
-        console.log('get_talents error ', error);
+        console.log("get_talents error ", error);
       }
-    }
+    };
     fetchData();
-  },[]);
+  }, []);
 
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    setInputs({[name]: value });
+    setInputs({ [name]: value });
   };
 
   const onHireSubmit = async (e) => {
     e.preventDefault();
+    setDisableButton(true);
+    setOfferOutput(null);
 
     try {
       const stablecoinContract = await sdk.getContract(
@@ -148,12 +180,15 @@ export default function StudentList() {
         ]);
       }
     } catch (error) {
-      console.log('onHireSubmit ', error);
+      console.log("onHireSubmit ", error);
       onCloseModal();
       toast.error("Your transaction failed!", {
         position: "bottom-right",
         autoClose: 3000,
       });
+    } finally {
+      setInputs({});
+      setDisableButton(false);
     }
   };
 
@@ -201,12 +236,20 @@ export default function StudentList() {
               />
             </div>
           </div>
-          <div className="mr-auto text-right">
+          <div className="mr-auto flex text-right">
+            <p className="mt-4 italic">
+              {disableButton ? "Please wait... Transaction in progress..." : ""}
+            </p>
             <button
               type="submit"
-              className="bg-indigo-600 hover:bg-indigo-500 rounded-lg px-3.5 py-2.5 text-sm text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-2 ml-auto"
+              disabled={disableButton}
+              className={`${
+                disableButton
+                  ? "cursor-not-allowed bg-indigo-700 text-gray-300"
+                  : "bg-indigo-600 hover:bg-indigo-500 text-white"
+              }  rounded-lg px-3.5 py-2.5 text-sm  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-2 ml-auto`}
             >
-              Submit Details
+              {disableButton ? "Processing..." : "Submit Details"}
             </button>
           </div>
         </form>
