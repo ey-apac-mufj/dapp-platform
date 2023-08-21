@@ -175,12 +175,40 @@ export default function OfferDetail() {
   const showButton = (onClickFun, ifDisabled, text, btnColor) => {
     return (
       <button
-        className={`px-3 py-2 rounded-lg cursor-pointer ml-3 ${btnColor}`}
+        className={`px-3 py-2 rounded-lg ${
+          ifDisabled ? "cursor-not-allowed" : "cursor-pointer"
+        } ml-3 ${btnColor}`}
         onClick={onClickFun}
         disabled={ifDisabled}
       >
         {text}
       </button>
+    );
+  };
+
+  const copyText = (text) => {
+    // console.log(text);
+    navigator.clipboard.writeText(text);
+    toast.success("Text is copied to your clipboard", {
+      position: "bottom-right",
+      autoClose: 3000,
+    });
+  };
+
+  const copyAddress = (text) => {
+    return (
+      <span
+        className="px-1 py-1 bg-gray-300 rounded-lg cursor-pointer ml-2 text-sm"
+        onClick={() => copyText(text)}
+      >
+        Copy
+      </span>
+    );
+  };
+
+  const getAddress = (address) => {
+    return (
+      address.substring(0, 9) + "..." + address.substring(address.length - 4)
     );
   };
 
@@ -199,10 +227,10 @@ export default function OfferDetail() {
                 <h3 className="text-xl font-medium">Offer Sender: </h3>
                 <h6>
                   <span className="font-medium">Address: </span>
-                  {onChainOffer[0]}
+                  {getAddress(onChainOffer[0])} {copyAddress(onChainOffer[0])}
                 </h6>
                 <h6>
-                  <span className="font-medium">Name: </span>{" "}
+                  <span className="font-medium">Hospital Name: </span>{" "}
                   {offer?.hospitalName ? offer?.hospitalName : "N/A"}
                 </h6>
               </div>
@@ -210,12 +238,12 @@ export default function OfferDetail() {
             {onChainOffer[1] != address && (
               <div className="text-left break-words mx-right md:mx-auto">
                 <h3 className="text-xl font-medium">Offer Receiver: </h3>
-                <h6>
+                <h6 className="mt-2">
                   <span className="font-medium">Address: </span>
-                  {onChainOffer[1]}
+                  {getAddress(onChainOffer[1])} {copyAddress(onChainOffer[1])}
                 </h6>
-                <h6>
-                  <span className="font-medium">Name: </span>{" "}
+                <h6 className="mt-2">
+                  <span className="font-medium">Talent Name: </span>{" "}
                   {offer?.talentName ? offer?.talentName : "N/A"}
                 </h6>
               </div>
@@ -233,15 +261,19 @@ export default function OfferDetail() {
             <div className="mt-8">
               {showButton(
                 acceptOffer,
-                onChainOffer[2] != 0,
+                onChainOffer[2] != 0 ? true : false,
                 "Accept",
-                "bg-green-600 hover:bg-green-700"
+                onChainOffer[2] != 0
+                  ? "bg-blue-600 text-white"
+                  : "bg-blue-600 hover:bg-blue-700 text-white"
               )}
               {showButton(
                 declineOffer,
-                onChainOffer[2] != 0,
+                onChainOffer[2] != 0 ? true : false,
                 "Decline",
-                "bg-red-600 hover:bg-red-700"
+                onChainOffer[2] != 0
+                  ? "bg-red-600 text-white"
+                  : "bg-red-600 hover:bg-red-700 text-white"
               )}
               {/* <button
                 className="bg-indigo-600"
@@ -264,15 +296,19 @@ export default function OfferDetail() {
             <div className="mt-8">
               {showButton(
                 onOpenModal,
-                onChainOffer[2] != 0,
+                onChainOffer[2] != 0 ? true : false,
                 "Update",
-                "bg-blue-600 hover:bg-blue-700 text-white"
+                onChainOffer[2] != 0
+                  ? "bg-blue-600 text-white"
+                  : "bg-blue-600 hover:bg-blue-700 text-white"
               )}
               {showButton(
                 closeOffer,
-                onChainOffer[2] != 0,
+                onChainOffer[2] != 0 ? true : false,
                 "Close",
-                "bg-yellow-600 hover:bg-yellow-700 text-white"
+                onChainOffer[2] != 0
+                  ? "bg-yellow-600 text-white"
+                  : "bg-yellow-600 hover:bg-yellow-700 text-white"
               )}
             </div>
           )}

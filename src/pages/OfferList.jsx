@@ -79,7 +79,7 @@ export default function OfferList() {
     });
   };
 
-  const copyIcon = (text) => {
+  const copyAddress = (text) => {
     return (
       <span
         className="px-1 py-1 bg-gray-300 rounded-lg cursor-pointer ml-2 text-sm"
@@ -87,6 +87,12 @@ export default function OfferList() {
       >
         Copy
       </span>
+    );
+  };
+
+  const getAddress = (address) => {
+    return (
+      address.substring(0, 9) + "..." + address.substring(address.length - 4)
     );
   };
 
@@ -98,7 +104,7 @@ export default function OfferList() {
     const id = props.id;
     // console.log("this is index", props.index);
     return (
-      <tr className={` ${props.index % 2 !== 0 ? "bg-gray-200" : ""}`}>
+      <tr className={`${props.index % 2 !== 0 ? "bg-gray-200" : ""}`}>
         <td className="py-3">{id}</td>
         {/* <td>
           {" "}
@@ -112,28 +118,14 @@ export default function OfferList() {
         <td>
           {offers[1][props.index] != address && (
             <>
-              <span>
-                From:{" "}
-                {offers[1][props.index].substring(0, 8) +
-                  "..." +
-                  offers[1][props.index].substring(
-                    offers[1][props.index].length - 4
-                  )}
-              </span>
-              {copyIcon(offers[1][props.index])}
+              <span>From: {getAddress(offers[1][props.index])}</span>
+              {copyAddress(offers[1][props.index])}
             </>
           )}
           {offers[2][props.index] != address && (
             <>
-              <span>
-                To:{" "}
-                {offers[2][props.index].substring(0, 8) +
-                  "..." +
-                  offers[2][props.index].substring(
-                    offers[2][props.index].length - 4
-                  )}
-              </span>
-              {copyIcon(offers[2][props.index])}
+              <span>To: {getAddress(offers[2][props.index])}</span>
+              {copyAddress(offers[2][props.index])}
             </>
           )}
         </td>
