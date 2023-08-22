@@ -27,6 +27,7 @@ import {
   splitABI,
   stablecoinABI,
 } from "../../const/yourDetails";
+import Navbar from "../components/Navbar";
 
 export default function TalentDetail() {
   let { talentAddress } = useParams();
@@ -236,112 +237,179 @@ export default function TalentDetail() {
   };
 
   return (
-    <div className="container text-center mx-auto px-5 md:px-20 py-5 justify-center">
-      <div className="mx-auto mt-4">
-        <ConnectWalletButton customClass="connectWalletButton" />
-      </div>
-      {address && talent && (
-        <div>
-          <h5 className="text-center text-3xl font-thin antonFont">
-            {talent.userName}
-          </h5>
-          <img
-            src={talent.picture || Student1}
-            alt=""
-            className="mx-auto h-40"
-          />
-          <div className="text-center px-4 py-4">
-            <h5 className="my-1">Age: {talent.age}</h5>
-            <h5 className="my-1">Gender: {talent.gender}</h5>
-            <h5 className="my-1">Prefectures: {talent.prefectures}</h5>
-            <h5 className="my-1">Address: {talent.address}</h5>
-            <h5 className="my-1">Degree: {talent.degree}</h5>
-            <h5 className="my-1">Working History: {talent.workHistory}</h5>
-            <h5 className="my-1">Certificates: {talent.certificates}</h5>
-            <h5 className="my-1">Phone Number: {talent.phoneNumber}</h5>
-            <h5 className="my-2">
-              {" "}
-              {talent.walletAddress.substring(0, 8) +
-                "..." +
-                talent.walletAddress.substring(
-                  talent.walletAddress.length - 4
-                )}{" "}
-              <span
-                className="px-1 py-1 bg-gray-200 rounded-lg"
-                onClick={() => copyText(talent.walletAddress)}
-              >
-                Copy
-              </span>
-            </h5>
-            <div className="mx-auto text-center">
-              <button
-                onClick={() => onHire(talent.walletAddress)}
-                className="font-medium bg-indigo-600 hover:bg-indigo-500 rounded-lg px-3.5 py-2.5 text-sm text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-2 mx-auto"
-              >
-                Create a New Offer
-              </button>
-            </div>
-            {offerIndices.length > 0 && (
-              <div>
-                <div className="mx-auto text-center">
-                  Historical Offers From Me:
+    <>
+      <Navbar />
+      <div className="container text-center mx-auto px-5 md:px-20 py-5 justify-center">
+        <h5 className="font-medium text-2xl text-center">Talent Details</h5>
+        <div className="mx-auto mt-4">
+          <ConnectWalletButton customClass="connectWalletButton" />
+        </div>
+        <hr className="h-1 bg-gray-500" />
+        {address && talent && (
+          <>
+            <div className="white-card-div w-1/2 mx-auto px-0 pt-0 mb-10 pb-6 rounded-lg mt-6">
+              <div className="relative h-40">
+                <div className="w-full h-full bg-blue-400 rounded-t-lg"></div>
+              </div>
+              <div className="relative shadow mx-auto h-32 w-32 -my-16 border-white rounded-full overflow-hidden border-4">
+                <img
+                  className="object-cover w-full h-full"
+                  src={talent.picture || Student1}
+                />
+              </div>
+              <div className="mt-12 pt-4 px-5">
+                <h5 className="text-center text-3xl font-thin antonFont mt-3">
+                  {talent.userName}
+                </h5>
+                <h5 className="my-4">
+                  {" "}
+                  {talent.walletAddress.substring(0, 8) +
+                    "..." +
+                    talent.walletAddress.substring(
+                      talent.walletAddress.length - 4
+                    )}{" "}
+                  <span
+                    className="px-1 py-1 bg-gray-200 rounded-lg"
+                    onClick={() => copyText(talent.walletAddress)}
+                  >
+                    Copy
+                  </span>
+                </h5>
+                <table className="table-auto w-full rounded-md border-gray-600 mt-6">
+                  <tbody>
+                    <tr className="bg-gray-200">
+                      <th className="py-2">Age: </th>
+                      <td>{talent.age ? talent.age : "Not available"} </td>
+                    </tr>
+                    <tr>
+                      <th className="py-2">Gender: </th>
+                      <td>
+                        {talent.gender ? talent.gender : "Not available"}{" "}
+                      </td>
+                    </tr>
+                    <tr className="bg-gray-200">
+                      <th className="py-2">Prefectures: </th>
+                      <td>
+                        {talent.prefectures
+                          ? talent.prefectures
+                          : "Not available"}{" "}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className="py-2">Address: </th>
+                      <td>
+                        {talent.address ? talent.address : "Not available"}{" "}
+                      </td>
+                    </tr>
+                    <tr className="bg-gray-200">
+                      <th className="py-2">Degree: </th>
+                      <td>
+                        {talent.degree ? talent.degree : "Not available"}{" "}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className="py-2">Working History: </th>
+                      <td>
+                        {talent.workHistory
+                          ? talent.workHistory
+                          : "Not available"}{" "}
+                      </td>
+                    </tr>
+                    <tr className="bg-gray-200">
+                      <th className="py-2">Certificates: </th>
+                      <td>
+                        {talent.certificates
+                          ? talent.certificates
+                          : "Not available"}{" "}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className="py-2">Phone Number: </th>
+                      <td>
+                        {talent.phoneNumber
+                          ? talent.phoneNumber
+                          : "Not available"}{" "}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div className="mx-auto text-center mt-5">
+                  <button
+                    onClick={() => onHire(talent.walletAddress)}
+                    className="font-medium bg-indigo-600 hover:bg-indigo-500 rounded-full px-3.5 py-2.5 text-sm text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-2 mx-auto"
+                  >
+                    Create New Offer
+                  </button>
                 </div>
-                <div>
-                  {offerIndices.map((offerIndex, i) => {
-                    return (
-                      <Link
-                        key={i}
-                        to={`/offers/${offers[0][offerIndex]._hex}`}
-                      >
-                        {offers[0][offerIndex]._hex},
-                      </Link>
-                    );
-                  })}
+                <div className="mt-4 whitespace-normal">
+                  {offerIndices.length > 0 && (
+                    <div className="">
+                      <div className="mx-auto text-center text-lg font-medium mt-6 mb-4">
+                        Previous Offers From Me:
+                      </div>
+                      <div className="break-words grid grid-cols-8 mx-auto">
+                        {offerIndices.map((offerIndex, i) => {
+                          return (
+                            <div className="bg-gray-200 mx-1 my-1 px-1 py-1 rounded-md">
+                              <Link
+                                key={i}
+                                to={`/offers/${offers[0][offerIndex]._hex}`}
+                              >
+                                {offers[0][offerIndex]._hex}
+                              </Link>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
-            )}
-          </div>
-        </div>
-      )}
-      <CustomModal
-        open={open}
-        onCloseModal={onCloseModal}
-        title="Submit Job Details"
-      >
-        <form method="POST" onSubmit={onHireSubmit}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto text-left mt-8">
-            <div className="col-span-1 md:col-span-2">
-              <label>Job Description</label>
-              <textarea
-                className="form-control"
-                rows="3"
-                placeholder="Enter Job Description"
-                name="jobDescription"
-                value={inputs.jobDescription || ""}
-                onChange={handleChange}
-                required
-              />
             </div>
-          </div>
-          <div className="mr-auto flex text-right">
-            <p className="mt-4 italic">
-              {disableButton ? "Please wait... Transaction in progress..." : ""}
-            </p>
-            <button
-              type="submit"
-              disabled={disableButton}
-              className={`${
-                disableButton
-                  ? "cursor-not-allowed bg-indigo-700 text-gray-300"
-                  : "bg-indigo-600 hover:bg-indigo-500 text-white"
-              }  rounded-lg px-3.5 py-2.5 text-sm  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-2 ml-auto`}
-            >
-              {disableButton ? "Processing..." : "Submit Details"}
-            </button>
-          </div>
-        </form>
-      </CustomModal>
-      <ToastContainer />
-    </div>
+          </>
+        )}
+        <CustomModal
+          open={open}
+          onCloseModal={onCloseModal}
+          title="Submit Job Details"
+        >
+          <form method="POST" onSubmit={onHireSubmit}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto text-left mt-8">
+              <div className="col-span-1 md:col-span-2">
+                <label>Job Description</label>
+                <textarea
+                  className="form-control"
+                  rows="3"
+                  placeholder="Enter Job Description"
+                  name="jobDescription"
+                  value={inputs.jobDescription || ""}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+            <div className="mr-auto flex text-right">
+              <p className="mt-4 italic">
+                {disableButton
+                  ? "Please wait... Transaction in progress..."
+                  : ""}
+              </p>
+              <button
+                type="submit"
+                disabled={disableButton}
+                className={`${
+                  disableButton
+                    ? "cursor-not-allowed bg-indigo-700 text-gray-300"
+                    : "bg-indigo-600 hover:bg-indigo-500 text-white"
+                }  rounded-lg px-3.5 py-2.5 text-sm  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-2 ml-auto`}
+              >
+                {disableButton ? "Processing..." : "Submit Details"}
+              </button>
+            </div>
+          </form>
+        </CustomModal>
+        <ToastContainer />
+      </div>
+    </>
   );
 }

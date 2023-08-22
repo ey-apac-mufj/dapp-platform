@@ -3,7 +3,7 @@ import { ConnectWallet } from "@thirdweb-dev/react";
 
 export default function ConnectWalletButton({ customClass = "" }) {
   return (
-    <div className="mx-auto mb-10 pt-4">
+    <div className="mx-auto mb-5 pt-4">
       <ConnectWallet
         dropdownPosition={{
           align: "right",
