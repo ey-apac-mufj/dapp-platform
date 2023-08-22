@@ -219,7 +219,7 @@ export default function OfferDetail() {
         <ConnectWalletButton customClass="connectWalletButton" />
       </div>
       <hr className="h-1 bg-gray-500" />
-      {onChainOffer && address ? (
+      {onChainOffer && address && (
         <div className="white-card-div mt-4">
           <div className="flex flex-col md:flex-row gap-3">
             {onChainOffer[0] != address && (
@@ -312,10 +312,6 @@ export default function OfferDetail() {
               )}
             </div>
           )}
-        </div>
-      ) : (
-        <div>
-          <h5 className="text-xl">Offer doesn't exist</h5>
         </div>
       )}
 

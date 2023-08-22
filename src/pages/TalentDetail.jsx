@@ -15,6 +15,7 @@ import { apiurl } from "../../const/yourDetails";
 import OfferAPI from "../apiCall/OfferAPI";
 import { useAddress } from "@thirdweb-dev/react";
 import { useContractEvents, useContract } from "@thirdweb-dev/react";
+import { useParams } from "react-router-dom";
 
 import {
   stablecoinAddress,
@@ -27,7 +28,8 @@ import {
   stablecoinABI,
 } from "../../const/yourDetails";
 
-export default function StudentList() {
+export default function TalentDetail() {
+  let { talentAddress } = useParams();
   const sdk = useSDK(); // Get SDK
   const address = useAddress();
   const [signature, setSignature] = useState(null);
@@ -38,7 +40,7 @@ export default function StudentList() {
   const navigate = useNavigate();
 
   const imgArr = [Student1, Student2, Student3, Student4];
-  const [students, setStudents] = useState([]);
+  const [talent, setTalent] = useState(null);
   const [studentWalletAddress, setStudentWalletAddress] = useState("");
 
   const [inputs, _setInputs] = useState({}); // For form
@@ -114,26 +116,28 @@ export default function StudentList() {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        let getData = await fetch(`${apiurl}/api/get_talents`, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          method: "GET",
-          credentials: "include",
-        });
-        let getDataRes = await getData.json();
-        console.log("--------------------------------------");
-        console.log("getDataRes ", getDataRes);
-        if (getDataRes.status === 200) {
-          setStudents(getDataRes.data);
+      if (talentAddress) {
+        try {
+          let getData = await fetch(`${apiurl}/api/get_talent/${talentAddress}`, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            method: "GET",
+            credentials: "include",
+          });
+          let getDataRes = await getData.json();
+          console.log("--------------------------------------");
+          console.log("getDataRes ", getDataRes);
+          if (getDataRes.status === 200) {
+            setTalent(getDataRes.data);
+          }
+        } catch (error) {
+          console.log("get_talent error ", error);
         }
-      } catch (error) {
-        console.log("get_talents error ", error);
       }
     };
     fetchData();
-  }, []);
+  }, [talentAddress]);
 
   const handleChange = (event) => {
     const name = event.target.name;

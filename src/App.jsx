@@ -9,6 +9,7 @@ import OfferList from "./pages/OfferList";
 import OfferDetail from "./pages/OfferDetail";
 
 import StudentList from "./pages/StudentList";
+import TalentDetail from "./pages/TalentDetail";
 import "./styles/Home.css";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           />
           <Route path="/community-details" element={<CommunityDetails />} />
           <Route path="/student-list" element={<StudentList />} />
+          <Route path="/talents/:talentAddress" element={<TalentDetail />} />
           <Route
             path="/deposit-contract/:splitAddress"
             element={<ContractDeposit />}
