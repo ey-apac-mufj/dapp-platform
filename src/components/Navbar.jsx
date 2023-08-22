@@ -98,7 +98,7 @@ export default function Navbar({ activeMenu }) {
       <div className="px-5 md:items-center md:flex md:justify-between">
         <div>
           <div className="flex items-center justify-between py-3 md:py-5 md:block">
-            <Link to="/" className="cursor-pointer">
+            <Link to="/community-details" className="cursor-pointer">
               <h5 className="font-bold text-purple-500 text-xl">
                 Web3 Community
               </h5>

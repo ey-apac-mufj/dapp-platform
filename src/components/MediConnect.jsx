@@ -7,7 +7,6 @@ import Login from "../apiCall/Login";
 import { useAddress } from "@thirdweb-dev/react";
 import { apiurl } from "../../const/yourDetails";
 
-
 const MediConnect = (props) => {
   const sdk = useSDK(); // Get SDK
   const [signature, setSignature] = useState(null);
@@ -21,29 +20,28 @@ const MediConnect = (props) => {
         headers: {
           "Content-Type": "application/json",
         },
-        method: 'GET',
-        credentials: 'include',
+        method: "GET",
+        credentials: "include",
       });
       let getUserRes = await getUser.json();
-      console.log('--------------------------------------');
-      console.log('getUserRes ',  getUserRes);
+      console.log("--------------------------------------");
+      console.log("getUserRes ", getUserRes);
       if (getUserRes.status === 200) {
         setLoggedInStatus(true);
       } else {
         setLoggedInStatus(false);
       }
     } catch (error) {
-      console.log('checkLogInStatus error ', error);
+      console.log("checkLogInStatus error ", error);
     }
-  }
+  };
   useEffect(() => {
     checkLogInStatus();
-  },[]);
-
+  }, []);
 
   // Test code
-  const [result1, setResult1] = useState('Waiting for result1');
-  const [result2, setResult2] = useState('Waiting for result2');
+  const [result1, setResult1] = useState("Waiting for result1");
+  const [result2, setResult2] = useState("Waiting for result2");
   useEffect(() => {
     const fetchData = async (method, url, setResult) => {
       try {
@@ -52,43 +50,47 @@ const MediConnect = (props) => {
             "Content-Type": "application/json",
           },
           method: method,
-          credentials: 'include',
+          credentials: "include",
         });
         let getUserRes = await getUser.json();
-        console.log('--------------------------------------');
+        console.log("--------------------------------------");
         console.log(getUserRes);
         setResult(getUserRes);
         return getUserRes;
       } catch (error) {
         setResult(error);
       }
-    }
+    };
 
-    fetchData('GET', 'https://medi-lx.xyz/api/get_talent/0xFDB406A3d386924CAe4bB808d75829baB96972dc', setResult1)
-    .catch(console.error);
+    fetchData(
+      "GET",
+      "https://medi-lx.xyz/api/get_talent/0xFDB406A3d386924CAe4bB808d75829baB96972dc",
+      setResult1
+    ).catch(console.error);
 
-    fetchData('GET', 'https://medi-lx.xyz/api/get_talents', setResult2)
-    .catch(console.error);
-
-  },[loggedInStatus]);
+    fetchData("GET", "https://medi-lx.xyz/api/get_talents", setResult2).catch(
+      console.error
+    );
+  }, [loggedInStatus]);
 
   const handleMediLogout = async () => {
-    let logout = await fetch('https://medi-lx.xyz/api/logout', {
+    let logout = await fetch("https://medi-lx.xyz/api/logout", {
       headers: {
         "Content-Type": "application/json",
       },
-      method: 'GET',
-      credentials: 'include',
+      method: "GET",
+      credentials: "include",
     });
     let logoutRes = await logout.json();
     setSignature(null);
-    console.log('--------------------------------------');
+    console.log("--------------------------------------");
     console.log(logoutRes);
     checkLogInStatus();
-  }
+  };
 
   const handleMediConnect = async () => {
-    const message = "Please confirm to connect to Medi API Services at " + Date.now(); // Message to show at the time of signing
+    const message =
+      "Please confirm to connect to Medi API Services at " + Date.now(); // Message to show at the time of signing
 
     try {
       const signature = await sdk.wallet.sign(message); // Signing message using wallet
@@ -103,7 +105,7 @@ const MediConnect = (props) => {
             setWaitingMsg(false);
             setLoggedInStatus(true);
           } else if (login?.status === 404) {
-            window.location.href = 'https://medi-lx.xyz/site/login.html';
+            window.location.href = "https://medi-lx.xyz/site/login.html";
           } else {
             // Show error message
             console.log(login);
@@ -113,10 +115,13 @@ const MediConnect = (props) => {
             });
           }
         } catch (error) {
-          toast.error("Could not complete the sign in process! please try again!", {
-            position: "bottom-right",
-            autoClose: 3000,
-          });
+          toast.error(
+            "Could not complete the sign in process! please try again!",
+            {
+              position: "bottom-right",
+              autoClose: 3000,
+            }
+          );
         }
       } else {
         toast.error("Could not sign! Please try again!", {
@@ -136,33 +141,33 @@ const MediConnect = (props) => {
       {loggedInStatus ? (
         // If signature present, show Refer Curriculum button
         <div>
-        <button
-          href="#"
-          disabled={waitingMsg}
-          className={
-            (waitingMsg
-              ? "bg-indigo-300"
-              : "bg-indigo-600 hover:bg-indigo-500") +
-            " rounded-md font-thin px-3.5 py-2.5 text-sm text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          }
-        >
-          {waitingMsg ? (
-            "Connecting to Medi..."
-          ) : (
-            <>
-              Refer Curriculum <span aria-hidden="true">→</span>
-            </>
-          )}
-        </button>
-        <button
-          onClick={handleMediLogout}
-          href="#"
-          className={
-            "bg-indigo-600 font-thin hover:bg-indigo-500 rounded-3xl px-3.5 py-2.5 text-sm text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          }
-        >
-          Logout
-        </button>
+          <button
+            href="#"
+            disabled={waitingMsg}
+            className={
+              (waitingMsg
+                ? "bg-indigo-300"
+                : "bg-indigo-600 hover:bg-indigo-500") +
+              " rounded-full font-thin px-3.5 py-2.5 text-sm text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            }
+          >
+            {waitingMsg ? (
+              "Connecting to Medi..."
+            ) : (
+              <>
+                Refer Curriculum <span aria-hidden="true">→</span>
+              </>
+            )}
+          </button>
+          {/* <button
+            onClick={handleMediLogout}
+            href="#"
+            className={
+              "bg-indigo-600 font-thin hover:bg-indigo-500 rounded-3xl px-3.5 py-2.5 text-sm text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            }
+          >
+            Logout
+          </button> */}
         </div>
       ) : (
         <button
