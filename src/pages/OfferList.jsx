@@ -204,7 +204,7 @@ export default function OfferList() {
 
   return (
     <>
-      <Navbar />
+      <Navbar activeMenu="Offers" />
       <div className="container text-center mx-auto px-5 md:px-40 py-5 justify-center">
         <h5 className="font-medium text-2xl">My Offers</h5>
         <div className="mx-auto mt-4">

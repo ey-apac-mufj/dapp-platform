@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { LoginContext } from "../contexts/LoginContext";
 import { Link } from "react-router-dom";
 
-export default function Navbar() {
+export default function Navbar({ activeMenu }) {
   const sdk = useSDK(); // Get SDK
   const [navbar, setNavbar] = useState(false);
   const [user, setUser] = useState(null);
@@ -150,16 +150,34 @@ export default function Navbar() {
           >
             <ul className="text-left md:flex md:space-x-6 md:space-y-0">
               <Link to="/offers">
-                <li className="menu-btn-purple md:mb-0">Offers</li>
+                <li
+                  className={`${
+                    activeMenu === "Offers"
+                      ? "menu-btn-purple-active"
+                      : "menu-btn-purple"
+                  } md:mb-0 mb-2`}
+                >
+                  Offers
+                </li>
               </Link>
               <Link to="/student-list">
-                <li className="menu-btn-purple md:mb-0">Talent List</li>
+                <li
+                  className={`${
+                    activeMenu === "StudentList"
+                      ? "menu-btn-purple-active"
+                      : "menu-btn-purple"
+                  } md:mb-0 mb-2`}
+                >
+                  Talent List
+                </li>
               </Link>
               {loggedInStatus ? (
                 <>
-                  <li className="menu-btn-purple md:mb-0">Refer Curriculum</li>
+                  <li className="menu-btn-purple md:mb-0 mb-2">
+                    Refer Curriculum
+                  </li>
                   <li
-                    className="menu-btn-purple md:mb-0"
+                    className="menu-btn-purple md:mb-0 mb-2"
                     onClick={handleMediLogout}
                   >
                     Logout
@@ -167,7 +185,7 @@ export default function Navbar() {
                 </>
               ) : (
                 <li
-                  className="menu-btn-purple md:mb-0"
+                  className="menu-btn-purple md:mb-0 mb-2"
                   onClick={handleMediConnect}
                 >
                   Login
