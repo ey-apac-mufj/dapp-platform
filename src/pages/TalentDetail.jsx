@@ -8,7 +8,7 @@ import Student2 from "../images/student2.png";
 import Student3 from "../images/student3.png";
 import Student4 from "../images/student4.png";
 import { useSDK } from "@thirdweb-dev/react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { apiurl } from "../../const/yourDetails";
@@ -45,6 +45,8 @@ export default function TalentDetail() {
 
   const [inputs, _setInputs] = useState({}); // For form
   const [offerOutput, setOfferOutput] = useState(null);
+  const [offers, setOffers] = useState([]);
+  const [offerIndices, setOfferIndices] = useState([]);
 
   const inputsRef = useRef(inputs);
   const setInputs = (data) => {
@@ -52,7 +54,31 @@ export default function TalentDetail() {
     _setInputs(data);
   };
 
+  async function getOffers() {
+    if (address && talentAddress) {
+      const splitMainContract = await sdk.getContract(
+        splitMainAddress,
+        splitABI
+      );
+      const _offers = await splitMainContract.call("getOffers", [address]);
+      setOffers(_offers);
+      let _offerIndices = [];
+      _offers[0].forEach(function (_, i) {
+        if (_offers[2][i] == talentAddress) {
+          _offerIndices.push(i);
+        }
+      });
+      setOfferIndices(_offerIndices);
+      console.log(_offers[0][1]);
+    }
+  }
+
+  useEffect(() => {
+    getOffers();
+  }, [address, talentAddress]);
+
   const callOfferAPI = async () => {
+    setOfferOutput(null);
     try {
       let offerCreate = await OfferAPI.createOffer(
         offerOutput.offerIndex,
@@ -71,7 +97,6 @@ export default function TalentDetail() {
         autoClose: 3000,
       });
     }
-    setOfferOutput(null);
   };
 
   const subscribe = async (address) => {
@@ -118,13 +143,16 @@ export default function TalentDetail() {
     const fetchData = async () => {
       if (talentAddress) {
         try {
-          let getData = await fetch(`${apiurl}/api/get_talent/${talentAddress}`, {
-            headers: {
-              "Content-Type": "application/json",
-            },
-            method: "GET",
-            credentials: "include",
-          });
+          let getData = await fetch(
+            `${apiurl}/api/get_talent/${talentAddress}`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+              method: "GET",
+              credentials: "include",
+            }
+          );
           let getDataRes = await getData.json();
           console.log("--------------------------------------");
           console.log("getDataRes ", getDataRes);
@@ -198,28 +226,83 @@ export default function TalentDetail() {
     onOpenModal();
   };
 
+  const copyText = (text) => {
+    // console.log(text);
+    navigator.clipboard.writeText(text);
+    toast.success("Text is copied to your clipboard", {
+      position: "bottom-right",
+      autoClose: 3000,
+    });
+  };
+
   return (
     <div className="container text-center mx-auto px-5 md:px-20 py-5 justify-center">
-      <h5 className="text-center text-3xl font-thin antonFont">Talent List</h5>
-      <input
-        type="text"
-        className="w-90 md:w-80 mt-5 ml-2 pl-5 pr-3 py-2 rounded-full text-center"
-        placeholder="Search Talents"
-      />
       <div className="mx-auto mt-4">
         <ConnectWalletButton customClass="connectWalletButton" />
       </div>
-      <hr className="h-1 bg-gray-500" />
-      {
-        address && (
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mx-auto mt-8">
-            {students.map((student, i) => {
-              student.image = imgArr[i];
-              return <StudentThumbnail student={student} onHire={onHire} key={i} />;
-            })}
+      {address && talent && (
+        <div>
+          <h5 className="text-center text-3xl font-thin antonFont">
+            {talent.userName}
+          </h5>
+          <img
+            src={talent.picture || Student1}
+            alt=""
+            className="mx-auto h-40"
+          />
+          <div className="text-center px-4 py-4">
+            <h5 className="my-1">Age: {talent.age}</h5>
+            <h5 className="my-1">Gender: {talent.gender}</h5>
+            <h5 className="my-1">Prefectures: {talent.prefectures}</h5>
+            <h5 className="my-1">Address: {talent.address}</h5>
+            <h5 className="my-1">Degree: {talent.degree}</h5>
+            <h5 className="my-1">Working History: {talent.workHistory}</h5>
+            <h5 className="my-1">Certificates: {talent.certificates}</h5>
+            <h5 className="my-1">Phone Number: {talent.phoneNumber}</h5>
+            <h5 className="my-2">
+              {" "}
+              {talent.walletAddress.substring(0, 8) +
+                "..." +
+                talent.walletAddress.substring(
+                  talent.walletAddress.length - 4
+                )}{" "}
+              <span
+                className="px-1 py-1 bg-gray-200 rounded-lg"
+                onClick={() => copyText(talent.walletAddress)}
+              >
+                Copy
+              </span>
+            </h5>
+            <div className="mx-auto text-center">
+              <button
+                onClick={() => onHire(talent.walletAddress)}
+                className="font-medium bg-indigo-600 hover:bg-indigo-500 rounded-lg px-3.5 py-2.5 text-sm text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-2 mx-auto"
+              >
+                Create a New Offer
+              </button>
+            </div>
+            {offerIndices.length > 0 && (
+              <div>
+                <div className="mx-auto text-center">
+                  Historical Offers From Me:
+                </div>
+                <div>
+                  {offerIndices.map((offerIndex, i) => {
+                    return (
+                      <Link
+                        key={i}
+                        to={`/offers/${offers[0][offerIndex]._hex}`}
+                      >
+                        {offers[0][offerIndex]._hex},
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </div>
-        )
-      }
+        </div>
+      )}
       <CustomModal
         open={open}
         onCloseModal={onCloseModal}
