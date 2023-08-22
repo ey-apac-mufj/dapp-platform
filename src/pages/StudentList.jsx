@@ -109,12 +109,8 @@ export default function StudentList() {
     if (address) {
       console.log("hi", address);
       subscribe(address);
-    } else {
-      setTimeout(() => {
-        subscribe(address);
-      }, 1000);
     }
-  }, []);
+  }, [address]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -210,12 +206,19 @@ export default function StudentList() {
         <ConnectWalletButton customClass="connectWalletButton" />
       </div>
       <hr className="h-1 bg-gray-500" />
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mx-auto mt-8">
-        {students.map((student, i) => {
-          student.image = imgArr[i];
-          return <StudentThumbnail student={student} onHire={onHire} key={i} />;
-        })}
-      </div>
+      {
+        address ? (
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mx-auto mt-8">
+            {students.map((student, i) => {
+              student.image = imgArr[i];
+              return <StudentThumbnail student={student} onHire={onHire} key={i} />;
+            })}
+          </div>
+        ) :
+          (
+            <div>Waiting for wallet connection</div>
+          )
+      }
       <CustomModal
         open={open}
         onCloseModal={onCloseModal}
