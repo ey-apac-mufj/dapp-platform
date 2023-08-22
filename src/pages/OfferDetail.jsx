@@ -212,6 +212,15 @@ export default function OfferDetail() {
     );
   };
 
+  const displayText = (text) => {
+    return text.split("\n").map((line, index) => (
+      <React.Fragment key={index}>
+        {line}
+        <br />
+      </React.Fragment>
+    ));
+  };
+
   return (
     <div className="container text-center mx-auto px-5 md:px-40 py-5 justify-center">
       <h5 className="font-medium text-2xl">Offer Details</h5>
@@ -254,7 +263,9 @@ export default function OfferDetail() {
             </div>
             <div className="text-left break-words mx-right md:mx-auto">
               <h3 className="text-xl font-medium">Details: </h3>
-              <h6>{offer?.offerDetail ? offer?.offerDetail : "N/A"}</h6>
+              <h6>
+                {offer?.offerDetail ? displayText(offer?.offerDetail) : "N/A"}
+              </h6>
             </div>
           </div>
           {onChainOffer[0] != address && (

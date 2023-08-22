@@ -43,6 +43,7 @@ export default function StudentList() {
 
   const [inputs, _setInputs] = useState({}); // For form
   const [offerOutput, setOfferOutput] = useState(null);
+  const [text, setText] = useState("");
 
   const inputsRef = useRef(inputs);
   const setInputs = (data) => {
@@ -107,7 +108,7 @@ export default function StudentList() {
 
   useEffect(() => {
     if (address) {
-      console.log("hi", address);
+      console.log(address);
       subscribe(address);
     }
   }, [address]);
@@ -138,6 +139,8 @@ export default function StudentList() {
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
+    console.log("textarea", value);
+    setText(value);
     setInputs({ [name]: value });
   };
 
@@ -197,6 +200,7 @@ export default function StudentList() {
   return (
     <div className="container text-center mx-auto px-5 md:px-20 py-5 justify-center">
       <h5 className="text-center text-3xl font-thin antonFont">Talent List</h5>
+      {/* <pre>{text.replace(/(?:\r\n|\r|\n)/g, "<br />")}</pre> */}
       <input
         type="text"
         className="w-90 md:w-80 mt-5 ml-2 pl-5 pr-3 py-2 rounded-full text-center"
@@ -206,16 +210,16 @@ export default function StudentList() {
         <ConnectWalletButton customClass="connectWalletButton" />
       </div>
       <hr className="h-1 bg-gray-500" />
-      {
-        address && (
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mx-auto mt-8">
-            {students.map((student, i) => {
-              student.image = imgArr[i];
-              return <StudentThumbnail student={student} onHire={onHire} key={i} />;
-            })}
-          </div>
-        )
-      }
+      {address && (
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mx-auto mt-8">
+          {students.map((student, i) => {
+            student.image = imgArr[i];
+            return (
+              <StudentThumbnail student={student} onHire={onHire} key={i} />
+            );
+          })}
+        </div>
+      )}
       <CustomModal
         open={open}
         onCloseModal={onCloseModal}
