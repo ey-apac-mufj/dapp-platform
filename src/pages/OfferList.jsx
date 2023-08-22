@@ -16,6 +16,7 @@ import {
   platformAddress,
   splitABI,
 } from "../../const/yourDetails";
+import Navbar from "../components/Navbar";
 
 export default function OfferList() {
   const statusList = {
@@ -202,16 +203,18 @@ export default function OfferList() {
   }
 
   return (
-    <div className="container text-center mx-auto px-5 md:px-40 py-5 justify-center">
-      <h5 className="font-medium text-2xl">My Offers</h5>
-      <div className="mx-auto mt-4">
-        <ConnectWalletButton customClass="connectWalletButton" />
-      </div>
-      <hr className="h-1 bg-gray-500" />
-      {offers.length > 0 && offers[0].length > 0 && (
-        <OfferList offers={offers} />
-      )}
-      {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 mx-auto mt-8">
+    <>
+      <Navbar />
+      <div className="container text-center mx-auto px-5 md:px-40 py-5 justify-center">
+        <h5 className="font-medium text-2xl">My Offers</h5>
+        <div className="mx-auto mt-4">
+          <ConnectWalletButton customClass="connectWalletButton" />
+        </div>
+        <hr className="h-1 bg-gray-500" />
+        {offers.length > 0 && offers[0].length > 0 && (
+          <OfferList offers={offers} />
+        )}
+        {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 mx-auto mt-8">
         {offers.map((offer, i) => {
           return <Offer offer={{
             "id": i,
@@ -222,7 +225,8 @@ export default function OfferList() {
           }} key={i} onAccept={onAccept} onDecline={onDecline} />;
         })}
       </div> */}
-      <ToastContainer />
-    </div>
+        <ToastContainer />
+      </div>
+    </>
   );
 }

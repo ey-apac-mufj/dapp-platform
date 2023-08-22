@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ConnectWalletButton from "../components/ConnectWalletButton";
 import Offer from "../components/Offer";
 import jsonData from "../data.json";
@@ -19,6 +19,8 @@ import {
   platformAddress,
   splitABI,
 } from "../../const/yourDetails";
+import Navbar from "../components/Navbar";
+import { LoginContext } from "../contexts/LoginContext";
 
 export default function OfferDetail() {
   let { offerId } = useParams();
@@ -32,6 +34,7 @@ export default function OfferDetail() {
   const [open, setOpen] = useState(false); // For modal
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
+  const { loggedInStatus, setLoggedInStatus } = useContext(LoginContext);
 
   const [inputs, setInputs] = useState({}); // For form
 
@@ -60,6 +63,10 @@ export default function OfferDetail() {
     if (res.status === 200) {
       setUser(res.data);
       console.log(res.data);
+      setLoggedInStatus(true);
+    } else {
+      setUser(null);
+      setLoggedInStatus(false);
     }
   };
   useEffect(() => {
@@ -222,143 +229,157 @@ export default function OfferDetail() {
   };
 
   return (
-    <div className="container text-center mx-auto px-5 md:px-40 py-5 justify-center">
-      <h5 className="font-medium text-2xl">Offer Details</h5>
-      <div className="mx-auto mt-4">
-        <ConnectWalletButton customClass="connectWalletButton" />
-      </div>
-      <hr className="h-1 bg-gray-500" />
-      {onChainOffer && address && (
-        <div className="white-card-div mt-4">
-          <div className="flex flex-col md:flex-row gap-3">
-            {onChainOffer[0] != address && (
-              <div className="text-left break-words mx-right md:mx-auto">
-                <h3 className="text-xl font-medium">Offer Sender: </h3>
-                <h6>
-                  <span className="font-medium">Address: </span>
-                  {getAddress(onChainOffer[0])} {copyAddress(onChainOffer[0])}
-                </h6>
-                <h6>
-                  <span className="font-medium">Hospital Name: </span>{" "}
-                  {offer?.hospitalName ? offer?.hospitalName : "N/A"}
-                </h6>
+    <>
+      <Navbar />
+      <div className="container text-center mx-auto px-5 md:px-40 py-5 justify-center">
+        <h5 className="font-medium text-2xl">Offer Details</h5>
+        <div className="mx-auto mt-4">
+          <ConnectWalletButton customClass="connectWalletButton" />
+        </div>
+        <hr className="h-1 bg-gray-500" />
+        {loggedInStatus ? (
+          onChainOffer &&
+          address && (
+            <div className="white-card-div mt-4">
+              <div className="flex flex-col md:flex-row gap-3">
+                {onChainOffer[0] != address && (
+                  <div className="text-left break-words mx-right md:mx-auto">
+                    <h3 className="text-xl font-medium">Offer Sender: </h3>
+                    <h6>
+                      <span className="font-medium">Address: </span>
+                      {getAddress(onChainOffer[0])}{" "}
+                      {copyAddress(onChainOffer[0])}
+                    </h6>
+                    <h6>
+                      <span className="font-medium">Hospital Name: </span>{" "}
+                      {offer?.hospitalName ? offer?.hospitalName : "N/A"}
+                    </h6>
+                  </div>
+                )}
+                {onChainOffer[1] != address && (
+                  <div className="text-left break-words mx-right md:mx-auto">
+                    <h3 className="text-xl font-medium">Offer Receiver: </h3>
+                    <h6 className="mt-2">
+                      <span className="font-medium">Address: </span>
+                      {getAddress(onChainOffer[1])}{" "}
+                      {copyAddress(onChainOffer[1])}
+                    </h6>
+                    <h6 className="mt-2">
+                      <span className="font-medium">Talent Name: </span>{" "}
+                      {offer?.talentName ? offer?.talentName : "N/A"}
+                    </h6>
+                  </div>
+                )}
+                <div className="text-left break-words mx-right md:mx-auto">
+                  <h3 className="text-xl font-medium">Status: </h3>
+                  <h6>{OfferAPI.statusToString(onChainOffer[2])}</h6>
+                </div>
+                <div className="text-left break-words mx-right md:mx-auto">
+                  <h3 className="text-xl font-medium">Details: </h3>
+                  <h6>
+                    {offer?.offerDetail
+                      ? displayText(offer?.offerDetail)
+                      : "N/A"}
+                  </h6>
+                </div>
               </div>
-            )}
-            {onChainOffer[1] != address && (
-              <div className="text-left break-words mx-right md:mx-auto">
-                <h3 className="text-xl font-medium">Offer Receiver: </h3>
-                <h6 className="mt-2">
-                  <span className="font-medium">Address: </span>
-                  {getAddress(onChainOffer[1])} {copyAddress(onChainOffer[1])}
-                </h6>
-                <h6 className="mt-2">
-                  <span className="font-medium">Talent Name: </span>{" "}
-                  {offer?.talentName ? offer?.talentName : "N/A"}
-                </h6>
-              </div>
-            )}
-            <div className="text-left break-words mx-right md:mx-auto">
-              <h3 className="text-xl font-medium">Status: </h3>
-              <h6>{OfferAPI.statusToString(onChainOffer[2])}</h6>
-            </div>
-            <div className="text-left break-words mx-right md:mx-auto">
-              <h3 className="text-xl font-medium">Details: </h3>
-              <h6>
-                {offer?.offerDetail ? displayText(offer?.offerDetail) : "N/A"}
-              </h6>
-            </div>
-          </div>
-          {onChainOffer[0] != address && (
-            <div className="mt-8">
-              {showButton(
-                acceptOffer,
-                onChainOffer[2] != 0 ? true : false,
-                "Accept",
-                onChainOffer[2] != 0
-                  ? "bg-blue-600 text-gray-300"
-                  : "bg-blue-600 hover:bg-blue-700 text-white"
-              )}
-              {showButton(
-                declineOffer,
-                onChainOffer[2] != 0 ? true : false,
-                "Decline",
-                onChainOffer[2] != 0
-                  ? "bg-red-600 text-gray-300"
-                  : "bg-red-600 hover:bg-red-700 text-white"
-              )}
-              {/* <button
+              {onChainOffer[0] != address && (
+                <div className="mt-8">
+                  {showButton(
+                    acceptOffer,
+                    onChainOffer[2] != 0 ? true : false,
+                    "Accept",
+                    onChainOffer[2] != 0
+                      ? "bg-blue-600 text-gray-300"
+                      : "bg-blue-600 hover:bg-blue-700 text-white"
+                  )}
+                  {showButton(
+                    declineOffer,
+                    onChainOffer[2] != 0 ? true : false,
+                    "Decline",
+                    onChainOffer[2] != 0
+                      ? "bg-red-600 text-gray-300"
+                      : "bg-red-600 hover:bg-red-700 text-white"
+                  )}
+                  {/* <button
                 className="bg-indigo-600"
                 onClick={acceptOffer}
                 disabled={onChainOffer[2] != 0}
               >
                 Accept
               </button> */}
-              {/* <button
+                  {/* <button
                 className="bg-indigo-600"
                 onClick={declineOffer}
                 disabled={onChainOffer[2] != 0}
               >
                 Decline
               </button> */}
-            </div>
-          )}
-
-          {onChainOffer[1] != address && (
-            <div className="mt-8">
-              {showButton(
-                onOpenModal,
-                onChainOffer[2] != 0 ? true : false,
-                "Update",
-                onChainOffer[2] != 0
-                  ? "bg-blue-600 text-gray-300"
-                  : "bg-blue-600 hover:bg-blue-700 text-white"
+                </div>
               )}
-              {showButton(
-                closeOffer,
-                onChainOffer[2] != 0 ? true : false,
-                "Close",
-                onChainOffer[2] != 0
-                  ? "bg-yellow-600 text-gray-300"
-                  : "bg-yellow-600 hover:bg-yellow-700 text-white"
+
+              {onChainOffer[1] != address && (
+                <div className="mt-8">
+                  {showButton(
+                    onOpenModal,
+                    onChainOffer[2] != 0 ? true : false,
+                    "Update",
+                    onChainOffer[2] != 0
+                      ? "bg-blue-600 text-gray-300"
+                      : "bg-blue-600 hover:bg-blue-700 text-white"
+                  )}
+                  {showButton(
+                    closeOffer,
+                    onChainOffer[2] != 0 ? true : false,
+                    "Close",
+                    onChainOffer[2] != 0
+                      ? "bg-yellow-600 text-gray-300"
+                      : "bg-yellow-600 hover:bg-yellow-700 text-white"
+                  )}
+                </div>
               )}
             </div>
-          )}
-        </div>
-      )}
+          )
+        ) : (
+          <div className="bg-red-300 w-full p-5 m-5 text-center text-xl">
+            You are not authorized to view this page! Please login to continue!
+          </div>
+        )}
 
-      <CustomModal
-        open={open}
-        onCloseModal={onCloseModal}
-        title="Submit Job Details"
-      >
-        <form method="POST" onSubmit={onUpdateOffer}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto text-left mt-8">
-            <div className="col-span-1 md:col-span-2">
-              <label>Job Description</label>
-              <textarea
-                className="form-control"
-                rows="3"
-                placeholder="Enter Job Description"
-                name="jobDescription"
-                value={
-                  inputs.jobDescription || (offer && offer.offerDetail) || ""
-                }
-                onChange={handleChange}
-                required
-              />
+        <CustomModal
+          open={open}
+          onCloseModal={onCloseModal}
+          title="Submit Job Details"
+        >
+          <form method="POST" onSubmit={onUpdateOffer}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto text-left mt-8">
+              <div className="col-span-1 md:col-span-2">
+                <label>Job Description</label>
+                <textarea
+                  className="form-control"
+                  rows="3"
+                  placeholder="Enter Job Description"
+                  name="jobDescription"
+                  value={
+                    inputs.jobDescription || (offer && offer.offerDetail) || ""
+                  }
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </div>
-          </div>
-          <div className="mr-auto text-right">
-            <button
-              type="submit"
-              className="bg-indigo-600 hover:bg-indigo-500 rounded-lg px-3.5 py-2.5 text-sm text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-2 ml-auto"
-            >
-              Submit Details
-            </button>
-          </div>
-        </form>
-      </CustomModal>
-      <ToastContainer />
-    </div>
+            <div className="mr-auto text-right">
+              <button
+                type="submit"
+                className="bg-indigo-600 hover:bg-indigo-500 rounded-lg px-3.5 py-2.5 text-sm text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-2 ml-auto"
+              >
+                Submit Details
+              </button>
+            </div>
+          </form>
+        </CustomModal>
+        <ToastContainer />
+      </div>
+    </>
   );
 }

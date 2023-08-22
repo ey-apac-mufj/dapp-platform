@@ -22,6 +22,7 @@ import {
   walletConnetKey,
 } from "../const/yourDetails";
 import { walletConnectV1 } from "@thirdweb-dev/react";
+import { LoginProvider } from "./contexts/LoginContext";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -59,7 +60,9 @@ root.render(
         // }),
       ]}
     >
-      <App />
+      <LoginProvider>
+        <App />
+      </LoginProvider>
     </ThirdwebProvider>
   </React.StrictMode>
 );
