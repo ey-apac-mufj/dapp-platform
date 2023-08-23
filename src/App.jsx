@@ -25,17 +25,14 @@ function App() {
             element={<CommunityCategory />}
           />
           <Route path="/community-details" element={<CommunityDetails />} />
-          <Route path="/student-list" element={<StudentList />} />
+          <Route path="/talent-list" element={<StudentList />} />
           <Route path="/talents/:talentAddress" element={<TalentDetail />} />
           <Route
             path="/deposit-contract/:splitAddress"
             element={<ContractDeposit />}
           />
           <Route path="/offers" element={<OfferList />} />
-          <Route
-            path="/offers/:offerId"
-            element={<OfferDetail />}
-          />
+          <Route path="/offers/:offerId" element={<OfferDetail />} />
         </Routes>
       </div>
     </Router>

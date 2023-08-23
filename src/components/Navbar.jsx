@@ -160,7 +160,7 @@ export default function Navbar({ activeMenu }) {
                   Offers
                 </li>
               </Link>
-              <Link to="/student-list">
+              <Link to="/talent-list">
                 <li
                   className={`${
                     activeMenu === "StudentList"
