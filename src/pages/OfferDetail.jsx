@@ -58,6 +58,12 @@ export default function OfferDetail() {
     getOffer();
   }, [offerId]);
 
+  useEffect(() => {
+    if (offer) {
+      setInputs((values) => ({ ...values, jobDescription: offer.offerDetail }));
+    }
+  }, [offer]);
+
   const getUser = async () => {
     const res = await Login.getUser();
     if (res.status === 200) {
@@ -358,9 +364,7 @@ export default function OfferDetail() {
                   rows="3"
                   placeholder="Enter Job Description"
                   name="jobDescription"
-                  value={
-                    inputs.jobDescription || (offer && offer.offerDetail) || ""
-                  }
+                  value={inputs.jobDescription || ""}
                   onChange={handleChange}
                   required
                 />
