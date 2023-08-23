@@ -106,7 +106,7 @@ const MediConnect = (props) => {
             setWaitingMsg(false);
             setLoggedInStatus(true);
           } else if (login?.status === 404) {
-            window.location.href = "https://medi-lx.xyz/site/login.html";
+            window.location.href = `https://medi-lx.xyz/site/register?address=${address}`;
           } else {
             // Show error message
             console.log(login);

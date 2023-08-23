@@ -58,7 +58,7 @@ export default function Navbar({ activeMenu }) {
           if (login?.status === 200 || login?.status === 201) {
             setLoggedInStatus(true);
           } else if (login?.status === 404) {
-            window.location.href = "https://medi-lx.xyz/site/login.html";
+            window.location.href = `https://medi-lx.xyz/site/register?address=${address}`;
           } else {
             // Show error message
             console.log(login);
