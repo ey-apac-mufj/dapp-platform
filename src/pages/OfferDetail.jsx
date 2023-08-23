@@ -240,10 +240,10 @@ export default function OfferDetail() {
         {loggedInStatus ? (
           onChainOffer &&
           address && (
-            <div className="white-card-div mt-4">
-              <div className="flex flex-col md:flex-row gap-3">
+            <div className="white-card-div mt-4 w-full md:w-3/4 mx-auto px-7">
+              <div className="flex flex-col md:flex-row justify-between text-left gap-3">
                 {onChainOffer[0] != address && (
-                  <div className="text-left break-words mx-right md:mx-auto">
+                  <div className="text-left break-words mx-right">
                     <h3 className="text-xl font-medium">Offer Sender: </h3>
                     <h6>
                       <span className="font-medium">Address: </span>
@@ -257,7 +257,7 @@ export default function OfferDetail() {
                   </div>
                 )}
                 {onChainOffer[1] != address && (
-                  <div className="text-left break-words mx-right md:mx-auto">
+                  <div className="text-left break-words mx-right">
                     <h3 className="text-xl font-medium">Offer Receiver: </h3>
                     <h6 className="mt-2">
                       <span className="font-medium">Address: </span>
@@ -270,18 +270,16 @@ export default function OfferDetail() {
                     </h6>
                   </div>
                 )}
-                <div className="text-left break-words mx-right md:mx-auto">
+                <div className="text-left break-words">
                   <h3 className="text-xl font-medium">Status: </h3>
                   <h6>{OfferAPI.statusToString(onChainOffer[2])}</h6>
                 </div>
-                <div className="text-left break-words mx-right md:mx-auto">
-                  <h3 className="text-xl font-medium">Details: </h3>
-                  <h6>
-                    {offer?.offerDetail
-                      ? displayText(offer?.offerDetail)
-                      : "N/A"}
-                  </h6>
-                </div>
+              </div>
+              <div className="text-left break-words mx-right mt-7">
+                <h3 className="text-xl font-medium">Details: </h3>
+                <h6>
+                  {offer?.offerDetail ? displayText(offer?.offerDetail) : "N/A"}
+                </h6>
               </div>
               {onChainOffer[0] != address && (
                 <div className="mt-8">

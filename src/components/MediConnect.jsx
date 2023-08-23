@@ -1,17 +1,18 @@
 // import { ThirdwebSDK } from "@thirdweb-dev/sdk";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useSDK } from "@thirdweb-dev/react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Login from "../apiCall/Login";
 import { useAddress } from "@thirdweb-dev/react";
 import { apiurl } from "../../const/yourDetails";
+import { LoginContext } from "../contexts/LoginContext";
 
 const MediConnect = (props) => {
   const sdk = useSDK(); // Get SDK
   const [signature, setSignature] = useState(null);
   const [waitingMsg, setWaitingMsg] = useState(false);
-  const [loggedInStatus, setLoggedInStatus] = useState(false);
+  const { loggedInStatus, setLoggedInStatus } = useContext(LoginContext);
   const address = useAddress();
 
   const checkLogInStatus = async () => {
