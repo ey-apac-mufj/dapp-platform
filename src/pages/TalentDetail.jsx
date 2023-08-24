@@ -36,7 +36,11 @@ export default function TalentDetail() {
   const address = useAddress();
   const [signature, setSignature] = useState(null);
   const [open, setOpen] = useState(false); // For modal
-  const onOpenModal = () => setOpen(true);
+  const onOpenModal = () => {
+    setInputs({});
+    setDisableButton(false);
+    setOpen(true);
+  };
   const onCloseModal = () => setOpen(false);
   const [disableButton, setDisableButton] = useState(false);
   const navigate = useNavigate();
@@ -219,9 +223,6 @@ export default function TalentDetail() {
         position: "bottom-right",
         autoClose: 3000,
       });
-    } finally {
-      setInputs({});
-      setDisableButton(false);
     }
   };
 
