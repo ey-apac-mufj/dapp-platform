@@ -38,6 +38,7 @@ export default function TalentDetail() {
   const [open, setOpen] = useState(false); // For modal
   const onOpenModal = () => {
     setInputs({});
+    setOfferOutput(null);
     setDisableButton(false);
     setOpen(true);
   };
@@ -50,7 +51,7 @@ export default function TalentDetail() {
   const [studentWalletAddress, setStudentWalletAddress] = useState("");
 
   const [inputs, _setInputs] = useState({}); // For form
-  const [offerOutput, setOfferOutput] = useState(null);
+  const [offerOutput, _setOfferOutput] = useState(null);
   const [offers, setOffers] = useState([]);
   const [offerIndices, setOfferIndices] = useState([]);
   const { loggedInStatus } = useContext(LoginContext);
@@ -59,6 +60,12 @@ export default function TalentDetail() {
   const setInputs = (data) => {
     inputsRef.current = data;
     _setInputs(data);
+  };
+
+  const offerOutputRef = useRef(offerOutput);
+  const setOfferOutput = (data) => {
+    offerOutputRef.current = data;
+    _setOfferOutput(data);
   };
 
   async function getOffers() {
@@ -85,7 +92,6 @@ export default function TalentDetail() {
   }, [address, talentAddress]);
 
   const callOfferAPI = async () => {
-    setOfferOutput(null);
     try {
       let offerCreate = await OfferAPI.createOffer(
         offerOutput.offerIndex,
@@ -119,7 +125,7 @@ export default function TalentDetail() {
         console.log("Creator address", creator);
         console.log("Address address", address);
         if (creator == address) {
-          if (!offerOutput) {
+          if (!offerOutputRef.current) {
             setOfferOutput({
               offerIndex: offerIndex,
               trigger: trigger,
