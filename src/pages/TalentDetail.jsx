@@ -357,9 +357,11 @@ export default function TalentDetail() {
                         <div className="break-words grid grid-cols-4 md:grid-cols-8 mx-auto">
                           {offerIndices.map((offerIndex, i) => {
                             return (
-                              <div className="bg-gray-200 mx-1 my-1 px-1 py-1 cursor-pointer rounded-md hover:bg-gray-300">
+                              <div
+                                className="bg-gray-200 mx-1 my-1 px-1 py-1 cursor-pointer rounded-md hover:bg-gray-300"
+                                key={i}
+                              >
                                 <Link
-                                  key={i}
                                   className="text-gray-700"
                                   to={`/offers/${offers[0][offerIndex]._hex}`}
                                 >
