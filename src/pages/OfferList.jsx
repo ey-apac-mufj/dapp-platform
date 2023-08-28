@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ConnectWalletButton from "../components/ConnectWalletButton";
 import Offer from "../components/Offer";
 import jsonData from "../data.json";
@@ -7,6 +7,7 @@ import { useAddress } from "@thirdweb-dev/react";
 import { Link } from "react-router-dom";
 import OfferAPI from "../apiCall/OfferAPI";
 import { ToastContainer, toast } from "react-toastify";
+import { LoginContext } from "../contexts/LoginContext";
 
 import {
   splitMainAddress,
@@ -42,6 +43,7 @@ export default function OfferList() {
 
   const [offers, setOffers] = useState([]);
   const [mediOffers, setMediOffers] = useState({});
+  const { loggedInStatus, setLoggedInStatus } = useContext(LoginContext);
 
   async function getOffers() {
     if (address) {
@@ -99,7 +101,7 @@ export default function OfferList() {
 
   useEffect(() => {
     getMediOffers();
-  }, [offers]);
+  }, [offers, loggedInStatus]);
 
   function OfferItem(props) {
     const id = props.id;
