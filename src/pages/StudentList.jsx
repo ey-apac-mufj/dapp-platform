@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import ConnectWalletButton from "../components/ConnectWalletButton";
 import CustomModal from "../components/CustomModal";
 import StudentThumbnail from "../components/StudentThumbnail";
@@ -15,6 +15,7 @@ import { apiurl } from "../../const/yourDetails";
 import OfferAPI from "../apiCall/OfferAPI";
 import { useAddress } from "@thirdweb-dev/react";
 import { useContractEvents, useContract } from "@thirdweb-dev/react";
+import { LoginContext } from "../contexts/LoginContext";
 
 import {
   stablecoinAddress,
@@ -37,6 +38,7 @@ export default function StudentList() {
   const onCloseModal = () => setOpen(false);
   const [disableButton, setDisableButton] = useState(false);
   const navigate = useNavigate();
+  const { loggedInStatus, setLoggedInStatus } = useContext(LoginContext);
 
   const imgArr = [Student1, Student2, Student3, Student4];
   const [students, setStudents] = useState([]);
@@ -135,7 +137,7 @@ export default function StudentList() {
       }
     };
     fetchData();
-  }, []);
+  }, [loggedInStatus]);
 
   const handleChange = (event) => {
     const name = event.target.name;
