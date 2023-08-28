@@ -39,7 +39,7 @@ export default function OfferDetail() {
   const [inputs, setInputs] = useState({}); // For form
 
   async function getOffer() {
-    if (offerId) {
+    if (offerId && loggedInStatus) {
       const splitMainContract = await sdk.getContract(
         splitMainAddress,
         splitABI
@@ -56,7 +56,7 @@ export default function OfferDetail() {
   }
   useEffect(() => {
     getOffer();
-  }, [offerId]);
+  }, [offerId, loggedInStatus]);
 
   useEffect(() => {
     if (offer) {
