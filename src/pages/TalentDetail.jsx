@@ -256,7 +256,7 @@ export default function TalentDetail() {
           <ConnectWalletButton customClass="connectWalletButton" />
         </div>
         <hr className="h-1 bg-gray-500" />
-        {loggedInStatus && userData.acount_type === userTypes.employer ? (
+        {loggedInStatus && userData?.acount_type === userTypes.employer ? (
           address &&
           talent && (
             <>
