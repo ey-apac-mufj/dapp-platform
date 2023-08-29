@@ -34,7 +34,7 @@ root.render(
       activeChain={activeChain}
       supportedWallets={[
         // myWallet(),
-        metamaskWallet(),
+        // metamaskWallet(),
         smartWallet({
           // Smart contract wallet is the only supported wallet
           factoryAddress: TWFactoryAddress,
@@ -51,8 +51,8 @@ root.render(
             //   },
             // }),
             // myWallet(),
-            walletConnectV1({ projectId: walletConnetKey }),
-            localWallet({ persist: true }),
+            // walletConnectV1({ projectId: walletConnetKey }),
+            // localWallet({ persist: true }),
           ],
         }),
         // paperWallet({
