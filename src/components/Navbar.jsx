@@ -10,26 +10,28 @@ import { userTypes } from "../../const/yourDetails";
 export default function Navbar({ activeMenu }) {
   const sdk = useSDK(); // Get SDK
   const [navbar, setNavbar] = useState(false);
-  const [user, setUser] = useState(null);
   const [signature, setSignature] = useState(null);
 
-  const { loggedInStatus, setLoggedInStatus } = useContext(LoginContext);
+  const { loggedInStatus, setLoggedInStatus, userData, setUserData } =
+    useContext(LoginContext);
 
   const address = useAddress();
 
   const getUser = async () => {
     const res = await Login.getUser();
     if (res.status === 200) {
-      setUser(res.data);
+      setUserData(res.data);
       // console.log("this is the datra", res.data);
       setLoggedInStatus(true);
     } else {
-      setUser(null);
+      setUserData(null);
       setLoggedInStatus(false);
     }
   };
 
   const handleMediLogout = async () => {
+    console.log("logout called");
+    setLoggedInStatus(false);
     let logout = await fetch("https://medi-lx.xyz/api/logout", {
       headers: {
         "Content-Type": "application/json",
@@ -38,10 +40,6 @@ export default function Navbar({ activeMenu }) {
       credentials: "include",
     });
     let logoutRes = await logout.json();
-    setSignature(null);
-    console.log("--------------------------------------");
-    console.log(logoutRes);
-    getUser();
   };
 
   const handleMediConnect = async () => {
@@ -91,9 +89,9 @@ export default function Navbar({ activeMenu }) {
     }
   };
 
-  useEffect(() => {
-    getUser();
-  }, []);
+  // useEffect(() => {
+  //   getUser();
+  // }, []);
 
   useEffect(() => {
     if (loggedInStatus) getUser();
@@ -168,7 +166,7 @@ export default function Navbar({ activeMenu }) {
                       Offers
                     </li>
                   </Link>
-                  {user?.acount_type === userTypes.employer && (
+                  {userData?.acount_type === userTypes.employer && (
                     <Link to="/talent-list">
                       <li
                         className={`${
@@ -182,7 +180,7 @@ export default function Navbar({ activeMenu }) {
                     </Link>
                   )}
 
-                  {user?.acount_type === userTypes.talent && (
+                  {userData?.acount_type === userTypes.talent && (
                     <a href="https://medi-lx.xyz/cont/home/" target="_blank">
                       <li className="menu-btn-purple md:mb-0 mb-2">
                         Refer Curriculum

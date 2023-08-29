@@ -16,7 +16,10 @@ const userLoggedin = async () => {
     });
     let getUserRes = await getUser.json();
     if (getUserRes.status === 200) {
-      return true;
+      return {
+        loggedInStatus: true,
+        userDetails: getUserRes.data,
+      };
     } else {
       return false;
     }
@@ -26,9 +29,12 @@ const userLoggedin = async () => {
 };
 
 export const LoginProvider = ({ children }) => {
-  const [loggedInStatus, setLoggedInStatus] = useState(userLoggedin());
+  const [loggedInStatus, setLoggedInStatus] = useState(
+    userLoggedin().loggedInStatus
+  );
+  const [userData, setUserData] = useState(userLoggedin().userDetails);
 
-  const value = { loggedInStatus, setLoggedInStatus };
+  const value = { loggedInStatus, setLoggedInStatus, userData, setUserData };
 
   return (
     <LoginContext.Provider value={value}>{children}</LoginContext.Provider>

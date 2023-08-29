@@ -11,7 +11,7 @@ import { useSDK } from "@thirdweb-dev/react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { apiurl } from "../../const/yourDetails";
+import { userTypes, apiurl } from "../../const/yourDetails";
 import OfferAPI from "../apiCall/OfferAPI";
 import { useAddress } from "@thirdweb-dev/react";
 import { useContractEvents, useContract } from "@thirdweb-dev/react";
@@ -38,7 +38,7 @@ export default function StudentList() {
   const onCloseModal = () => setOpen(false);
   const [disableButton, setDisableButton] = useState(false);
   const navigate = useNavigate();
-  const { loggedInStatus, setLoggedInStatus } = useContext(LoginContext);
+  const { loggedInStatus, userData } = useContext(LoginContext);
 
   const imgArr = [Student1, Student2, Student3, Student4];
   const [students, setStudents] = useState([]);
@@ -217,7 +217,7 @@ export default function StudentList() {
           <ConnectWalletButton customClass="connectWalletButton" />
         </div>
         <hr className="h-1 bg-gray-500" />
-        {loggedInStatus ? (
+        {loggedInStatus && userData?.acount_type === userTypes.employer ? (
           address && (
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mx-auto mt-8">
               {students.map((student, i) => {

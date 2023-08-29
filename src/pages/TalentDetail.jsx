@@ -11,7 +11,7 @@ import { useSDK } from "@thirdweb-dev/react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { apiurl } from "../../const/yourDetails";
+import { apiurl, userTypes } from "../../const/yourDetails";
 import OfferAPI from "../apiCall/OfferAPI";
 import { useAddress } from "@thirdweb-dev/react";
 import { useContractEvents, useContract } from "@thirdweb-dev/react";
@@ -54,7 +54,7 @@ export default function TalentDetail() {
   const [offerOutput, _setOfferOutput] = useState(null);
   const [offers, setOffers] = useState([]);
   const [offerIndices, setOfferIndices] = useState([]);
-  const { loggedInStatus } = useContext(LoginContext);
+  const { loggedInStatus, userData } = useContext(LoginContext);
 
   const inputsRef = useRef(inputs);
   const setInputs = (data) => {
@@ -256,7 +256,7 @@ export default function TalentDetail() {
           <ConnectWalletButton customClass="connectWalletButton" />
         </div>
         <hr className="h-1 bg-gray-500" />
-        {loggedInStatus ? (
+        {loggedInStatus && userData.acount_type === userTypes.employer ? (
           address &&
           talent && (
             <>

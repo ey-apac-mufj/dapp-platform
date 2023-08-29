@@ -8,21 +8,8 @@ import ProfileDetails from "../components/ProfileDetails";
 
 export default function Profile() {
   const address = useAddress();
-  const [user, setUser] = useState(null);
 
   const { loggedInStatus } = useContext(LoginContext);
-
-  const getUser = async () => {
-    const res = await Login.getUser();
-    if (res.status === 200) {
-      setUser(res.data);
-    } else {
-      setUser(null);
-    }
-  };
-  useEffect(() => {
-    getUser();
-  }, [loggedInStatus]);
 
   return (
     <>
@@ -34,7 +21,7 @@ export default function Profile() {
         </div>
         <hr className="h-1 bg-gray-500" />
         {address && loggedInStatus ? (
-          <ProfileDetails userDetails={user} />
+          <ProfileDetails />
         ) : (
           <div className="bg-red-300 w-full p-5 m-5 text-center text-xl">
             You are not authorized to view this page! Please login to continue!

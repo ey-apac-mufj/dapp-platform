@@ -61,7 +61,7 @@ export default function CommunityCategory() {
   return (
     <div className="container text-center mx-auto px-5 md:px-20 py-5 justify-center landing-page bg-gray-100 h-full">
       <h3 className="mt-5 text-3xl font-semi-bold text-black antonFont mb-7">
-        Health Care Communitites
+        Education Communitites
       </h3>
       <div className="mx-auto">
         <ConnectWalletButton customClass="connectWalletButton" />
