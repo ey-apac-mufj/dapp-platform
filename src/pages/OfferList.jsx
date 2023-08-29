@@ -43,7 +43,7 @@ export default function OfferList() {
 
   const [offers, setOffers] = useState([]);
   const [mediOffers, setMediOffers] = useState({});
-  const { loggedInStatus, setLoggedInStatus } = useContext(LoginContext);
+  const { loggedInStatus } = useContext(LoginContext);
 
   async function getOffers() {
     if (address) {
@@ -213,8 +213,13 @@ export default function OfferList() {
           <ConnectWalletButton customClass="connectWalletButton" />
         </div>
         <hr className="h-1 bg-gray-500" />
-        {offers.length > 0 && offers[0].length > 0 && (
-          <OfferList offers={offers} />
+        {loggedInStatus ? (
+          offers.length > 0 &&
+          offers[0].length > 0 && <OfferList offers={offers} />
+        ) : (
+          <div className="bg-red-300 w-full p-5 m-5 text-center text-xl">
+            You are not authorized to view this page! Please login to continue!
+          </div>
         )}
         {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 mx-auto mt-8">
         {offers.map((offer, i) => {

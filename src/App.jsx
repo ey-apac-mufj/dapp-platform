@@ -11,6 +11,7 @@ import OfferDetail from "./pages/OfferDetail";
 import StudentList from "./pages/StudentList";
 import TalentDetail from "./pages/TalentDetail";
 import "./styles/Home.css";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           />
           <Route path="/offers" element={<OfferList />} />
           <Route path="/offers/:offerId" element={<OfferDetail />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </div>
     </Router>

@@ -15,6 +15,12 @@ export const magicLinkKey = "pk_live_41D75AEA3BB94386";
 
 export const walletConnetKey = "4078812e3d11593676900b0dd00d15dc";
 
+export const userTypes = {
+  talent: 10,
+  instructor: 20,
+  employer: 30
+};
+
 export const splitMainAddress = "0xC56199705200D52Be2caa51B453E3eD0488A3f0f";
 export const stablecoinAddress = "0x6Ab8927Fcf9b994f2fD7f8634f40b9ee6df60999";
 export const platformAddress = "0x4d13f1607CF4F5c8c3DF878E3cf01CEe1224CC7d";

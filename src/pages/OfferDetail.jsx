@@ -289,21 +289,29 @@ export default function OfferDetail() {
               </div>
               {onChainOffer[0] != address && (
                 <div className="mt-8">
-                  {showButton(
-                    acceptOffer,
-                    onChainOffer[2] != 0 ? true : false,
-                    "Accept",
-                    onChainOffer[2] != 0
-                      ? "bg-blue-600 text-gray-300"
-                      : "bg-blue-600 hover:bg-blue-700 text-white"
+                  {onChainOffer[2] != 0 ? (
+                    <></>
+                  ) : (
+                    showButton(
+                      acceptOffer,
+                      onChainOffer[2] != 0 ? true : false,
+                      "Accept",
+                      onChainOffer[2] != 0
+                        ? "bg-blue-600 text-gray-300"
+                        : "bg-blue-600 hover:bg-blue-700 text-white"
+                    )
                   )}
-                  {showButton(
-                    declineOffer,
-                    onChainOffer[2] != 0 ? true : false,
-                    "Decline",
-                    onChainOffer[2] != 0
-                      ? "bg-red-600 text-gray-300"
-                      : "bg-red-600 hover:bg-red-700 text-white"
+                  {onChainOffer[2] != 0 ? (
+                    <></>
+                  ) : (
+                    showButton(
+                      declineOffer,
+                      onChainOffer[2] != 0 ? true : false,
+                      "Decline",
+                      onChainOffer[2] != 0
+                        ? "bg-red-600 text-gray-300"
+                        : "bg-red-600 hover:bg-red-700 text-white"
+                    )
                   )}
                   {/* <button
                 className="bg-indigo-600"
@@ -324,21 +332,29 @@ export default function OfferDetail() {
 
               {onChainOffer[1] != address && (
                 <div className="mt-8">
-                  {showButton(
-                    onOpenModal,
-                    onChainOffer[2] != 0 ? true : false,
-                    "Update",
-                    onChainOffer[2] != 0
-                      ? "bg-blue-600 text-gray-300"
-                      : "bg-blue-600 hover:bg-blue-700 text-white"
+                  {onChainOffer[2] != 0 ? (
+                    <></>
+                  ) : (
+                    showButton(
+                      onOpenModal,
+                      onChainOffer[2] != 0 ? true : false,
+                      "Update",
+                      onChainOffer[2] != 0
+                        ? "bg-blue-600 text-gray-300"
+                        : "bg-blue-600 hover:bg-blue-700 text-white"
+                    )
                   )}
-                  {showButton(
-                    closeOffer,
-                    onChainOffer[2] != 0 ? true : false,
-                    "Close",
-                    onChainOffer[2] != 0
-                      ? "bg-yellow-600 text-gray-300"
-                      : "bg-yellow-600 hover:bg-yellow-700 text-white"
+                  {onChainOffer[2] != 0 ? (
+                    <></>
+                  ) : (
+                    showButton(
+                      closeOffer,
+                      onChainOffer[2] != 0 ? true : false,
+                      "Close",
+                      onChainOffer[2] != 0
+                        ? "bg-yellow-600 text-gray-300"
+                        : "bg-yellow-600 hover:bg-yellow-700 text-white"
+                    )
                   )}
                 </div>
               )}

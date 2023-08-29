@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { LoginContext } from "../contexts/LoginContext";
 import { Link } from "react-router-dom";
+import { userTypes } from "../../const/yourDetails";
 
 export default function Navbar({ activeMenu }) {
   const sdk = useSDK(); // Get SDK
@@ -20,8 +21,8 @@ export default function Navbar({ activeMenu }) {
     const res = await Login.getUser();
     if (res.status === 200) {
       setUser(res.data);
+      // console.log("this is the datra", res.data);
       setLoggedInStatus(true);
-      console.log(res.data);
     } else {
       setUser(null);
       setLoggedInStatus(false);
@@ -93,6 +94,11 @@ export default function Navbar({ activeMenu }) {
   useEffect(() => {
     getUser();
   }, []);
+
+  useEffect(() => {
+    if (loggedInStatus) getUser();
+  }, [loggedInStatus]);
+
   return (
     <nav className="w-full bg-gray-200 shadow">
       <div className="px-5 md:items-center md:flex md:justify-between">
@@ -149,33 +155,53 @@ export default function Navbar({ activeMenu }) {
             }`}
           >
             <ul className="text-left md:flex md:space-x-6 md:space-y-0">
-              <Link to="/offers">
-                <li
-                  className={`${
-                    activeMenu === "Offers"
-                      ? "menu-btn-purple-active"
-                      : "menu-btn-purple"
-                  } md:mb-0 mb-2`}
-                >
-                  Offers
-                </li>
-              </Link>
-              <Link to="/talent-list">
-                <li
-                  className={`${
-                    activeMenu === "StudentList"
-                      ? "menu-btn-purple-active"
-                      : "menu-btn-purple"
-                  } md:mb-0 mb-2`}
-                >
-                  Talent List
-                </li>
-              </Link>
               {loggedInStatus ? (
                 <>
-                  <li className="menu-btn-purple md:mb-0 mb-2">
-                    Refer Curriculum
-                  </li>
+                  <Link to="/offers">
+                    <li
+                      className={`${
+                        activeMenu === "Offers"
+                          ? "menu-btn-purple-active"
+                          : "menu-btn-purple"
+                      } md:mb-0 mb-2`}
+                    >
+                      Offers
+                    </li>
+                  </Link>
+                  {user?.acount_type === userTypes.employer && (
+                    <Link to="/talent-list">
+                      <li
+                        className={`${
+                          activeMenu === "StudentList"
+                            ? "menu-btn-purple-active"
+                            : "menu-btn-purple"
+                        } md:mb-0 mb-2`}
+                      >
+                        Talent List
+                      </li>
+                    </Link>
+                  )}
+
+                  {user?.acount_type === userTypes.talent && (
+                    <a href="https://medi-lx.xyz/cont/home/" target="_blank">
+                      <li className="menu-btn-purple md:mb-0 mb-2">
+                        Refer Curriculum
+                      </li>
+                    </a>
+                  )}
+
+                  <Link to="/profile">
+                    <li
+                      className={`${
+                        activeMenu === "Profile"
+                          ? "menu-btn-purple-active"
+                          : "menu-btn-purple"
+                      } md:mb-0 mb-2`}
+                    >
+                      Profile
+                    </li>
+                  </Link>
+
                   <li
                     className="menu-btn-purple md:mb-0 mb-2"
                     onClick={handleMediLogout}

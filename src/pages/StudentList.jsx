@@ -217,14 +217,20 @@ export default function StudentList() {
           <ConnectWalletButton customClass="connectWalletButton" />
         </div>
         <hr className="h-1 bg-gray-500" />
-        {address && (
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mx-auto mt-8">
-            {students.map((student, i) => {
-              student.image = imgArr[i];
-              return (
-                <StudentThumbnail student={student} onHire={onHire} key={i} />
-              );
-            })}
+        {loggedInStatus ? (
+          address && (
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mx-auto mt-8">
+              {students.map((student, i) => {
+                // student.image = imgArr[i];
+                return (
+                  <StudentThumbnail student={student} onHire={onHire} key={i} />
+                );
+              })}
+            </div>
+          )
+        ) : (
+          <div className="bg-red-300 w-full p-5 m-5 text-center text-xl">
+            You are not authorized to view this page! Please login to continue!
           </div>
         )}
         <CustomModal
