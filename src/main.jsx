@@ -23,6 +23,8 @@ import {
 } from "../const/yourDetails";
 import { walletConnectV1 } from "@thirdweb-dev/react";
 import { LoginProvider } from "./contexts/LoginContext";
+import { I18nextProvider } from "react-i18next";
+import i18n from "./language/i18n";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -60,9 +62,11 @@ root.render(
         // }),
       ]}
     >
-      <LoginProvider>
-        <App />
-      </LoginProvider>
+      <I18nextProvider i18n={i18n}>
+        <LoginProvider>
+          <App />
+        </LoginProvider>
+      </I18nextProvider>
     </ThirdwebProvider>
   </React.StrictMode>
 );

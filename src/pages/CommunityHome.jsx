@@ -23,7 +23,10 @@ import { useNavigate } from "react-router-dom";
 import Stat from "../components/Stat";
 import CategoryThumbnail from "../components/CategoryThumbnail";
 
+import { useTranslation } from "react-i18next";
+
 export default function CommunityHome() {
+  const { t, i18n } = useTranslation();
   const [lastClick, setLastClick] = useState(Date.now());
   const [nftPresent, setNftPresent] = useState(false);
 
@@ -191,12 +194,27 @@ export default function CommunityHome() {
     checkIfHaveNft();
   }, [ownedNfts]);
 
+  const [lastLang, setlastLang] = useState("en");
+
+  // const lng = useLng();
+
+  const changeLanguage = () => {
+    if (lastLang === "en") {
+      i18n.changeLanguage("jp");
+      setlastLang("jp");
+    } else {
+      i18n.changeLanguage("en");
+      setlastLang("en");
+    }
+  };
+
   return (
     <div className="container text-center mx-auto px-5 md:px-20 py-5 justify-center landing-page">
       {/* <img src={logo} alt="" className="mx-auto w-30" /> */}
       <h3 className="mt-5 text-3xl font-semi-bold text-black antonFont">
-        Multiverse Community
+        {t("multiverseCommunity")}
       </h3>
+      <button onClick={() => changeLanguage()}>Toggle Language</button>
       <input
         type="text"
         className="w-90 md:w-80 mt-5 ml-2 pl-5 pr-3 py-2 rounded-full text-center"
