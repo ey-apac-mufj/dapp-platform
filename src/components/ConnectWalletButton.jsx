@@ -21,10 +21,14 @@ export default function ConnectWalletButton({ customClass = "" }) {
 
   useEffect(() => {
     if (connectionStatus === "disconnected") {
+      console.log("yess disconnected");
       setLoggedInStatus(false);
       handleMediLogout();
+    } else {
+      setLoggedInStatus(true);
     }
   }, [connectionStatus]);
+
   return (
     <div className="mx-auto mb-5 pt-4">
       <ConnectWallet
