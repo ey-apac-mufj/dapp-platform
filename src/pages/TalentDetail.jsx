@@ -284,7 +284,7 @@ export default function TalentDetail() {
                         UtilityFunctions.copyText(talent.walletAddress)
                       }
                     >
-                      Copy
+                      {t("Copy")}
                     </span>
                   </h5>
                   <table className="table-auto w-full rounded-md border-gray-600 mt-6">
