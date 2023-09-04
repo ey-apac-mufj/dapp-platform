@@ -217,7 +217,9 @@ export default function OfferList() {
           offers[0].length > 0 && <OfferList offers={offers} />
         ) : (
           <div className="bg-red-300 w-full p-5 m-5 text-center text-xl">
-            You are not authorized to view this page! Please login to continue!
+            {t(
+              "You are not authorized to view this page! Please login to continue!"
+            )}
           </div>
         )}
         {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 mx-auto mt-8">
