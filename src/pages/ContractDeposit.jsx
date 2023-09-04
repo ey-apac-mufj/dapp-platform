@@ -7,6 +7,8 @@ import { useSDK } from "@thirdweb-dev/react";
 import { useParams } from "react-router-dom";
 
 import { stablecoinAddress } from "../../const/yourDetails";
+import UtilityFunctions from "../utilities/UtilityFunctions";
+import SwitchLanguage from "../components/SwitchLanguage";
 
 const myTokenABI = [
   {
@@ -587,19 +589,13 @@ const myTokenABI = [
 ];
 
 export default function ContractDeposit() {
+  const { t } = useTranslation();
   let { splitAddress } = useParams();
   const [whitelisted, setWhitelisted] = useState(false);
 
   const sdk = useSDK(); // Get SDK
   const [signature, setSignature] = useState(null);
-  const copyText = (text) => {
-    // console.log(text);
-    navigator.clipboard.writeText(text);
-    toast.success("Contract address is copied!", {
-      position: "bottom-right",
-      autoClose: 3000,
-    });
-  };
+
   const [contractVerified, setContractVerified] = useState(true);
   const [coinAmount, setCoinAmount] = useState(0);
 
@@ -658,16 +654,16 @@ export default function ContractDeposit() {
       <div className="mx-auto white-card w-full md:w-[600px] hover:bg-white cursor-default">
         <img src={Correct} className="mx-auto mb-5 h-20" />
         <h5 className="text-center text-xl font-medium">
-          Contract Deployed successfully
+          {t("Contract Deployed successfully")}
         </h5>
         <h5 className="text-center text-lg mt-5">
-          <span className="font-medium">Contract Address: </span>
+          <span className="font-medium">{t("Contract Address")}: </span>
           {splitAddress}
           <span
             className="px-1 py-1 bg-gray-200 rounded-lg cursor-pointer ml-5 text-sm"
-            onClick={() => copyText("dummyContractAddress")}
+            onClick={() => UtilityFunctions.copyText("dummyContractAddress")}
           >
-            Copy
+            {t("Copy")}
           </span>
         </h5>
         <div className="mx-auto mt-4">
@@ -678,17 +674,17 @@ export default function ContractDeposit() {
         {contractVerified && (
           <div className="text-left mt-8 px-10">
             <h5 className="text-center font-medium text-xl">
-              Deposit Funds to Contract
+              {toast("Deposit Funds to Contract")}
             </h5>
             <form method="POST" onSubmit={onCoinSubmit}>
               <div className="mt-7">
-                <label>Stablecoin Amount</label>
+                <label>{toast("Stablecoin Amount")}</label>
                 <input
                   name="coinAmount"
                   value={coinAmount || ""}
                   onChange={handleAmountChange}
                   type="number"
-                  placeholder="Enter No. of Stablecoins (MTK)"
+                  placeholder={t("Enter No. of Stablecoins (MTK)")}
                   className="form-control"
                   required
                 />
@@ -697,14 +693,14 @@ export default function ContractDeposit() {
                 {whitelisted ? (
                   <></>
                 ) : (
-                  "Wait for the contract to be whitelisted"
+                  t("Wait for the contract to be whitelisted")
                 )}
                 <button
                   disabled={!whitelisted}
                   type="submit"
                   className="mx-auto bg-indigo-600 hover:bg-indigo-500 rounded-lg px-3.5 py-2.5 text-sm text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mb-4"
                 >
-                  Deposit
+                  {t("Deposit")}
                 </button>
               </div>
             </form>
@@ -712,6 +708,7 @@ export default function ContractDeposit() {
         )}
       </div>
       <ToastContainer />
+      <SwitchLanguage />
     </div>
   );
 }

@@ -92,7 +92,6 @@ const MediConnect = ({ t }) => {
   const handleMediConnect = async () => {
     const message =
       t("Please confirm to connect to Medi API Services at") + " " + Date.now(); // Message to show at the time of signing
-
     try {
       const signature = await sdk.wallet.sign(message); // Signing message using wallet
       setWaitingMsg(true);

@@ -21,7 +21,10 @@ const userLoggedin = async () => {
         userDetails: getUserRes.data,
       };
     } else {
-      return false;
+      return {
+        loggedInStatus: false,
+        userDetails: null,
+      };
     }
   } catch (error) {
     return false;

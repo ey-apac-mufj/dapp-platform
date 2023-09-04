@@ -21,8 +21,12 @@ import {
 } from "../../const/yourDetails";
 import Navbar from "../components/Navbar";
 import { LoginContext } from "../contexts/LoginContext";
+import SwitchLanguage from "../components/SwitchLanguage";
+import { useTranslation } from "react-i18next";
+import UtilityFunctions from "../utilities/UtilityFunctions";
 
 export default function OfferDetail() {
+  const { t } = useTranslation();
   let { offerId } = useParams();
   const sdk = useSDK(); // Get SDK
   const address = useAddress();
@@ -194,27 +198,18 @@ export default function OfferDetail() {
         onClick={onClickFun}
         disabled={ifDisabled}
       >
-        {text}
+        {t(text)}
       </button>
     );
-  };
-
-  const copyText = (text) => {
-    // console.log(text);
-    navigator.clipboard.writeText(text);
-    toast.success("Text is copied to your clipboard", {
-      position: "bottom-right",
-      autoClose: 3000,
-    });
   };
 
   const copyAddress = (text) => {
     return (
       <span
         className="px-1 py-1 bg-gray-300 rounded-lg cursor-pointer ml-2 text-sm"
-        onClick={() => copyText(text)}
+        onClick={() => UtilityFunctions.copyText(text)}
       >
-        Copy
+        {t("Copy")}
       </span>
     );
   };
@@ -238,7 +233,7 @@ export default function OfferDetail() {
     <>
       <Navbar />
       <div className="container text-center mx-auto px-5 md:px-40 py-5 justify-center">
-        <h5 className="font-medium text-2xl">Offer Details</h5>
+        <h5 className="font-medium text-2xl">{t("Offer Details")}</h5>
         <div className="mx-auto mt-4">
           <ConnectWalletButton customClass="connectWalletButton" />
         </div>
@@ -250,39 +245,45 @@ export default function OfferDetail() {
               <div className="flex flex-col md:flex-row justify-between text-left gap-3">
                 {onChainOffer[0] != address && (
                   <div className="text-left break-words mx-right">
-                    <h3 className="text-xl font-medium">Offer Sender: </h3>
+                    <h3 className="text-xl font-medium">
+                      {t("Offer Sender")}:{" "}
+                    </h3>
                     <h6>
-                      <span className="font-medium">Address: </span>
+                      <span className="font-medium">{t("Address")}: </span>
                       {getAddress(onChainOffer[0])}{" "}
                       {copyAddress(onChainOffer[0])}
                     </h6>
                     <h6>
-                      <span className="font-medium">Hospital Name: </span>{" "}
+                      <span className="font-medium">
+                        {t("Hospital Name")}:{" "}
+                      </span>
                       {offer?.hospitalName ? offer?.hospitalName : "N/A"}
                     </h6>
                   </div>
                 )}
                 {onChainOffer[1] != address && (
                   <div className="text-left break-words mx-right">
-                    <h3 className="text-xl font-medium">Offer Receiver: </h3>
+                    <h3 className="text-xl font-medium">
+                      {t("Offer Receiver")}:{" "}
+                    </h3>
                     <h6 className="mt-2">
-                      <span className="font-medium">Address: </span>
+                      <span className="font-medium">{t("Address")}: </span>
                       {getAddress(onChainOffer[1])}{" "}
                       {copyAddress(onChainOffer[1])}
                     </h6>
                     <h6 className="mt-2">
-                      <span className="font-medium">Talent Name: </span>{" "}
+                      <span className="font-medium">{t("Talent Name")}: </span>{" "}
                       {offer?.talentName ? offer?.talentName : "N/A"}
                     </h6>
                   </div>
                 )}
                 <div className="text-left break-words">
-                  <h3 className="text-xl font-medium">Status: </h3>
+                  <h3 className="text-xl font-medium">{t("Status")}: </h3>
                   <h6>{OfferAPI.statusToString(onChainOffer[2])}</h6>
                 </div>
               </div>
               <div className="text-left break-words mx-right mt-7">
-                <h3 className="text-xl font-medium">Details: </h3>
+                <h3 className="text-xl font-medium">{t("Details")}: </h3>
                 <h6>
                   {offer?.offerDetail ? displayText(offer?.offerDetail) : "N/A"}
                 </h6>
@@ -362,23 +363,25 @@ export default function OfferDetail() {
           )
         ) : (
           <div className="bg-red-300 w-full p-5 m-5 text-center text-xl">
-            You are not authorized to view this page! Please login to continue!
+            {t(
+              "You are not authorized to view this page! Please login to continue!"
+            )}
           </div>
         )}
 
         <CustomModal
           open={open}
           onCloseModal={onCloseModal}
-          title="Submit Job Details"
+          title={t("Submit Job Details")}
         >
           <form method="POST" onSubmit={onUpdateOffer}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto text-left mt-8">
               <div className="col-span-1 md:col-span-2">
-                <label>Job Description</label>
+                <label>{t("Job Description")}</label>
                 <textarea
                   className="form-control"
                   rows="3"
-                  placeholder="Enter Job Description"
+                  placeholder={t("Enter Job Description")}
                   name="jobDescription"
                   value={inputs.jobDescription || ""}
                   onChange={handleChange}
@@ -391,12 +394,13 @@ export default function OfferDetail() {
                 type="submit"
                 className="bg-indigo-600 hover:bg-indigo-500 rounded-lg px-3.5 py-2.5 text-sm text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-2 ml-auto"
               >
-                Submit Details
+                {t("Submit Details")}
               </button>
             </div>
           </form>
         </CustomModal>
         <ToastContainer />
+        <SwitchLanguage />
       </div>
     </>
   );

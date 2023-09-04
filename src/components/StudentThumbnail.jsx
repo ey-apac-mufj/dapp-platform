@@ -3,18 +3,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Student1 from "../images/student1.png";
 import { Link } from "react-router-dom";
+import UtilityFunctions from "../utilities/UtilityFunctions";
 
-export default function StudentThumbnail({ student, onHire }) {
+export default function StudentThumbnail({ student, onHire, t }) {
   // console.log("student details", student);
-  // Function to copy text to clipboard
-  const copyText = (text) => {
-    // console.log(text);
-    navigator.clipboard.writeText(text);
-    toast.success("Text is copied to your clipboard", {
-      position: "bottom-right",
-      autoClose: 3000,
-    });
-  };
 
   return (
     <Link to={`/talents/${student.walletAddress}`}>
@@ -36,9 +28,9 @@ export default function StudentThumbnail({ student, onHire }) {
               )}{" "}
             <span
               className="px-1 py-1 bg-gray-200 rounded-lg"
-              onClick={() => copyText(student.walletAddress)}
+              onClick={() => UtilityFunctions.copyText(student.walletAddress)}
             >
-              Copy
+              {t("Copy")}
             </span>
           </h5>
           <div className="mx-auto text-center">
@@ -46,7 +38,7 @@ export default function StudentThumbnail({ student, onHire }) {
               onClick={() => onHire(student.walletAddress)}
               className="font-medium bg-indigo-600 hover:bg-indigo-500 rounded-lg px-3.5 py-2.5 text-sm text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-2 mx-auto"
             >
-              Details
+              {t("Details")}
             </button>
           </div>
         </div>

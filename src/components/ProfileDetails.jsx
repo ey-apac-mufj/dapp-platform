@@ -2,8 +2,9 @@ import React, { useContext } from "react";
 import Student1 from "../images/student1.png";
 import { userTypes } from "../../const/yourDetails";
 import { LoginContext } from "../contexts/LoginContext";
+import UtilityFunctions from "../utilities/UtilityFunctions";
 
-export default function ProfileDetails() {
+export default function ProfileDetails({ t }) {
   const { userData } = useContext(LoginContext);
   return (
     <>
@@ -22,14 +23,14 @@ export default function ProfileDetails() {
             {userData?.userName}
           </h5>
           <h5 className="text-center text-md font-semibold mt-1">
-            {userTypes.employer == userData?.acount_type && "Employer"}
-            {userTypes.talent == userData?.acount_type && "Talent"}
-            {userTypes.instructor == userData?.acount_type && "Instructor"}
+            {userTypes.employer == userData?.acount_type && t("Employer")}
+            {userTypes.talent == userData?.acount_type && t("Talent")}
+            {userTypes.instructor == userData?.acount_type && t("Instructor")}
           </h5>
           <table className="table-auto w-full rounded-md border-gray-600 mt-6">
             <tbody>
               <tr className="bg-gray-200">
-                <th className="py-2">Wallet address: </th>
+                <th className="py-2">{t("Wallet address:")} </th>
                 <td>
                   {userData?.walletAddress.substring(0, 8) +
                     "..." +
@@ -38,18 +39,20 @@ export default function ProfileDetails() {
                     )}{" "}
                   <span
                     className="px-1 py-1 bg-gray-400 rounded-lg cursor-pointer"
-                    onClick={() => copyText(userData?.walletAddress)}
+                    onClick={() =>
+                      UtilityFunctions.copyText(userData?.walletAddress)
+                    }
                   >
-                    Copy
+                    {t("Copy")}
                   </span>
                 </td>
               </tr>
               <tr>
-                <th className="py-2">User Name: </th>
+                <th className="py-2">{t("User Name:")} </th>
                 <td>{userData?.userName} </td>
               </tr>
               <tr className="bg-gray-200">
-                <th className="py-2">User Id: </th>
+                <th className="py-2">{t("User Id:")} </th>
                 <td>{userData?.userId}</td>
               </tr>
             </tbody>

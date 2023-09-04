@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { ConnectWallet, useConnectionStatus } from "@thirdweb-dev/react";
 import { LoginContext } from "../contexts/LoginContext";
 import { useTranslation } from "react-i18next";
+import Login from "../apiCall/Login";
 
 export default function ConnectWalletButton({ customClass = "" }) {
   const { t } = useTranslation();
@@ -21,13 +22,20 @@ export default function ConnectWalletButton({ customClass = "" }) {
     console.log(logoutRes);
   };
 
+  const getUser = async () => {
+    const res = await Login.getUser();
+    if (res.status === 200) {
+      setLoggedInStatus(true);
+    }
+  };
+
   useEffect(() => {
     if (connectionStatus === "disconnected") {
-      console.log("yess disconnected");
+      // console.log("yess disconnected");
       setLoggedInStatus(false);
       handleMediLogout();
     } else {
-      setLoggedInStatus(true);
+      getUser();
     }
   }, [connectionStatus]);
 

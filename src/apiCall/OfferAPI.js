@@ -1,49 +1,48 @@
 import { apiurl } from "../../const/yourDetails";
 
-
 class OfferAPI {
   statusToString = (status) => {
     if (status === 0) {
-      return 'Open'
+      return "Open";
     } else if (status === 1) {
-      return 'Close'
+      return "Closed";
     } else if (status === 2) {
-      return 'Accept'
+      return "Accepted";
     } else if (status === 3) {
-      return 'Decline'
+      return "Declined";
     } else {
-      return 'Unknown'
+      return "Unknown";
     }
-  }
+  };
   contractToMediStatus = (status) => {
     if (status === 0) {
-      return 10
+      return 10;
     } else if (status === 1) {
-      return 99
+      return 99;
     } else if (status === 2) {
-      return 100
+      return 100;
     } else if (status === 3) {
-      return 999
+      return 999;
     } else {
-      return 'Unknown'
+      return "Unknown";
     }
-  }
+  };
   createOffer = async (offerID, talentWalletAddress, offerDetail) => {
     try {
       let formData = new FormData();
-      formData.append('offerID', offerID);
-      formData.append('talentWalletAddress', talentWalletAddress);
-      formData.append('offerDetail', offerDetail);
+      formData.append("offerID", offerID);
+      formData.append("talentWalletAddress", talentWalletAddress);
+      formData.append("offerDetail", offerDetail);
 
       let response = await fetch(`${apiurl}/api/create_offer`, {
         method: "POST",
         body: formData,
-        credentials: 'include',
+        credentials: "include",
       });
       let responseJson = await response.json();
       return responseJson;
     } catch (error) {
-      console.log('createOffer API call error', error);
+      console.log("createOffer API call error", error);
       return {
         message: "Something went wrong! Please try again.",
         status: 400,
@@ -56,13 +55,13 @@ class OfferAPI {
         headers: {
           "Content-Type": "application/json",
         },
-        method: 'GET',
-        credentials: 'include',
+        method: "GET",
+        credentials: "include",
       });
       let responseJson = await response.json();
       return responseJson;
     } catch (error) {
-      console.log('getOffer API call error', error);
+      console.log("getOffer API call error", error);
       return {
         message: "Something went wrong! Please try again.",
         status: 400,
@@ -72,23 +71,23 @@ class OfferAPI {
   modifyOffer = async (offerID, offerStatus, offerDetail) => {
     try {
       let formData = new FormData();
-      formData.append('offerID', offerID);
+      formData.append("offerID", offerID);
       if (offerStatus) {
-        formData.append('offerStatus', offerStatus);
+        formData.append("offerStatus", offerStatus);
       }
       if (offerDetail) {
-        formData.append('offerDetail', offerDetail);
+        formData.append("offerDetail", offerDetail);
       }
 
       let response = await fetch(`${apiurl}/api/modify_offer/${offerID}`, {
         method: "POST",
         body: formData,
-        credentials: 'include',
+        credentials: "include",
       });
       let responseJson = await response.json();
       return responseJson;
     } catch (error) {
-      console.log('modifyOffer API call error', error);
+      console.log("modifyOffer API call error", error);
       return {
         message: "Something went wrong! Please try again.",
         status: 400,

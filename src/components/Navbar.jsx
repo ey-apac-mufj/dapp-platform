@@ -6,11 +6,14 @@ import "react-toastify/dist/ReactToastify.css";
 import { LoginContext } from "../contexts/LoginContext";
 import { Link } from "react-router-dom";
 import { userTypes } from "../../const/yourDetails";
+import { useTranslation } from "react-i18next";
 
 export default function Navbar({ activeMenu }) {
   const sdk = useSDK(); // Get SDK
   const [navbar, setNavbar] = useState(false);
   const [signature, setSignature] = useState(null);
+
+  const { t } = useTranslation();
 
   const { loggedInStatus, setLoggedInStatus, userData, setUserData } =
     useContext(LoginContext);
@@ -44,7 +47,7 @@ export default function Navbar({ activeMenu }) {
 
   const handleMediConnect = async () => {
     const message =
-      "Please confirm to connect to Medi API Services at " + Date.now(); // Message to show at the time of signing
+      t("Please confirm to connect to Medi API Services at") + " " + Date.now(); // Message to show at the time of signing
 
     try {
       const signature = await sdk.wallet.sign(message); // Signing message using wallet
@@ -104,7 +107,7 @@ export default function Navbar({ activeMenu }) {
           <div className="flex items-center justify-between py-3 md:py-5 md:block">
             <Link to="/community-details" className="cursor-pointer">
               <h5 className="font-bold text-purple-500 text-xl">
-                Web3 Community
+                {t("Web3 Community")}
               </h5>
             </Link>
 
@@ -163,7 +166,7 @@ export default function Navbar({ activeMenu }) {
                           : "menu-btn-purple"
                       } md:mb-0 mb-2`}
                     >
-                      Offers
+                      {t("Offers")}
                     </li>
                   </Link>
                   {userData?.acount_type === userTypes.employer && (
@@ -175,7 +178,7 @@ export default function Navbar({ activeMenu }) {
                             : "menu-btn-purple"
                         } md:mb-0 mb-2`}
                       >
-                        Talent List
+                        {t("Talent List")}
                       </li>
                     </Link>
                   )}
@@ -183,7 +186,7 @@ export default function Navbar({ activeMenu }) {
                   {userData?.acount_type === userTypes.talent && (
                     <a href="https://medi-lx.xyz/cont/home/" target="_blank">
                       <li className="menu-btn-purple md:mb-0 mb-2">
-                        Refer Curriculum
+                        {t("Refer Curriculum")}
                       </li>
                     </a>
                   )}
@@ -196,7 +199,7 @@ export default function Navbar({ activeMenu }) {
                           : "menu-btn-purple"
                       } md:mb-0 mb-2`}
                     >
-                      Profile
+                      {t("Profile")}
                     </li>
                   </Link>
 
@@ -204,7 +207,7 @@ export default function Navbar({ activeMenu }) {
                     className="menu-btn-purple md:mb-0 mb-2"
                     onClick={handleMediLogout}
                   >
-                    Logout
+                    {t("Logout")}
                   </li>
                 </>
               ) : (
@@ -212,7 +215,7 @@ export default function Navbar({ activeMenu }) {
                   className="menu-btn-purple md:mb-0 mb-2"
                   onClick={handleMediConnect}
                 >
-                  Login
+                  {t("Login")}
                 </li>
               )}
             </ul>

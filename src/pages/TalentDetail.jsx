@@ -29,8 +29,12 @@ import {
 } from "../../const/yourDetails";
 import Navbar from "../components/Navbar";
 import { LoginContext } from "../contexts/LoginContext";
+import SwitchLanguage from "../components/SwitchLanguage";
+import { useTranslation } from "react-i18next";
+import UtilityFunctions from "../utilities/UtilityFunctions";
 
 export default function TalentDetail() {
+  const { t } = useTranslation();
   let { talentAddress } = useParams();
   const sdk = useSDK(); // Get SDK
   const address = useAddress();
@@ -99,13 +103,13 @@ export default function TalentDetail() {
         offerOutput.jobDescription
       );
       console.log(offerCreate);
-      toast.success("Your transaction is Successful!", {
+      toast.success(t("Your transaction is Successful!"), {
         position: "bottom-right",
         autoClose: 3000,
       });
     } catch (error) {
       console.log("CreateOffer error ", error);
-      toast.error("Problem occurs!", {
+      toast.error(t("Error in creating offer"), {
         position: "bottom-right",
         autoClose: 3000,
       });
@@ -225,7 +229,7 @@ export default function TalentDetail() {
     } catch (error) {
       console.log("onHireSubmit ", error);
       onCloseModal();
-      toast.error("Your transaction failed!", {
+      toast.error(t("Your transaction failed!"), {
         position: "bottom-right",
         autoClose: 3000,
       });
@@ -238,20 +242,13 @@ export default function TalentDetail() {
     onOpenModal();
   };
 
-  const copyText = (text) => {
-    // console.log(text);
-    navigator.clipboard.writeText(text);
-    toast.success("Text is copied to your clipboard", {
-      position: "bottom-right",
-      autoClose: 3000,
-    });
-  };
-
   return (
     <>
       <Navbar />
       <div className="container text-center mx-auto px-5 md:px-20 py-5 justify-center">
-        <h5 className="font-medium text-2xl text-center">Talent Details</h5>
+        <h5 className="font-medium text-2xl text-center">
+          {t("Talent Details")}
+        </h5>
         <div className="mx-auto mt-4">
           <ConnectWalletButton customClass="connectWalletButton" />
         </div>
@@ -283,7 +280,9 @@ export default function TalentDetail() {
                       )}{" "}
                     <span
                       className="px-1 py-1 bg-gray-200 rounded-lg cursor-pointer"
-                      onClick={() => copyText(talent.walletAddress)}
+                      onClick={() =>
+                        UtilityFunctions.copyText(talent.walletAddress)
+                      }
                     >
                       Copy
                     </span>
@@ -291,57 +290,57 @@ export default function TalentDetail() {
                   <table className="table-auto w-full rounded-md border-gray-600 mt-6">
                     <tbody>
                       <tr className="bg-gray-200">
-                        <th className="py-2">Age: </th>
-                        <td>{talent.age ? talent.age : "Not available"} </td>
+                        <th className="py-2">{t("Age")} </th>
+                        <td>{talent.age ? talent.age : t("Not available")} </td>
                       </tr>
                       <tr>
-                        <th className="py-2">Gender: </th>
+                        <th className="py-2">{t("Gender")}: </th>
                         <td>
-                          {talent.gender ? talent.gender : "Not available"}{" "}
+                          {talent.gender ? talent.gender : t("Not available")}{" "}
                         </td>
                       </tr>
                       <tr className="bg-gray-200">
-                        <th className="py-2">Prefectures: </th>
+                        <th className="py-2">{t("Prefectures")}: </th>
                         <td>
                           {talent.prefectures
                             ? talent.prefectures
-                            : "Not available"}{" "}
+                            : t("Not available")}{" "}
                         </td>
                       </tr>
                       <tr>
-                        <th className="py-2">Address: </th>
+                        <th className="py-2">{t("Address")}: </th>
                         <td>
-                          {talent.address ? talent.address : "Not available"}{" "}
+                          {talent.address ? talent.address : t("Not available")}{" "}
                         </td>
                       </tr>
                       <tr className="bg-gray-200">
-                        <th className="py-2">Degree: </th>
+                        <th className="py-2">{t("Degree")}: </th>
                         <td>
-                          {talent.degree ? talent.degree : "Not available"}{" "}
+                          {talent.degree ? talent.degree : t("Not available")}{" "}
                         </td>
                       </tr>
                       <tr>
-                        <th className="py-2">Working History: </th>
+                        <th className="py-2">{t("Working History")}: </th>
                         <td>
                           {talent.workHistory
                             ? talent.workHistory
-                            : "Not available"}{" "}
+                            : t("Not available")}{" "}
                         </td>
                       </tr>
                       <tr className="bg-gray-200">
-                        <th className="py-2">Certificates: </th>
+                        <th className="py-2">{t("Certificates")}: </th>
                         <td>
                           {talent.certificates
                             ? talent.certificates
-                            : "Not available"}{" "}
+                            : t("Not available")}{" "}
                         </td>
                       </tr>
                       <tr>
-                        <th className="py-2">Phone Number: </th>
+                        <th className="py-2">{t("Phone Number")}: </th>
                         <td>
                           {talent.phoneNumber
                             ? talent.phoneNumber
-                            : "Not available"}{" "}
+                            : t("Not available")}{" "}
                         </td>
                       </tr>
                     </tbody>
@@ -351,14 +350,14 @@ export default function TalentDetail() {
                       onClick={() => onHire(talent.walletAddress)}
                       className="font-medium bg-indigo-600 hover:bg-indigo-500 rounded-full px-3.5 py-2.5 text-sm text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-2 mx-auto"
                     >
-                      Create New Offer
+                      {t("Create New Offer")}
                     </button>
                   </div>
                   <div className="mt-4 whitespace-normal">
                     {offerIndices.length > 0 && (
                       <div>
                         <div className="mx-auto text-center text-lg font-medium mt-6 mb-4">
-                          Previous Offers From Me:
+                          {t("Previous Offers From Me:")}
                         </div>
                         <div className="break-words grid grid-cols-4 md:grid-cols-8 mx-auto">
                           {offerIndices.map((offerIndex, i) => {
@@ -386,23 +385,25 @@ export default function TalentDetail() {
           )
         ) : (
           <div className="bg-red-300 w-full p-5 m-5 text-center text-xl">
-            You are not authorized to view this page! Please login to continue!
+            {t(
+              "You are not authorized to view this page! Please login to continue!"
+            )}
           </div>
         )}
 
         <CustomModal
           open={open}
           onCloseModal={onCloseModal}
-          title="Submit Job Details"
+          title={t("Submit Job Details")}
         >
           <form method="POST" onSubmit={onHireSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto text-left mt-8">
               <div className="col-span-1 md:col-span-2">
-                <label>Job Description</label>
+                <label>{t("Job Description")}</label>
                 <textarea
                   className="form-control"
                   rows="3"
-                  placeholder="Enter Job Description"
+                  placeholder={t("Enter Job Description")}
                   name="jobDescription"
                   value={inputs.jobDescription || ""}
                   onChange={handleChange}
@@ -413,7 +414,7 @@ export default function TalentDetail() {
             <div className="mr-auto flex text-right">
               <p className="mt-4 italic">
                 {disableButton
-                  ? "Please wait... Transaction in progress..."
+                  ? t("Please wait... Transaction in progress...")
                   : ""}
               </p>
               <button
@@ -425,12 +426,13 @@ export default function TalentDetail() {
                     : "bg-indigo-600 hover:bg-indigo-500 text-white"
                 }  rounded-lg px-3.5 py-2.5 text-sm  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-2 ml-auto`}
               >
-                {disableButton ? "Processing..." : "Submit Details"}
+                {disableButton ? t("Processing...") : t("Submit Details")}
               </button>
             </div>
           </form>
         </CustomModal>
         <ToastContainer />
+        <SwitchLanguage />
       </div>
     </>
   );

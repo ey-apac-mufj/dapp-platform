@@ -19,8 +19,11 @@ import {
 } from "../../const/yourDetails";
 import Navbar from "../components/Navbar";
 import SwitchLanguage from "../components/SwitchLanguage";
+import { useTranslation } from "react-i18next";
+import UtilityFunctions from "../utilities/UtilityFunctions";
 
 export default function OfferList() {
+  const { t } = useTranslation();
   const statusList = {
     0: {
       title: "Open",
@@ -74,22 +77,13 @@ export default function OfferList() {
     }
   }
 
-  const copyText = (text) => {
-    // console.log(text);
-    navigator.clipboard.writeText(text);
-    toast.success("Text is copied to your clipboard", {
-      position: "bottom-right",
-      autoClose: 3000,
-    });
-  };
-
   const copyAddress = (text) => {
     return (
       <span
         className="px-1 py-1 bg-gray-300 rounded-lg cursor-pointer ml-2 text-sm"
-        onClick={() => copyText(text)}
+        onClick={() => UtilityFunctions.copyText(text)}
       >
-        Copy
+        {t("Copy")}
       </span>
     );
   };
@@ -122,13 +116,17 @@ export default function OfferList() {
         <td>
           {offers[1][props.index] != address && (
             <>
-              <span>From: {getAddress(offers[1][props.index])}</span>
+              <span>
+                {t("From")}: {getAddress(offers[1][props.index])}
+              </span>
               {copyAddress(offers[1][props.index])}
             </>
           )}
           {offers[2][props.index] != address && (
             <>
-              <span>To: {getAddress(offers[2][props.index])}</span>
+              <span>
+                {t("To")}: {getAddress(offers[2][props.index])}
+              </span>
               {copyAddress(offers[2][props.index])}
             </>
           )}
@@ -153,7 +151,7 @@ export default function OfferList() {
         </td>
         <td>
           <span className={statusList[offers[3][props.index]]?.class}>
-            {statusList[offers[3][props.index]]?.title}
+            {t(statusList[offers[3][props.index]]?.title)}
           </span>
         </td>
         <td>
@@ -192,11 +190,11 @@ export default function OfferList() {
         <table className="table-auto w-full rounded-md border-gray-600 mt-1">
           <thead className="border-b border-gray-600">
             <tr className="bg-gray-700 text-white">
-              <th className="py-4">Offer ID</th>
-              <th>Address</th>
-              <th>Name</th>
-              <th>Status</th>
-              <th>Action</th>
+              <th className="py-4">{t("Offer ID")}</th>
+              <th>{t("Address")}</th>
+              <th>{t("Name")}</th>
+              <th>{t("Status")}</th>
+              <th>{t("Action")}</th>
             </tr>
           </thead>
           <tbody>{listItems}</tbody>
@@ -209,7 +207,7 @@ export default function OfferList() {
     <>
       <Navbar activeMenu="Offers" />
       <div className="container text-center mx-auto px-5 md:px-40 py-5 justify-center">
-        <h5 className="font-medium text-2xl">My Offers</h5>
+        <h5 className="font-medium text-2xl">{t("My Offers")}</h5>
         <div className="mx-auto mt-4">
           <ConnectWalletButton customClass="connectWalletButton" />
         </div>

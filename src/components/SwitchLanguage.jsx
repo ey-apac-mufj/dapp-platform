@@ -41,7 +41,7 @@ const SwitchLanguage = () => {
   return (
     <div className="fixed bottom-5 right-5" ref={ref}>
       <button
-        className="bg-blue-500 hover:bg-blue-700 text-white py-3 px-3 rounded-full focus:outline-none"
+        className="bg-blue-500 hover:bg-blue-700 text-white py-3 px-3 rounded-full focus:outline-none shadow-xl"
         onClick={togglePopup}
       >
         <svg

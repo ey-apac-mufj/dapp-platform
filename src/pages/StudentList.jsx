@@ -28,8 +28,11 @@ import {
   stablecoinABI,
 } from "../../const/yourDetails";
 import Navbar from "../components/Navbar";
+import SwitchLanguage from "../components/SwitchLanguage";
+import { useTranslation } from "react-i18next";
 
 export default function StudentList() {
+  const { t } = useTranslation();
   const sdk = useSDK(); // Get SDK
   const address = useAddress();
   const [signature, setSignature] = useState(null);
@@ -62,12 +65,12 @@ export default function StudentList() {
         offerOutput.jobDescription
       );
       console.log(offerCreate);
-      toast.success("Your transaction is Successful!", {
+      toast.success(t("Your transaction is Successful!"), {
         position: "bottom-right",
         autoClose: 3000,
       });
     } catch (error) {
-      console.log("CreateOffer error ", error);
+      console.log(t("Error in creating offer"), error);
       toast.error("Problem occurs!", {
         position: "bottom-right",
         autoClose: 3000,
@@ -184,7 +187,7 @@ export default function StudentList() {
     } catch (error) {
       console.log("onHireSubmit ", error);
       onCloseModal();
-      toast.error("Your transaction failed!", {
+      toast.error(t("Your transaction failed!"), {
         position: "bottom-right",
         autoClose: 3000,
       });
@@ -205,13 +208,13 @@ export default function StudentList() {
       <Navbar activeMenu="StudentList" />
       <div className="container text-center mx-auto px-5 md:px-20 py-5 justify-center">
         <h5 className="text-center text-3xl font-thin antonFont">
-          Talent List
+          {t("Talent List")}
         </h5>
         {/* <pre>{text.replace(/(?:\r\n|\r|\n)/g, "<br />")}</pre> */}
         <input
           type="text"
           className="w-90 md:w-80 mt-5 ml-2 pl-5 pr-3 py-2 rounded-full text-center"
-          placeholder="Search Talents"
+          placeholder={t("Search Talents")}
         />
         <div className="mx-auto mt-4">
           <ConnectWalletButton customClass="connectWalletButton" />
@@ -223,29 +226,36 @@ export default function StudentList() {
               {students.map((student, i) => {
                 // student.image = imgArr[i];
                 return (
-                  <StudentThumbnail student={student} onHire={onHire} key={i} />
+                  <StudentThumbnail
+                    t={t}
+                    student={student}
+                    onHire={onHire}
+                    key={i}
+                  />
                 );
               })}
             </div>
           )
         ) : (
           <div className="bg-red-300 w-full p-5 m-5 text-center text-xl">
-            You are not authorized to view this page! Please login to continue!
+            {t(
+              "You are not authorized to view this page! Please login to continue!"
+            )}
           </div>
         )}
         <CustomModal
           open={open}
           onCloseModal={onCloseModal}
-          title="Submit Job Details"
+          title={t("Submit Job Details")}
         >
           <form method="POST" onSubmit={onHireSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto text-left mt-8">
               <div className="col-span-1 md:col-span-2">
-                <label>Job Description</label>
+                <label>{t("Job Description")}</label>
                 <textarea
                   className="form-control"
                   rows="3"
-                  placeholder="Enter Job Description"
+                  placeholder={t("Enter Job Description")}
                   name="jobDescription"
                   value={inputs.jobDescription || ""}
                   onChange={handleChange}
@@ -256,8 +266,8 @@ export default function StudentList() {
             <div className="mr-auto flex text-right">
               <p className="mt-4 italic">
                 {disableButton
-                  ? "Please wait... Transaction in progress..."
-                  : ""}
+                  ? t("Please wait... Transaction in progress...")
+                  : t("Submit Details")}
               </p>
               <button
                 type="submit"
@@ -268,13 +278,14 @@ export default function StudentList() {
                     : "bg-indigo-600 hover:bg-indigo-500 text-white"
                 }  rounded-lg px-3.5 py-2.5 text-sm  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-2 ml-auto`}
               >
-                {disableButton ? "Processing..." : "Submit Details"}
+                {disableButton ? t("Processing...") : t("Submit Details")}
               </button>
             </div>
           </form>
         </CustomModal>
         <ToastContainer />
       </div>
+      <SwitchLanguage />
     </>
   );
 }
