@@ -106,5 +106,6 @@
   "Stablecoin Amount": "ステーブルコインの金額",
   "Wait for the contract to be whitelisted": "コントラクトがホワイトリストに登録されるのを待つ",
   "Deposit": "デポジット",
-  "Enter No. of Stablecoins (MTK)": "ステーブルコインの数を入力してください（MTK）"
+  "Enter No. of Stablecoins (MTK)": "ステーブルコインの数を入力してください（MTK）",
+  "Connect Medi Account": "Mediアカウントを接続"
 }
