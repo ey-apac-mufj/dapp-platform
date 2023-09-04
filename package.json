@@ -38,7 +38,8 @@
     "react-router-dom": "^6.11.2",
     "react-toastify": "^7.0.4",
     "serve": "^14.2.0",
-    "solidity-coverage": "^0.7.21"
+    "solidity-coverage": "^0.7.21",
+    "universal-cookie": "^6.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^2",

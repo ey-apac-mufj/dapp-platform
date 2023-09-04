@@ -18,6 +18,7 @@ import {
   splitABI,
 } from "../../const/yourDetails";
 import Navbar from "../components/Navbar";
+import SwitchLanguage from "../components/SwitchLanguage";
 
 export default function OfferList() {
   const statusList = {
@@ -234,6 +235,7 @@ export default function OfferList() {
       </div> */}
         <ToastContainer />
       </div>
+      <SwitchLanguage />
     </>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useContext } from "react";
 import {
   useAddress,
   useContract,
@@ -24,9 +24,10 @@ import Stat from "../components/Stat";
 import CategoryThumbnail from "../components/CategoryThumbnail";
 
 import { useTranslation } from "react-i18next";
+import SwitchLanguage from "../components/SwitchLanguage";
 
 export default function CommunityHome() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [lastClick, setLastClick] = useState(Date.now());
   const [nftPresent, setNftPresent] = useState(false);
 
@@ -47,7 +48,7 @@ export default function CommunityHome() {
     window.showMUFG();
   }, [lastClick]);
 
-  // DUmmy community data
+  // Dummy community data
   const communities = [
     {
       id: 3,
@@ -194,31 +195,17 @@ export default function CommunityHome() {
     checkIfHaveNft();
   }, [ownedNfts]);
 
-  const [lastLang, setlastLang] = useState("en");
-
-  // const lng = useLng();
-
-  const changeLanguage = () => {
-    if (lastLang === "en") {
-      i18n.changeLanguage("jp");
-      setlastLang("jp");
-    } else {
-      i18n.changeLanguage("en");
-      setlastLang("en");
-    }
-  };
-
   return (
     <div className="container text-center mx-auto px-5 md:px-20 py-5 justify-center landing-page">
       {/* <img src={logo} alt="" className="mx-auto w-30" /> */}
       <h3 className="mt-5 text-3xl font-semi-bold text-black antonFont">
-        {t("multiverseCommunity")}
+        {t("Multiverse Community")}
       </h3>
-      <button onClick={() => changeLanguage()}>Toggle Language</button>
+      {/* <button onClick={() => changeLanguage()}>Toggle Language</button> */}
       <input
         type="text"
         className="w-90 md:w-80 mt-5 ml-2 pl-5 pr-3 py-2 rounded-full text-center"
-        placeholder="Search Community"
+        placeholder={t("Search Community")}
       />
       <div className="stat-section w-100 mx-4 md:mx-20 mt-14 mb-7 px-3 md:px-8 pb-8 rounded-2xl text-white shadow-xl">
         <div>
@@ -227,10 +214,10 @@ export default function CommunityHome() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <Stat title="Communities" number="149" />
-          <Stat title="Ambassadors" number="55" />
-          <Stat title="Metaverse" number="5" />
-          <Stat title="SBT Drops" number="13" border={false} />
+          <Stat title={t("Communities")} number="149" />
+          <Stat title={t("Ambassadors")} number="55" />
+          <Stat title={t("Metaverse")} number="5" />
+          <Stat title={t("SBT Drops")} number="13" border={false} />
         </div>
       </div>
 
@@ -239,7 +226,7 @@ export default function CommunityHome() {
       <div className="grid gid-cols-1 md:grid-cols-2 max-w-full">
         <div className="mr-auto">
           <h5 className="text-2xl mt-6 text-black text-left font-semi-bold antonFont">
-            Your Communities
+            {t("Your Communities")}
           </h5>
         </div>
         <div className="ml-auto flex pt-4 hidden md:inline-flex">
@@ -288,6 +275,7 @@ export default function CommunityHome() {
                   <CommunityThumbnail
                     community={com}
                     handleCommunityRedirect={handleCommunityRedirect}
+                    t={t}
                   />
                 </div>
               );
@@ -297,7 +285,7 @@ export default function CommunityHome() {
       ) : (
         <div className="w-full bg-orange-200 my-9 py-8 px-8">
           <h5 className="text-xl">
-            You haven't entered in any community till now
+            {t("You haven't entered in any community till now")}
           </h5>
         </div>
       )}
@@ -307,7 +295,7 @@ export default function CommunityHome() {
       <div className="grid gid-cols-1 md:grid-cols-2 max-w-full">
         <div className="mr-auto">
           <h5 className="text-2xl mt-6 text-black text-left font-semi-bold antonFont">
-            Community Categories
+            {t("Community Categories")}
           </h5>
         </div>
         <div className="ml-auto flex pt-4 hidden md:inline-flex">
@@ -352,7 +340,7 @@ export default function CommunityHome() {
           return (
             <div className="community flex-none" key={i}>
               {/* Show category thumbnail for each category */}
-              <CategoryThumbnail category={cat} />
+              <CategoryThumbnail category={cat} t={t} />
             </div>
           );
         })}
@@ -361,9 +349,9 @@ export default function CommunityHome() {
       <hr className="h-1 bg-gray-500" />
       <div className="grid grid-cols-2 my-3 max-w-full">
         <div className="left-section mr-auto text-left flex gap-4">
-          <h5>Privacy Policy</h5>
-          <h5>Terms of Use</h5>
-          <h5>Help</h5>
+          <h5>{t("Privacy Policy")}</h5>
+          <h5>{t("Terms of Use")}</h5>
+          <h5>{t("Help")}</h5>
         </div>
         <div className="right-section ml-auto flex gap-4">
           <img src={insta} alt="" className="h-8" />
@@ -371,6 +359,7 @@ export default function CommunityHome() {
         </div>
       </div>
       <ToastContainer />
+      <SwitchLanguage />
     </div>
   );
 }

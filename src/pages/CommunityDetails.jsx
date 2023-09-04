@@ -11,8 +11,11 @@ import {
 } from "../../const/yourDetails";
 import CommunityLanding from "../components/CommunityLanding";
 import PurchaseNFT from "../components/PurchaseNFT";
+import SwitchLanguage from "../components/SwitchLanguage";
+import { useTranslation } from "react-i18next";
 
 export default function CommunityDetails() {
+  const { t } = useTranslation();
   const address = useAddress(); // Provided by thirdweb for getting connected wallet address
   const [loading, setLoading] = useState(false);
   const { contract: editionDropContract } = useContract(editionDropAddress); // Dummy NFT details
@@ -42,12 +45,12 @@ export default function CommunityDetails() {
       {/* If wallet has particular NFT then show landing page else show Purchase NFT component */}
       {loading ? (
         <div className="text-center mt-8 font-bold text-2xl">
-          Loading... Please wait...
+          {t("Loading... Please wait...")}
         </div>
-      // ) : ownedNfts && ownedNfts?.length > 0 ? (
-      ) : true ? (
+      ) : // ) : ownedNfts && ownedNfts?.length > 0 ? (
+      true ? (
         // Commmunity landing Component
-        <CommunityLanding />
+        <CommunityLanding t={t} />
       ) : (
         // Purchase NFT Component
         <PurchaseNFT
@@ -58,8 +61,10 @@ export default function CommunityDetails() {
           editionDropTokenId={editionDropTokenId}
           ownedNfts={ownedNfts}
           refetchOwnedNfts={refetchOwnedNfts}
+          t={t}
         />
       )}
+      <SwitchLanguage />
     </div>
   );
 }

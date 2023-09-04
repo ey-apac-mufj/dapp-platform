@@ -8,8 +8,11 @@ import com3 from "../images/com3.png";
 import com1 from "../images/com1.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useTranslation } from "react-i18next";
+import SwitchLanguage from "../components/SwitchLanguage";
 
 export default function CommunityCategory() {
+  const { t } = useTranslation();
   let { category } = useParams();
   const address = useAddress();
   const navigate = useNavigate();
@@ -61,7 +64,7 @@ export default function CommunityCategory() {
   return (
     <div className="container text-center mx-auto px-5 md:px-20 py-5 justify-center landing-page bg-gray-100 h-full">
       <h3 className="mt-5 text-3xl font-semi-bold text-black antonFont mb-7">
-        Education Communitites
+        {t("Education Communitites")}
       </h3>
       <div className="mx-auto">
         <ConnectWalletButton customClass="connectWalletButton" />
@@ -72,6 +75,7 @@ export default function CommunityCategory() {
           return (
             <div className="community" key={i}>
               <CommunityThumbnail
+                t={t}
                 community={com}
                 handleCommunityRedirect={handleCommunityRedirect}
               />
@@ -81,6 +85,7 @@ export default function CommunityCategory() {
       </div>
       {/* for showing toast message */}
       <ToastContainer />
+      <SwitchLanguage />
     </div>
   );
 }

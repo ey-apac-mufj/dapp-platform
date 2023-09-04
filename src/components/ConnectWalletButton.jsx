@@ -1,8 +1,10 @@
 import React, { useContext, useEffect } from "react";
 import { ConnectWallet, useConnectionStatus } from "@thirdweb-dev/react";
 import { LoginContext } from "../contexts/LoginContext";
+import { useTranslation } from "react-i18next";
 
 export default function ConnectWalletButton({ customClass = "" }) {
+  const { t } = useTranslation();
   const connectionStatus = useConnectionStatus();
 
   const { setLoggedInStatus } = useContext(LoginContext);
@@ -37,7 +39,7 @@ export default function ConnectWalletButton({ customClass = "" }) {
           side: "bottom",
         }}
         className={customClass} // custom styles passed by props
-        btnTitle="Connect Wallet"
+        btnTitle={t("Connect Wallet")}
       />
     </div>
   );

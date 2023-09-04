@@ -8,7 +8,7 @@ import { useAddress } from "@thirdweb-dev/react";
 import { apiurl } from "../../const/yourDetails";
 import { LoginContext } from "../contexts/LoginContext";
 
-const MediConnect = (props) => {
+const MediConnect = ({ t }) => {
   const sdk = useSDK(); // Get SDK
   const [signature, setSignature] = useState(null);
   const [waitingMsg, setWaitingMsg] = useState(false);
@@ -91,7 +91,7 @@ const MediConnect = (props) => {
 
   const handleMediConnect = async () => {
     const message =
-      "Please confirm to connect to Medi API Services at " + Date.now(); // Message to show at the time of signing
+      t("Please confirm to connect to Medi API Services at") + " " + Date.now(); // Message to show at the time of signing
 
     try {
       const signature = await sdk.wallet.sign(message); // Signing message using wallet
@@ -153,10 +153,10 @@ const MediConnect = (props) => {
             }
           >
             {waitingMsg ? (
-              "Connecting to Medi..."
+              t("Connecting to Medi...")
             ) : (
               <>
-                Refer Curriculum <span aria-hidden="true">→</span>
+                {t("Refer Curriculum")} <span aria-hidden="true">→</span>
               </>
             )}
           </button>
@@ -178,7 +178,7 @@ const MediConnect = (props) => {
             "bg-indigo-600 font-thin hover:bg-indigo-500 rounded-3xl px-3.5 py-2.5 text-sm text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           }
         >
-          Connect Medi Account
+          {t("Connect Medi Account")}
         </button>
       )}
       {/* For toast message */}
