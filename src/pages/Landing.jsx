@@ -34,7 +34,7 @@ export default function Landing() {
             <div>
               <Link to="/community-home">
                 <button className="pink-button uppercase mt-8 text-xl font-thin">
-                  {t("Enter")}
+                  Enter
                 </button>
               </Link>
             </div>
