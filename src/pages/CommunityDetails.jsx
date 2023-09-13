@@ -17,7 +17,7 @@ import { useTranslation } from "react-i18next";
 export default function CommunityDetails() {
   const { t } = useTranslation();
   const address = useAddress(); // Provided by thirdweb for getting connected wallet address
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { contract: editionDropContract } = useContract(editionDropAddress); // Dummy NFT details
 
   // fetch NFT details
@@ -47,8 +47,7 @@ export default function CommunityDetails() {
         <div className="text-center mt-8 font-bold text-2xl">
           {t("Loading... Please wait...")}
         </div>
-      ) : // ) : ownedNfts && ownedNfts?.length > 0 ? (
-      true ? (
+      ) : ownedNfts && ownedNfts?.length > 0 ? (
         // Commmunity landing Component
         <CommunityLanding t={t} />
       ) : (
