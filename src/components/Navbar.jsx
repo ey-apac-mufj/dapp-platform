@@ -170,17 +170,11 @@ export default function Navbar({ activeMenu }) {
                     </li>
                   </Link>
                   {userData?.acount_type === userTypes.employer && (
-                    <Link to="/talent-list">
-                      <li
-                        className={`${
-                          activeMenu === "StudentList"
-                            ? "menu-btn-purple-active"
-                            : "menu-btn-purple"
-                        } md:mb-0 mb-2`}
-                      >
+                    <a href="https://medi-lx.xyz/cont/home/" target="_blank">
+                      <li className="menu-btn-purple md:mb-0 mb-2">
                         {t("Talent List")}
                       </li>
-                    </Link>
+                    </a>
                   )}
 
                   {userData?.acount_type === userTypes.talent && (
