@@ -6,6 +6,7 @@ import { useSDK } from "@thirdweb-dev/react";
 import { useAddress } from "@thirdweb-dev/react";
 import OfferAPI from "../apiCall/OfferAPI";
 import Login from "../apiCall/Login";
+import User from "../apiCall/User";
 import { useParams } from "react-router-dom";
 import CustomModal from "../components/CustomModal";
 import { ToastContainer, toast } from "react-toastify";
@@ -34,6 +35,9 @@ export default function OfferDetail() {
 
   const [offer, setOffer] = useState(null);
   const [onChainOffer, setOnChainOffer] = useState(null);
+
+  const [sender, setSender] = useState(null);
+  const [receiver, setReceiver] = useState(null);
 
   const [open, setOpen] = useState(false); // For modal
   const onOpenModal = () => setOpen(true);
@@ -67,6 +71,17 @@ export default function OfferDetail() {
       setInputs((values) => ({ ...values, jobDescription: offer.offerDetail }));
     }
   }, [offer]);
+
+  const getSenderReceiver = async () => {
+    const hospital = await User.getUserInfo(onChainOffer[0]);
+    const talent = await User.getUserInfo(onChainOffer[1]);
+    setSender(hospital);
+    setReceiver(talent);
+  };
+
+  useEffect(() => {
+    getSenderReceiver();
+  }, [onChainOffer]);
 
   const getUser = async () => {
     const res = await Login.getUser();
@@ -257,7 +272,18 @@ export default function OfferDetail() {
                       <span className="font-medium">
                         {t("Hospital Name")}:{" "}
                       </span>
-                      {offer?.hospitalName ? offer?.hospitalName : "N/A"}
+                      {sender?.identifier ? (
+                        <a
+                          href={
+                            "https://medi-lx.xyz/cont/info/" + sender.identifier
+                          }
+                          target="_blank"
+                        >
+                          {sender.userName}
+                        </a>
+                      ) : (
+                        "N/A"
+                      )}
                     </h6>
                   </div>
                 )}
@@ -273,7 +299,19 @@ export default function OfferDetail() {
                     </h6>
                     <h6 className="mt-2">
                       <span className="font-medium">{t("Talent Name")}: </span>{" "}
-                      {offer?.talentName ? offer?.talentName : "N/A"}
+                      {receiver?.identifier ? (
+                        <a
+                          href={
+                            "https://medi-lx.xyz/cont/info/" +
+                            receiver.identifier
+                          }
+                          target="_blank"
+                        >
+                          {receiver.userName}
+                        </a>
+                      ) : (
+                        "N/A"
+                      )}
                     </h6>
                   </div>
                 )}
