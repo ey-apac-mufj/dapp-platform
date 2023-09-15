@@ -159,7 +159,7 @@ export default function TalentDetail() {
   const fetchData = async () => {
     if (talentAddress) {
       try {
-        let getData = await fetch(`${apiurl}/api/get_talent/${talentAddress}`, {
+        let getData = await fetch(`${apiurl}/api/get_other/${talentAddress}`, {
           headers: {
             "Content-Type": "application/json",
           },
@@ -173,7 +173,7 @@ export default function TalentDetail() {
           setTalent(getDataRes.data);
         }
       } catch (error) {
-        console.log("get_talent error ", error);
+        console.log("get_other error ", error);
       }
     }
   };

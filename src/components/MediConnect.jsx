@@ -65,7 +65,7 @@ const MediConnect = ({ t }) => {
 
     fetchData(
       "GET",
-      "https://medi-lx.xyz/api/get_talent/0xFDB406A3d386924CAe4bB808d75829baB96972dc",
+      "https://medi-lx.xyz/api/get_other/0xFDB406A3d386924CAe4bB808d75829baB96972dc",
       setResult1
     ).catch(console.error);
 
