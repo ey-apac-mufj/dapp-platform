@@ -127,12 +127,6 @@ export default function CommunityLanding({ t }) {
                   {t("Learn More")}
                 </span>
               </p>
-              {/* Redirect Employer to student profile listing page */}
-              <Link to="/talent-list">
-                <button className="bg-indigo-600 hover:bg-indigo-500 rounded-xl font-thin px-3.5 py-2.5 text-sm text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-8">
-                  {t("Student Profiles")}
-                </button>
-              </Link>
             </div>
           </div>
 
