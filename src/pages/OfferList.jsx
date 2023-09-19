@@ -72,7 +72,7 @@ export default function OfferList() {
       for (var i = 0; i < offers[0].length; i++) {
         const fromAddress = offers[1][i];
         const toAddress = offers[2][i];
-        if (!nameMap[fromAddress]) {
+        if (fromAddress != address && !nameMap[fromAddress]) {
           const fromUserRes = await User.getUserInfo(fromAddress);
           if (fromUserRes.status === 200) {
             nameMap[fromAddress] = fromUserRes.data?.userName;
