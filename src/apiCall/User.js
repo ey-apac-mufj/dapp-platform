@@ -12,11 +12,7 @@ class User {
         credentials: 'include',
       });
       let getUserRes = await getUser.json();
-      if (getUserRes.status === 200) {
-        return getUserRes.data
-      } else {
-        console.log('get_other API call error ', getUserRes);
-      }
+      return getUserRes;
     } catch (error) {
       console.log('get_other API call error ', error);
       return {

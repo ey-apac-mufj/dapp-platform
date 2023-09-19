@@ -73,10 +73,14 @@ export default function OfferDetail() {
   }, [offer]);
 
   const getSenderReceiver = async () => {
-    const hospital = await User.getUserInfo(onChainOffer[0]);
-    const talent = await User.getUserInfo(onChainOffer[1]);
-    setSender(hospital);
-    setReceiver(talent);
+    const hospitalRes = await User.getUserInfo(onChainOffer[0]);
+    const talentRes = await User.getUserInfo(onChainOffer[1]);
+    if (hospitalRes.status === 200) {
+      setSender(hospitalRes.data);
+    }
+    if (talentRes.status === 200) {
+      setReceiver(talentRes.data);
+    }
   };
 
   useEffect(() => {

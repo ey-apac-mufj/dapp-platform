@@ -6,6 +6,7 @@ import { useSDK } from "@thirdweb-dev/react";
 import { useAddress } from "@thirdweb-dev/react";
 import { Link } from "react-router-dom";
 import OfferAPI from "../apiCall/OfferAPI";
+import User from "../apiCall/User";
 import { ToastContainer, toast } from "react-toastify";
 import { LoginContext } from "../contexts/LoginContext";
 
@@ -46,7 +47,7 @@ export default function OfferList() {
   const address = useAddress();
 
   const [offers, setOffers] = useState([]);
-  const [mediOffers, setMediOffers] = useState({});
+  const [nameDict, setNameDict] = useState({});
   const { loggedInStatus } = useContext(LoginContext);
 
   async function getOffers() {
@@ -65,15 +66,26 @@ export default function OfferList() {
     getOffers();
   }, [address]);
 
-  async function getMediOffers() {
+  async function getNames() {
     if (offers.length > 0) {
-      for (const offerID of offers[0]) {
-        const res = await OfferAPI.getOffer(offerID._hex);
-        if (res.status === 200) {
-          console.log("res", res);
-          setMediOffers((values) => ({ ...values, [offerID._hex]: res.data }));
+      var nameMap = {};
+      for (var i = 0; i < offers[0].length; i++) {
+        const fromAddress = offers[1][i];
+        const toAddress = offers[2][i];
+        if (!nameMap[fromAddress]) {
+          const fromUserRes = await User.getUserInfo(fromAddress);
+          if (fromUserRes.status === 200) {
+            nameMap[fromAddress] = fromUserRes.data?.userName;
+          }
+        }
+        if (toAddress != address && !nameMap[toAddress]) {
+          const toUserRes = await User.getUserInfo(toAddress);
+          if (toUserRes.status === 200) {
+            nameMap[toAddress] = toUserRes.data?.userName;
+          }
         }
       }
+      setNameDict(nameMap);
     }
   }
 
@@ -95,7 +107,7 @@ export default function OfferList() {
   };
 
   useEffect(() => {
-    getMediOffers();
+    getNames();
   }, [offers, loggedInStatus]);
 
   function OfferItem(props) {
@@ -104,15 +116,6 @@ export default function OfferList() {
     return (
       <tr className={`${props.index % 2 !== 0 ? "bg-gray-200" : ""}`}>
         <td className="py-3">{id}</td>
-        {/* <td>
-          {" "}
-          {offers[1][props.index] != address && (
-            <p>
-              From: {offers[1][props.index]}{" "}
-              {mediOffers[id] && mediOffers[id].hospitalName}{" "}
-            </p>
-          )}
-        </td> */}
         <td>
           {offers[1][props.index] != address && (
             <>
@@ -134,20 +137,18 @@ export default function OfferList() {
         <td>
           {offers[1][props.index] != address && (
             <span>
-              {mediOffers[id] && mediOffers[id].hospitalName
-                ? mediOffers[id] && mediOffers[id].hospitalName
+              {nameDict[offers[1][props.index]]
+                ? nameDict[offers[1][props.index]]
                 : "N/A"}
             </span>
           )}
           {offers[2][props.index] != address && (
             <span>
-              {mediOffers[id] && mediOffers[id].talentName
-                ? mediOffers[id] && mediOffers[id].talentName
+              {nameDict[offers[2][props.index]]
+                ? nameDict[offers[2][props.index]]
                 : "N/A"}
             </span>
           )}
-
-          {/* {mediOffers[id] && mediOffers[id].talentName} */}
         </td>
         <td>
           <span className={statusList[offers[3][props.index]]?.class}>
