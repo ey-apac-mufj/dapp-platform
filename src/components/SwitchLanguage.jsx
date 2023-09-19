@@ -6,7 +6,7 @@ import Cookies from "universal-cookie";
 const SwitchLanguage = () => {
   const cookies = new Cookies(null, { path: "/" });
   const [isPopupVisible, setIsPopupVisible] = useState(false);
-  const [preferredLanguage, setPreferredLanguage] = useState("en");
+  const [preferredLanguage, setPreferredLanguage] = useState("jp");
   const popupRef = useRef(null);
   const { ref, isComponentVisible, setIsComponentVisible } =
     useComponentVisible();
@@ -15,8 +15,8 @@ const SwitchLanguage = () => {
   const getPrefferedLanguage = async () => {
     let preferredLanguage = await cookies.get("preferredLanguage");
     if (!preferredLanguage) {
-      setPreferredLanguage("en");
-      i18n.changeLanguage("en");
+      setPreferredLanguage("jp");
+      i18n.changeLanguage("jp");
     } else {
       setPreferredLanguage(preferredLanguage);
       i18n.changeLanguage(preferredLanguage);
