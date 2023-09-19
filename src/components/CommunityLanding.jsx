@@ -58,16 +58,6 @@ export default function CommunityLanding({ t }) {
                   qui lorem cupidatat commodo. Elit sunt amet fugiat veniam
                   occaecat fugiat aliqua.
                 </p>
-                <div className="mt-6 gap-x-6">
-                  {/* Button For connecting to Medi API  */}
-                  <MediConnect t={t} />
-                  {/* <a
-                href="#"
-                className="text-sm font-semibold leading-6 text-gray-900"
-              >
-                Learn more <span aria-hidden="true">→</span>
-              </a> */}
-                </div>
               </div>
             </div>
             <div className="img mx-auto align-items-center order-first md:order-none">
