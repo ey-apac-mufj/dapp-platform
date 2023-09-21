@@ -28,6 +28,24 @@ import UtilityFunctions from "../utilities/UtilityFunctions";
 
 export default function OfferDetail() {
   const { t } = useTranslation();
+  const statusList = {
+    0: {
+      title: "Open",
+      class: "text-blue-500",
+    },
+    1: {
+      title: "Closed",
+      class: "text-yellow-500",
+    },
+    2: {
+      title: "Accepted",
+      class: "text-green-500",
+    },
+    3: {
+      title: "Declined",
+      class: "text-red-500",
+    },
+  };
   let { offerId } = useParams();
   const sdk = useSDK(); // Get SDK
   const address = useAddress();
@@ -321,7 +339,9 @@ export default function OfferDetail() {
                 )}
                 <div className="text-left break-words">
                   <h3 className="text-xl font-medium">{t("Status")}: </h3>
-                  <h6>{OfferAPI.statusToString(onChainOffer[2])}</h6>
+                  <h6 className={statusList[onChainOffer[2]]?.class}>
+                    {t(statusList[onChainOffer[2]]?.title)}
+                  </h6>
                 </div>
               </div>
               <div className="text-left break-words mx-right mt-7">
