@@ -108,5 +108,6 @@
   "Wait for the contract to be whitelisted": "コントラクトがホワイトリストに登録中です、少々お待ちください",
   "Deposit": "デポジット",
   "Enter No. of Stablecoins (MTK)": "ステーブルコインの数を入力してください",
-  "Connect Medi Account": "Mediアカウントを接続"
+  "Connect Medi Account": "Mediアカウントを接続",
+  "Signature": "署名"
 }

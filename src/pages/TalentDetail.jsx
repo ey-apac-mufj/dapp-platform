@@ -39,12 +39,14 @@ export default function TalentDetail() {
   const sdk = useSDK(); // Get SDK
   const address = useAddress();
   const [signature, setSignature] = useState(null);
+  const [signatureCount, setSignatureCount] = useState(0);
   const [open, setOpen] = useState(false); // For modal
   const onOpenModal = () => {
     setInputs({});
     setOfferOutput(null);
     setDisableButton(false);
     setOpen(true);
+    setSignatureCount(0);
   };
   const onCloseModal = () => setOpen(false);
   const [disableButton, setDisableButton] = useState(false);
@@ -203,6 +205,7 @@ export default function TalentDetail() {
         stablecoinABI
       );
 
+      setSignatureCount(1);
       const rc = await stablecoinContract.call("approve", [
         splitMainAddress,
         depositAmount,
@@ -219,6 +222,7 @@ export default function TalentDetail() {
           PERCENTAGE_SCALE * splitPercentages[1],
           PERCENTAGE_SCALE * splitPercentages[2],
         ];
+        setSignatureCount(2);
         const data = await splitMainContract.call("createOfferAndDeposit", [
           splitDestinations,
           percentAllocations,
@@ -414,7 +418,10 @@ export default function TalentDetail() {
             <div className="mr-auto flex text-right">
               <p className="mt-4 italic">
                 {disableButton
-                  ? t("Please wait... Transaction in progress...")
+                  ? ` ${signatureCount}/2` +
+                    t("Signature") +
+                    " " +
+                    t("Please wait... Transaction in progress...")
                   : ""}
               </p>
               <button
