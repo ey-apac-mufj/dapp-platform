@@ -5,9 +5,13 @@ import CommunityDetails from "./pages/CommunityDetails";
 import CommunityHome from "./pages/CommunityHome";
 import ContractDeposit from "./pages/ContractDeposit";
 import Landing from "./pages/Landing";
-import NurseOffers from "./pages/NurseOffers";
+import OfferList from "./pages/OfferList";
+import OfferDetail from "./pages/OfferDetail";
+
 import StudentList from "./pages/StudentList";
+import TalentDetail from "./pages/TalentDetail";
 import "./styles/Home.css";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -22,12 +26,15 @@ function App() {
             element={<CommunityCategory />}
           />
           <Route path="/community-details" element={<CommunityDetails />} />
-          <Route path="/student-list" element={<StudentList />} />
+          <Route path="/talent-list" element={<StudentList />} />
+          <Route path="/talents/:talentAddress" element={<TalentDetail />} />
           <Route
             path="/deposit-contract/:splitAddress"
             element={<ContractDeposit />}
           />
-          <Route path="/nurse-offers" element={<NurseOffers />} />
+          <Route path="/offers" element={<OfferList />} />
+          <Route path="/offers/:offerId" element={<OfferDetail />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </div>
     </Router>

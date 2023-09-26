@@ -4,6 +4,8 @@ export const TWFactoryAddress = "0x3084B8B244D2d4a43fbF137165580FD4676E08c2";
 export const TWApiKey =
   "Pp-yMCi3csVA2NBc5trHpLHyT5uErD1q-ZDVzriH4gPEhkW-sGdPXT72UFXDStwm6RwHY2ZqwgqKip-dZoCM9Q";
 export const TWClientID = "a3d61ce5edfbb566f88f6a3e8076ef81";
+
+export const apiurl = "https://medi-lx.xyz";
 export const activeChain = Goerli;
 
 export const editionDropAddress = "0x8D9919db3CD6aF84e8A12CedC3c5A694Bf026aB8";
@@ -13,7 +15,13 @@ export const magicLinkKey = "pk_live_41D75AEA3BB94386";
 
 export const walletConnetKey = "4078812e3d11593676900b0dd00d15dc";
 
-export const splitMainAddress = "0xcE10ac302b02dEB7f7211148f81bd2D71Bf8b23D";
+export const userTypes = {
+  talent: 10,
+  instructor: 20,
+  employer: 30
+};
+
+export const splitMainAddress = "0xC56199705200D52Be2caa51B453E3eD0488A3f0f";
 export const stablecoinAddress = "0x6Ab8927Fcf9b994f2fD7f8634f40b9ee6df60999";
 export const platformAddress = "0x4d13f1607CF4F5c8c3DF878E3cf01CEe1224CC7d";
 export const splitDestinations = [
@@ -22,364 +30,633 @@ export const splitDestinations = [
   "0x490C1E2Fd1b5005ccdE3458B036b50fbF3704870",
 ];
 export const splitPercentages = [0.2, 0.3, 0.5];
-export const nurseAddress = "0x7781197f34A658688E207a9f11F54a6e5E583F51";
-export const depositAmount = "10000000000000000000000";
+export const depositAmount = "10000000000000000000";
 
 export const splitABI = [
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "_stableCoinAddress",
-        type: "address",
+        "internalType": "uint256",
+        "name": "accountsLength",
+        "type": "uint256"
       },
+      {
+        "internalType": "uint256",
+        "name": "allocationsLength",
+        "type": "uint256"
+      }
     ],
-    stateMutability: "nonpayable",
-    type: "constructor",
+    "name": "InvalidSplit__AccountsAndAllocationsMismatch",
+    "type": "error"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "accountsLength",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "allocationsLength",
-        type: "uint256",
-      },
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      }
     ],
-    name: "InvalidSplit__AccountsAndAllocationsMismatch",
-    type: "error",
+    "name": "InvalidSplit__AllocationMustBePositive",
+    "type": "error"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "index",
-        type: "uint256",
-      },
+        "internalType": "uint32",
+        "name": "allocationsSum",
+        "type": "uint32"
+      }
     ],
-    name: "InvalidSplit__AllocationMustBePositive",
-    type: "error",
+    "name": "InvalidSplit__InvalidAllocationsSum",
+    "type": "error"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint32",
-        name: "allocationsSum",
-        type: "uint32",
-      },
+        "internalType": "uint256",
+        "name": "accountsLength",
+        "type": "uint256"
+      }
     ],
-    name: "InvalidSplit__InvalidAllocationsSum",
-    type: "error",
+    "name": "InvalidSplit__TooFewAccounts",
+    "type": "error"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "bytes32",
-        name: "hash",
-        type: "bytes32",
-      },
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      }
     ],
-    name: "InvalidSplit__InvalidHash",
-    type: "error",
+    "name": "Unauthorized",
+    "type": "error"
   },
   {
-    inputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "accountsLength",
-        type: "uint256",
+        "indexed": false,
+        "internalType": "address",
+        "name": "previousAdmin",
+        "type": "address"
       },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "newAdmin",
+        "type": "address"
+      }
     ],
-    name: "InvalidSplit__TooFewAccounts",
-    type: "error",
+    "name": "AdminChanged",
+    "type": "event"
   },
   {
-    inputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
+        "indexed": true,
+        "internalType": "address",
+        "name": "beacon",
+        "type": "address"
+      }
     ],
-    name: "Unauthorized",
-    type: "error",
+    "name": "BeaconUpgraded",
+    "type": "event"
   },
   {
-    anonymous: false,
-    inputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        indexed: false,
-        internalType: "uint256",
-        name: "_offerIndex",
-        type: "uint256",
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_offerIndex",
+        "type": "uint256"
       },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_creator",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_trigger",
+        "type": "address"
+      }
     ],
-    name: "CreateOffer",
-    type: "event",
+    "name": "CreateOffer",
+    "type": "event"
   },
   {
-    anonymous: false,
-    inputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        indexed: true,
-        internalType: "address",
-        name: "previousOwner",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "newOwner",
-        type: "address",
-      },
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "version",
+        "type": "uint8"
+      }
     ],
-    name: "OwnershipTransferred",
-    type: "event",
+    "name": "Initialized",
+    "type": "event"
   },
   {
-    inputs: [],
-    name: "PERCENTAGE_SCALE",
-    outputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
       },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "name": "OwnershipTransferred",
+    "type": "event"
   },
   {
-    inputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        internalType: "address[]",
-        name: "accounts",
-        type: "address[]",
-      },
-      {
-        internalType: "uint32[]",
-        name: "percentAllocations",
-        type: "uint32[]",
-      },
-      {
-        internalType: "address",
-        name: "trigger",
-        type: "address",
-      },
+        "indexed": false,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
     ],
-    name: "createOffer",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
+    "name": "Paused",
+    "type": "event"
   },
   {
-    inputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        internalType: "address[]",
-        name: "accounts",
-        type: "address[]",
-      },
-      {
-        internalType: "uint32[]",
-        name: "percentAllocations",
-        type: "uint32[]",
-      },
-      {
-        internalType: "address",
-        name: "trigger",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
+        "indexed": false,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
     ],
-    name: "createOfferAndDeposit",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
+    "name": "Unpaused",
+    "type": "event"
   },
   {
-    inputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "_offerIndex",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
+        "indexed": true,
+        "internalType": "address",
+        "name": "implementation",
+        "type": "address"
+      }
     ],
-    name: "depositToOffer",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "name": "Upgraded",
+    "type": "event"
   },
   {
-    inputs: [
+    "inputs": [],
+    "name": "PERCENTAGE_SCALE",
+    "outputs": [
       {
-        internalType: "uint256",
-        name: "_offerIndex",
-        type: "uint256",
-      },
-      {
-        internalType: "address[]",
-        name: "accounts",
-        type: "address[]",
-      },
-      {
-        internalType: "uint32[]",
-        name: "percentAllocations",
-        type: "uint32[]",
-      },
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    name: "distributeERC20",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "addr",
-        type: "address",
-      },
+        "internalType": "uint256",
+        "name": "_offerIndex",
+        "type": "uint256"
+      }
     ],
-    name: "getOffersReceivedByAddress",
-    outputs: [
-      {
-        internalType: "uint256[]",
-        name: "",
-        type: "uint256[]",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
+    "name": "accept",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
+        "internalType": "uint256",
+        "name": "_offerIndex",
+        "type": "uint256"
+      }
     ],
-    name: "offersFromAddress",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
+    "name": "close",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
+        "internalType": "address[]",
+        "name": "accounts",
+        "type": "address[]"
       },
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        "internalType": "uint32[]",
+        "name": "percentAllocations",
+        "type": "uint32[]"
       },
+      {
+        "internalType": "address",
+        "name": "trigger",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
     ],
-    name: "offersToAddress",
-    outputs: [
+    "name": "createOfferAndDeposit",
+    "outputs": [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "owner",
-    outputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "internalType": "uint256",
+        "name": "_offerIndex",
+        "type": "uint256"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "name": "decline",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "renounceOwnership",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_offerIndex",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "depositToOffer",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "_offerIndex",
-        type: "uint256",
-      },
-      {
-        internalType: "address[]",
-        name: "accounts",
-        type: "address[]",
-      },
-      {
-        internalType: "uint32[]",
-        name: "percentAllocations",
-        type: "uint32[]",
-      },
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      }
     ],
-    name: "returnDeposit",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "name": "getCreatedOffers",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "offerIndices",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "enum SplitUpgradeable.OfferStatus[]",
+        "name": "status",
+        "type": "uint8[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "newOwner",
-        type: "address",
-      },
+        "internalType": "uint256",
+        "name": "_offerIndex",
+        "type": "uint256"
+      }
     ],
-    name: "transferOwnership",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "name": "getOffer",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "creator",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "trigger",
+        "type": "address"
+      },
+      {
+        "internalType": "enum SplitUpgradeable.OfferStatus",
+        "name": "status",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
   },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_offerIndex",
+        "type": "uint256"
+      }
+    ],
+    "name": "getOfferStatus",
+    "outputs": [
+      {
+        "internalType": "enum SplitUpgradeable.OfferStatus",
+        "name": "status",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      }
+    ],
+    "name": "getOffers",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "offerIndices",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "address[]",
+        "name": "creators",
+        "type": "address[]"
+      },
+      {
+        "internalType": "address[]",
+        "name": "triggers",
+        "type": "address[]"
+      },
+      {
+        "internalType": "enum SplitUpgradeable.OfferStatus[]",
+        "name": "status",
+        "type": "uint8[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      }
+    ],
+    "name": "getOffersFromAddress",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      }
+    ],
+    "name": "getOffersReceivedByAddress",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      }
+    ],
+    "name": "getReceivedOffers",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "offerIndices",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "enum SplitUpgradeable.OfferStatus[]",
+        "name": "status",
+        "type": "uint8[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_stableCoinAddress",
+        "type": "address"
+      }
+    ],
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "offersFromAddress",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "offersToAddress",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "paused",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "proxiableUUID",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_stableCoinAddress",
+        "type": "address"
+      }
+    ],
+    "name": "setStablecoinAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newImplementation",
+        "type": "address"
+      }
+    ],
+    "name": "upgradeTo",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newImplementation",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes",
+        "name": "data",
+        "type": "bytes"
+      }
+    ],
+    "name": "upgradeToAndCall",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  }
 ];
 
 export const stablecoinABI = [
