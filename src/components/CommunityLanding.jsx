@@ -40,24 +40,10 @@ export default function CommunityLanding({ t }) {
           </div>
           <div className="py-32 sm:py-48 lg:py-18 grid grid-cols-1 md:grid-cols-2 gap-8 mx-auto items-center">
             <div className="px-3">
-              <div className="hidden sm:mb-8 sm:flex sm:justify-center">
-                <div className="relative mr-auto rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
-                  {t("Announcing our next round of funding.")}{" "}
-                  <a href="#" className="font-thin text-indigo-600">
-                    <span className="absolute inset-0" aria-hidden="true" />
-                    {t("Read more")} <span aria-hidden="true">&rarr;</span>
-                  </a>
-                </div>
-              </div>
               <div className="text-left">
                 <h1 className="text-4xl font-semi-bold tracking-tight text-gray-900 mt-6 md:mt-3 sm:text-6xl">
                   {t("One stop Medi community for Everyone")}
                 </h1>
-                <p className="mt-6 text-lg leading-8 text-gray-600">
-                  Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure
-                  qui lorem cupidatat commodo. Elit sunt amet fugiat veniam
-                  occaecat fugiat aliqua.
-                </p>
               </div>
             </div>
             <div className="img mx-auto align-items-center order-first md:order-none">
@@ -86,17 +72,6 @@ export default function CommunityLanding({ t }) {
           <div className="grid grid-cols-1 md:grid-cols-2 antonFont mx-auto">
             <div className="mt-5 py-3 px-5">
               <h1 className="text-4xl uppercase">{t("Nursing Curriculum")}</h1>
-              <p className="mt-5 text-sm font-thin">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. <br />{" "}
-                <span className="underline cursor-pointer">
-                  {t("Learn More")}
-                </span>
-              </p>
             </div>
             <div className="mt-8 py-3 px-5 order-first md:order-none">
               <img
@@ -116,17 +91,6 @@ export default function CommunityLanding({ t }) {
             </div>
             <div className="mt-5 md:mt-10 py-3 px-5 ml-4">
               <h1 className="text-4xl uppercase">{t("Students Community")}</h1>
-              <p className="mt-5 text-sm font-thin">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. <br />{" "}
-                <span className="underline cursor-pointer">
-                  {t("Learn More")}
-                </span>
-              </p>
             </div>
           </div>
 
@@ -142,38 +106,18 @@ export default function CommunityLanding({ t }) {
             <div className="white-card">
               <img src={ser2} className="mx-auto h-20" alt="" />
               <h5 className="mt-6 text-center text-xl">Medi-EYE</h5>
-              <p className="mt-3 font-thin text-sm text-center mb-2">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s.
-              </p>
             </div>
             <div className="white-card">
               <img src={ser1} className="mx-auto h-20" alt="" />
               <h5 className="mt-6 text-center text-xl">Medi-L</h5>
-              <p className="mt-3 font-thin text-sm text-center mb-2">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s.
-              </p>
             </div>
             <div className="white-card">
               <img src={ser3} className="mx-auto h-20" alt="" />
               <h5 className="mt-6 text-center text-xl">Home-Care-Medi-EYE</h5>
-              <p className="mt-3 font-thin text-sm text-center mb-2">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s.
-              </p>
             </div>
             <div className="white-card">
               <img src={ser4} className="mx-auto h-20" alt="" />
               <h5 className="mt-6 text-center text-xl">Medi-EYE×VR</h5>
-              <p className="mt-3 font-thin text-sm text-center mb-2">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s.
-              </p>
             </div>
           </div>
         </div>
