@@ -9,6 +9,7 @@ import OfferAPI from "../apiCall/OfferAPI";
 import User from "../apiCall/User";
 import { ToastContainer, toast } from "react-toastify";
 import { LoginContext } from "../contexts/LoginContext";
+import { userTypes } from "../../const/yourDetails";
 
 import {
   splitMainAddress,
@@ -48,7 +49,7 @@ export default function OfferList() {
 
   const [offers, setOffers] = useState([]);
   const [nameDict, setNameDict] = useState({});
-  const { loggedInStatus } = useContext(LoginContext);
+  const { loggedInStatus, userData } = useContext(LoginContext);
 
   async function getOffers() {
     if (address) {
@@ -115,25 +116,7 @@ export default function OfferList() {
     // console.log("this is index", props.index);
     return (
       <tr className={`${props.index % 2 !== 0 ? "bg-gray-200" : ""}`}>
-        <td className="py-3">{id}</td>
-        <td>
-          {offers[1][props.index] != address && (
-            <>
-              <span>
-                {t("From")}: {getAddress(offers[1][props.index])}
-              </span>
-              {copyAddress(offers[1][props.index])}
-            </>
-          )}
-          {offers[2][props.index] != address && (
-            <>
-              <span>
-                {t("To")}: {getAddress(offers[2][props.index])}
-              </span>
-              {copyAddress(offers[2][props.index])}
-            </>
-          )}
-        </td>
+        <td className="py-3">{Number(id)}</td>
         <td>
           {offers[1][props.index] != address && (
             <span>
@@ -192,8 +175,12 @@ export default function OfferList() {
           <thead className="border-b border-gray-600">
             <tr className="bg-gray-700 text-white">
               <th className="py-4">{t("Offer ID")}</th>
-              <th>{t("Address")}</th>
-              <th>{t("Name")}</th>
+              {userData?.acount_type === userTypes.employer && (
+                <th>{t("Talent Name")}</th>
+              )}
+              {userData?.acount_type === userTypes.talent && (
+                <th>{t("Hospital Name")}</th>
+              )}
               <th>{t("Status")}</th>
               <th>{t("Action")}</th>
             </tr>
@@ -208,7 +195,13 @@ export default function OfferList() {
     <>
       <Navbar activeMenu="Offers" />
       <div className="container text-center mx-auto px-5 md:px-40 py-5 justify-center">
-        <h5 className="font-medium text-2xl">{t("My Offers")}</h5>
+        <h5 className="font-medium text-2xl">
+          {userData?.acount_type === userTypes.employer
+            ? t("Created Offers")
+            : userData?.acount_type === userTypes.talent
+            ? t("Received Offers")
+            : ""}
+        </h5>
         <div className="mx-auto mt-4">
           <ConnectWalletButton customClass="connectWalletButton" />
         </div>

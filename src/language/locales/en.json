@@ -112,5 +112,7 @@
   "Wait for the contract to be whitelisted": "Wait for the contract to be whitelisted",
   "Deposit": "Deposit",
   "Enter No. of Stablecoins (MTK)": "Enter No. of Stablecoins (MTK)",
-  "Connect Medi Account": "Connect Medi Account"
+  "Connect Medi Account": "Connect Medi Account",
+  "Created Offers": "Created Offers",
+  "Received Offers": "Received Offers"
 }
