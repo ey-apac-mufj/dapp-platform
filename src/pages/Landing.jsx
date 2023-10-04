@@ -13,7 +13,6 @@ export default function Landing() {
   const { t } = useTranslation();
   return (
     <>
-      <Header t={t} />
       {/* <div className="w-100 bg-black">sfdd</div> */}
       <div className="container mx-auto px-5 md:px-20 py-5 justify-center landing-page">
         {/* Wallet section starts */}
@@ -84,7 +83,6 @@ export default function Landing() {
 
         {/* Community section ends */}
       </div>
-      <Footer t={t} />
       <SwitchLanguage />
     </>
   );
