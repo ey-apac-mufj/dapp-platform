@@ -108,7 +108,7 @@ export default function Home() {
         <p className="description">
           Please connect to your{" "}
           <a href="https://goerli.etherscan.io/address/0x90A063aeC1412bEfE6E0977fbAd0A8dc9D8a2EE3">
-            MUFG Smart Contract Wallet (ERC-4337)
+            Smart Contract Wallet (ERC-4337)
           </a>
           .
         </p>
