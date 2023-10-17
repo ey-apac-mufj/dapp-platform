@@ -111,5 +111,12 @@
   "Connect Medi Account": "Mediアカウントを接続",
   "Signature": "署名",
   "Created Offers": "作成したオファー",
-  "Received Offers": "受け取ったオファー"
+  "Received Offers": "受け取ったオファー",
+  " successfully!": "成功しました",
+  " failed!": "失敗しました",
+  "Accept offer": "オファーの承諾が",
+  "Decline offer": "オファーの辞退が",
+  "Close offer": "オファーの取り下げが",
+  "Modify offer": "オファーの更新が",
+  "Create offer": "オファーの作成が"
 }

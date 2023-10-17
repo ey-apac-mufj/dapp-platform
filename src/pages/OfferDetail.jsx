@@ -122,12 +122,12 @@ export default function OfferDetail() {
 
   const openToast = (res, successStatus, operationName) => {
     if (res.status === successStatus) {
-      toast.success(`${operationName} succesfully!`, {
+      toast.success(t(operationName) + t(" successfully!"), {
         position: "bottom-right",
         autoClose: 3000,
       });
     } else {
-      toast.error(`${operationName} failed!`, {
+      toast.error(t(operationName) + t(" failed!"), {
         position: "bottom-right",
         autoClose: 3000,
       });

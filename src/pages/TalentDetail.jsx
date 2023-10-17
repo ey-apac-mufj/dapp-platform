@@ -105,7 +105,7 @@ export default function TalentDetail() {
         offerOutput.jobDescription
       );
       console.log(offerCreate);
-      toast.success(t("Your transaction is Successful!"), {
+      toast.success(t("Create offer") + t(" successfully!"), {
         position: "bottom-right",
         autoClose: 3000,
       });

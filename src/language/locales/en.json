@@ -114,5 +114,12 @@
   "Enter No. of Stablecoins (MTK)": "Enter No. of Stablecoins (MTK)",
   "Connect Medi Account": "Connect Medi Account",
   "Created Offers": "Created Offers",
-  "Received Offers": "Received Offers"
+  "Received Offers": "Received Offers",
+  " successfully!": " successfully!",
+  " failed!": " failed!",
+  "Accept offer": "Accept offer",
+  "Decline offer": "Decline offer",
+  "Close offer": "Close offer",
+  "Modify offer": "Modify offer",
+  "Create offer": "Create offer"
 }
