@@ -121,5 +121,7 @@
   "Decline offer": "Decline offer",
   "Close offer": "Close offer",
   "Modify offer": "Modify offer",
-  "Create offer": "Create offer"
+  "Create offer": "Create offer",
+  "Please initialize your wallet account": "Please initialize your wallet account",
+  "Initialize your wallet account": "Initialize your wallet account"
 }

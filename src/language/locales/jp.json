@@ -118,5 +118,7 @@
   "Decline offer": "オファーの辞退が",
   "Close offer": "オファーの取り下げが",
   "Modify offer": "オファーの更新が",
-  "Create offer": "オファーの作成が"
+  "Create offer": "オファーの作成が",
+  "Please initialize your wallet account": "ウォレットアカウントを登録してください",
+  "Initialize your wallet account": "ウォレットアカウントを登録する"
 }
