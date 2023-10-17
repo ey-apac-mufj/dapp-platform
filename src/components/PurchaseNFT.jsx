@@ -44,7 +44,7 @@ export default function PurchaseNFT({
               </Web3Button>
             </>
           ) : (
-            <p>Connect your Mullet and initialize your wallet account!</p>
+            <p>Connect your Web3 Wallet and initialize your wallet account!</p>
           )}
         </div>
       )}

@@ -30,15 +30,15 @@
 
     let linkToWallet = "Link to ERC-4337 Smart Contract Wallet";
     let selectSigner = "Select a signer to access your account.";
-    let connectYourWallet = "Connect your wallet through the Mullet pop-up";
-    let havingTroubles = "Having troubles connecting to Mullet?";
+    let connectYourWallet = "Connect your wallet through the Web3 Wallet pop-up";
+    let havingTroubles = "Having troubles connecting to Web3 Wallet?";
 
     if (lang == "jp") {
       linkToWallet = "ERC-4337スマートコントラクトウォレットへのリンク";
       selectSigner = "アカウントにアクセスするための署名者を選択してください。";
       connectYourWallet =
-        "Mulletポップアップを介してウォレットを接続してください。";
-      havingTroubles = "Mulletに接続できない問題が発生していますか？";
+        "Web3ウォレットポップアップを介してウォレットを接続してください。";
+      havingTroubles = "Web3ウォレットに接続できない問題が発生していますか？";
     }
 
     $(".css-ytz34g").first().find("img").attr("src", logoimg);
@@ -47,7 +47,7 @@
 
     $(".css-9w0giz").first().html(connectYourWallet);
     $(".css-1lgxh3y").first().html(havingTroubles);
-    $(".css-17eqtko").first().html("M U L L E T");
+    $(".css-17eqtko").first().html("Web3ウォレット");
     $(".css-e6yc8n").first().find("img").attr("src", logoimg);
     // console.log("showMUFG");
   }
