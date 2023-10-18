@@ -28,17 +28,17 @@
     // check language
     var lang = $.cookie("preferredLanguage");
 
-    let linkToWallet = "Link to ERC-4337 Smart Contract Wallet";
-    let selectSigner = "Select a signer to access your account.";
-    let connectYourWallet = "Connect your wallet through the Web3 Wallet pop-up";
-    let havingTroubles = "Having troubles connecting to Web3 Wallet?";
+    linkToWallet = "ERC-4337スマートコントラクトウォレットへのリンク";
+    selectSigner = "アカウントにアクセスするための署名者を選択してください。";
+    connectYourWallet =
+      "Web3ウォレットポップアップを介してウォレットを接続してください。";
+    havingTroubles = "Web3ウォレットに接続できない問題が発生していますか？";
 
-    if (lang == "jp") {
-      linkToWallet = "ERC-4337スマートコントラクトウォレットへのリンク";
-      selectSigner = "アカウントにアクセスするための署名者を選択してください。";
-      connectYourWallet =
-        "Web3ウォレットポップアップを介してウォレットを接続してください。";
-      havingTroubles = "Web3ウォレットに接続できない問題が発生していますか？";
+    if (lang == "en") {
+      let linkToWallet = "Link to ERC-4337 Smart Contract Wallet";
+      let selectSigner = "Select a signer to access your account.";
+      let connectYourWallet = "Connect your wallet through the Web3 Wallet pop-up";
+      let havingTroubles = "Having troubles connecting to Web3 Wallet?";
     }
 
     $(".css-ytz34g").first().find("img").attr("src", logoimg);
