@@ -105,8 +105,8 @@ export default function CommunityHome() {
     },
     {
       id: 1,
-      title: "Healthcare",
-      slug: "healthcare",
+      title: "ECommerse",
+      slug: "ecommerse",
       active: false,
       image: com3,
     },
