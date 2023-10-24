@@ -12,7 +12,7 @@ import {
 import CommunityThumbnail from "../components/CommunityThumbnail";
 import com1 from "../images/com1.png";
 import com2 from "../images/com2.png";
-import com3 from "../images/com3.png";
+import com3 from "../images/ecommerse.jpg";
 import com4 from "../images/com4.png";
 import insta from "../images/insta.png";
 import twitter from "../images/twitter.png";
