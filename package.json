@@ -25,6 +25,7 @@
     "@thirdweb-dev/react": "^3",
     "@thirdweb-dev/sdk": "^3",
     "@thirdweb-dev/wallets": "^0.2",
+    "@web3auth/modal": "^7.2.0",
     "chai": "^4.2.0",
     "ethers": "^5.7.2",
     "hardhat": "^2.11.0",
@@ -46,7 +47,7 @@
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.23",
     "tailwindcss": "^3.3.2",
-    "vite": "^3",
+    "vite": "^5.0.4",
     "vite-plugin-node-polyfills": "^0.7.0"
   }
 }

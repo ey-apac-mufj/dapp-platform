@@ -12,6 +12,7 @@ import {
   ChainId,
   walletConnect,
 } from "@thirdweb-dev/react";
+import { web3AuthWallet } from "./web3auth/web3auth";
 import "./styles//globals.css";
 import {
   TWApiKey,
@@ -55,6 +56,13 @@ root.render(
             // myWallet(),
             // walletConnectV1({ projectId: walletConnetKey }),
             // localWallet({ persist: true }),
+            web3AuthWallet({
+              chain: Goerli,
+              clientId: "BPZ4m6p1fN1IMpHcED6JK54kAlqFIqTjEvEWrJmh_Ip9ITQQBbLVl55j9USbyGNtKrdQmFCQjhqTCUdFPa154Bk",
+            }),
+            walletConnect({
+              projectId: "99e19fd7d9e7965476b8d807eb6bf983"
+            }),
           ],
         }),
         // paperWallet({
