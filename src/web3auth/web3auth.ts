@@ -87,15 +87,30 @@ export class Web3AuthWallet extends AbstractClientWallet<
 		super("Web3Auth", options);
 		this.options = options!;
 	}
+	initializeConnector() {
+		this.connector = new Web3AuthConnector({
+			chain: this.options?.chain,
+			clientId: this.options?.clientId,
+		});
+		return this.connector;
+	}
 	async getConnector(): Promise<Connector> {
 		if (!this.connector) {
-			this.connector = new Web3AuthConnector({
-				chain: this.options?.chain,
-				clientId: this.options?.clientId,
-			});
+			return this.initializeConnector();
 		}
 		return this.connector;
 	}
+	async autoConnect(options?: Web3AuthConnectionArgs) {
+		this.initializeConnector();
+		await this.connector?.connect();
+
+		const isLoggedIn = await this.connector?.isConnected();
+		if (isLoggedIn) {
+		  return super.autoConnect(options);
+		}
+
+		throw new Error("Web3Auth user is not logged in");
+	  }
 }
 
 const desktopIcon =
@@ -114,40 +129,3 @@ export const web3AuthWallet = (
 	};
 };
 
-
-// type MetamaskAdditionalOptions = {
-//     projectId?: string;
-// };
-// export type MetamaskWalletOptions = WalletOptions<MetamaskAdditionalOptions>;
-// type ConnectWithQrCodeArgs = {
-//     chainId?: number;
-//     onQrCodeUri: (uri: string) => void;
-//     onConnected: (accountAddress: string) => void;
-// };
-// export declare class MetaMaskWallet extends AbstractClientWallet<MetamaskAdditionalOptions> {
-//     connector?: Connector;
-//     walletConnectConnector?: WalletConnectConnectorType;
-//     metamaskConnector?: MetamaskConnectorType;
-//     isInjected: boolean;
-//     static meta: {
-//         name: string;
-//         iconURL: string;
-//         urls: {
-//             chrome: string;
-//             android: string;
-//             ios: string;
-//         };
-//     };
-//     static id: string;
-//     get walletName(): "MetaMask";
-//     constructor(options: MetamaskWalletOptions);
-//     protected getConnector(): Promise<Connector>;
-
-//     switchAccount(): Promise<void>;
-// }
-
-// type Web3AuthOptions = {
-//     projectId?: string;
-// };
-// export declare const web3Auth: (options?: Web3AuthOptions) => WalletConfig<MetaMaskWallet>;
-// export {};
