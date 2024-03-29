@@ -1,7 +1,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
-import { Goerli, Localhost } from "@thirdweb-dev/chains";
+import { Goerli, Localhost, ArbitrumSepolia } from "@thirdweb-dev/chains";
 import {
   ThirdwebProvider,
   localWallet,
@@ -32,7 +32,7 @@ root.render(
   <React.StrictMode>
     {/* Thirdweb provider for blockchain activities */}
     <ThirdwebProvider
-      supportedChains={[Goerli]} // test network
+      supportedChains={[ArbitrumSepolia]} // test network
       activeChain={activeChain}
       supportedWallets={[
         // myWallet(),
