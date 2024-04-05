@@ -1,7 +1,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
-import { Goerli, Localhost } from "@thirdweb-dev/chains";
+import { Sepolia, Localhost } from "@thirdweb-dev/chains";
 import {
   ThirdwebProvider,
   localWallet,
@@ -33,7 +33,7 @@ root.render(
   <React.StrictMode>
     {/* Thirdweb provider for blockchain activities */}
     <ThirdwebProvider
-      supportedChains={[Goerli]} // test network
+      supportedChains={[Sepolia]} // test network
       activeChain={activeChain}
       supportedWallets={[
         // myWallet(),
@@ -57,7 +57,7 @@ root.render(
             // walletConnectV1({ projectId: walletConnetKey }),
             // localWallet({ persist: true }),
             web3AuthWallet({
-              chain: Goerli,
+              chain: Sepolia,
               clientId: "BPZ4m6p1fN1IMpHcED6JK54kAlqFIqTjEvEWrJmh_Ip9ITQQBbLVl55j9USbyGNtKrdQmFCQjhqTCUdFPa154Bk",
             }),
             walletConnect({

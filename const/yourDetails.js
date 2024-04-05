@@ -1,12 +1,12 @@
-import { Goerli, Localhost } from "@thirdweb-dev/chains";
+import { Sepolia, Localhost } from "@thirdweb-dev/chains";
 
-export const TWFactoryAddress = "0x3084B8B244D2d4a43fbF137165580FD4676E08c2";
+export const TWFactoryAddress = "0x3Cf4377920FF73b9946eeA5D62Be757c075a8f5d";
 export const TWApiKey =
   "Pp-yMCi3csVA2NBc5trHpLHyT5uErD1q-ZDVzriH4gPEhkW-sGdPXT72UFXDStwm6RwHY2ZqwgqKip-dZoCM9Q";
-export const TWClientID = "a3d61ce5edfbb566f88f6a3e8076ef81";
+export const TWClientID = "6def93e4d59f3aab527d02598ea4e399";
 
 export const apiurl = "https://medi-lx.xyz";
-export const activeChain = Goerli;
+export const activeChain = Sepolia;
 
 export const editionDropAddress = "0x8D9919db3CD6aF84e8A12CedC3c5A694Bf026aB8";
 export const editionDropTokenId = "0";

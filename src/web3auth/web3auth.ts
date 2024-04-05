@@ -34,7 +34,7 @@ export class Web3AuthConnector extends Connector<Web3AuthConnectionArgs> {
 			web3AuthNetwork: "sapphire_devnet", // Web3Auth Network
 			chainConfig: {
 				chainNamespace: "eip155",
-				chainId: options.chainId?.toString(16),
+				chainId: '0x' + options.chainId?.toString(16),
 			},
 		});
 		await this.web3auth.initModal();
