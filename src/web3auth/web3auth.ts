@@ -1,8 +1,10 @@
-import type { WalletConfig } from "@thirdweb-dev/react-core";
+import type { WalletConfig } from "@thirdweb-dev/react";
 import { AbstractClientWallet, ConnectParams, Connector, WalletOptions } from "@thirdweb-dev/wallets";
 import type { Chain } from "@thirdweb-dev/chains";
 import { Web3Auth } from "@web3auth/modal";
 import { ethers, Signer, utils } from "ethers";
+import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
+import { CHAIN_NAMESPACES, IProvider, WEB3AUTH_NETWORK } from "@web3auth/base";
 
 
 export type Web3AuthConnectorOptions = {
@@ -29,13 +31,22 @@ export class Web3AuthConnector extends Connector<Web3AuthConnectionArgs> {
 		  ...this.options,
 		  chainId,
 		};
+
+		const chainConfig = {
+			chainId: options.chainId?.toString(16), // Please use 0x1 for Mainnet
+			rpcTarget: "https://rpc.ankr.com/eth_sepolia",
+			chainNamespace: CHAIN_NAMESPACES.EIP155,
+		};
+		
+
+		const privateKeyProvider = new EthereumPrivateKeyProvider({
+			config: { chainConfig: chainConfig }
+		});
+
 		this.web3auth = new Web3Auth({
 			clientId: options.clientId,
 			web3AuthNetwork: "sapphire_devnet", // Web3Auth Network
-			chainConfig: {
-				chainNamespace: "eip155",
-				chainId: options.chainId?.toString(16),
-			},
+			privateKeyProvider
 		});
 		await this.web3auth.initModal();
 		await this.web3auth.connect();

@@ -1,7 +1,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
-import { Goerli, Localhost } from "@thirdweb-dev/chains";
+import { Localhost, Sepolia } from "@thirdweb-dev/chains";
 import {
   ThirdwebProvider,
   localWallet,
@@ -22,7 +22,6 @@ import {
   magicLinkKey,
   walletConnetKey,
 } from "../const/yourDetails";
-import { walletConnectV1 } from "@thirdweb-dev/react";
 import { LoginProvider } from "./contexts/LoginContext";
 import { I18nextProvider } from "react-i18next";
 import i18n from "./language/i18n";
@@ -33,41 +32,23 @@ root.render(
   <React.StrictMode>
     {/* Thirdweb provider for blockchain activities */}
     <ThirdwebProvider
-      supportedChains={[Goerli]} // test network
+      supportedChains={[Sepolia]} // test network
       activeChain={activeChain}
       supportedWallets={[
-        // myWallet(),
-        // metamaskWallet(),
-        smartWallet({
-          // Smart contract wallet is the only supported wallet
+        smartWallet(metamaskWallet(), {
           factoryAddress: TWFactoryAddress,
-          // secretKey: TWApiKey,
-          clientId: TWClientID,
           gasless: true,
-          personalWallets: [
-            // Smart contract wallet requires a personal wallet to work
-            metamaskWallet(),
-            // magicLink({
-            //   apiKey: magicLinkKey,
-            //   magicSdkConfiguration: {
-            //     network: "goerli",
-            //   },
-            // }),
-            // myWallet(),
-            // walletConnectV1({ projectId: walletConnetKey }),
-            // localWallet({ persist: true }),
-            web3AuthWallet({
-              chain: Goerli,
-              clientId: "BPZ4m6p1fN1IMpHcED6JK54kAlqFIqTjEvEWrJmh_Ip9ITQQBbLVl55j9USbyGNtKrdQmFCQjhqTCUdFPa154Bk",
-            }),
-            walletConnect({
-              projectId: "99e19fd7d9e7965476b8d807eb6bf983"
-            }),
-          ],
         }),
-        // paperWallet({
-        //   clientId: "5e8b0e46-c434-4a92-a2f1-4f0e7ecd9888",
-        // }),
+        smartWallet(
+          web3AuthWallet({
+            chain: Sepolia,
+            clientId: "BPZ4m6p1fN1IMpHcED6JK54kAlqFIqTjEvEWrJmh_Ip9ITQQBbLVl55j9USbyGNtKrdQmFCQjhqTCUdFPa154Bk",
+          }),
+          {
+            factoryAddress: TWFactoryAddress,
+            gasless: true,
+          }
+        )
       ]}
     >
       <I18nextProvider i18n={i18n}>
