@@ -2,9 +2,11 @@ import type { WalletConfig } from "@thirdweb-dev/react";
 import { AbstractClientWallet, ConnectParams, Connector, WalletOptions } from "@thirdweb-dev/wallets";
 import type { Chain } from "@thirdweb-dev/chains";
 import { Web3Auth } from "@web3auth/modal";
+import { Web3AuthNoModal } from "@web3auth/no-modal";
 import { ethers, Signer, utils } from "ethers";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
-import { CHAIN_NAMESPACES, IProvider, WEB3AUTH_NETWORK } from "@web3auth/base";
+import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
+import { CHAIN_NAMESPACES, IProvider, WALLET_ADAPTERS, UX_MODE, WEB3AUTH_NETWORK } from "@web3auth/base";
 
 
 export type Web3AuthConnectorOptions = {
@@ -33,7 +35,7 @@ export class Web3AuthConnector extends Connector<Web3AuthConnectionArgs> {
 		};
 
 		const chainConfig = {
-			chainId: options.chainId?.toString(16), // Please use 0x1 for Mainnet
+			chainId: '0x' + options.chainId?.toString(16), // Please use 0x1 for Mainnet
 			rpcTarget: "https://rpc.ankr.com/eth_sepolia",
 			chainNamespace: CHAIN_NAMESPACES.EIP155,
 		};
@@ -43,13 +45,38 @@ export class Web3AuthConnector extends Connector<Web3AuthConnectionArgs> {
 			config: { chainConfig: chainConfig }
 		});
 
-		this.web3auth = new Web3Auth({
+		const web3auth = new Web3AuthNoModal({
 			clientId: options.clientId,
-			web3AuthNetwork: "sapphire_devnet", // Web3Auth Network
-			privateKeyProvider
+			web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET,
+			privateKeyProvider,
+			uiConfig: {
+			  mode: "dark",
+			  useLogoLoader: true,
+			  logoLight: "https://cryptologos.cc/logos/ethereum-eth-logo.png",
+			  logoDark: "https://cryptologos.cc/logos/ethereum-eth-logo.png",
+			  defaultLanguage: "en",
+			  theme: {
+				primary: "#768729",
+			  },
+			}
 		});
-		await this.web3auth.initModal();
-		await this.web3auth.connect();
+
+		// this.web3auth = new Web3Auth({
+		// 	clientId: options.clientId,
+		// 	web3AuthNetwork: "sapphire_devnet", // Web3Auth Network
+		// 	privateKeyProvider
+		// });
+		// await this.web3auth.initModal();
+		// await this.web3auth.connect();
+		const openloginAdapter = new OpenloginAdapter();
+		web3auth.configureAdapter(openloginAdapter);
+		await web3auth.init();
+		this.provider = await web3auth.connectTo(
+			WALLET_ADAPTERS.OPENLOGIN,
+			{
+			  loginProvider: "google",
+			}
+		);
 	}
 
 	async connect(args?: ConnectParams<Web3AuthConnectionArgs>) {
@@ -76,7 +103,12 @@ export class Web3AuthConnector extends Connector<Web3AuthConnectionArgs> {
 		if (this.provider) {
 			return this.provider;
 		}
-		this.provider = this.web3auth?.provider;
+		this.provider = await this.web3auth?.connectTo(
+			WALLET_ADAPTERS.OPENLOGIN,
+			{
+			  loginProvider: "google",
+			}
+		);
 		return this.provider;
 	}
 	isConnected(): Promise<boolean> {
