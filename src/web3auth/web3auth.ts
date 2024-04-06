@@ -33,6 +33,7 @@ export class Web3AuthConnector extends Connector<Web3AuthConnectionArgs> {
 			clientId: options.clientId,
 			web3AuthNetwork: "sapphire_devnet", // Web3Auth Network
 			chainConfig: {
+				rpcTarget: this.options.chain.rpc[0].replace('${THIRDWEB_API_KEY}', "6def93e4d59f3aab527d02598ea4e399"),
 				chainNamespace: "eip155",
 				chainId: '0x' + options.chainId?.toString(16),
 			},

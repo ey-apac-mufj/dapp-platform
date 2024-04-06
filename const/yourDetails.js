@@ -1,4 +1,4 @@
-import { Sepolia, Localhost } from "@thirdweb-dev/chains";
+import { ArbitrumSepolia, Localhost } from "@thirdweb-dev/chains";
 
 export const TWFactoryAddress = "0x3Cf4377920FF73b9946eeA5D62Be757c075a8f5d";
 export const TWApiKey =
@@ -6,7 +6,7 @@ export const TWApiKey =
 export const TWClientID = "6def93e4d59f3aab527d02598ea4e399";
 
 export const apiurl = "https://medi-lx.xyz";
-export const activeChain = Sepolia;
+export const activeChain = ArbitrumSepolia;
 
 export const editionDropAddress = "0x8D9919db3CD6aF84e8A12CedC3c5A694Bf026aB8";
 export const editionDropTokenId = "0";
