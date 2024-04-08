@@ -61,7 +61,7 @@ root.render(
               clientId: "BPZ4m6p1fN1IMpHcED6JK54kAlqFIqTjEvEWrJmh_Ip9ITQQBbLVl55j9USbyGNtKrdQmFCQjhqTCUdFPa154Bk",
             }),
             walletConnect({
-              projectId: "99e19fd7d9e7965476b8d807eb6bf983"
+              projectId: "b91f7534a3ea99e0f1afac67c7d5ec1d"
             }),
           ],
         }),
