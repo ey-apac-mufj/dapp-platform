@@ -18,7 +18,7 @@ export default function Landing() {
         {/* Wallet section starts */}
         <div className="grid grid-cols-1 md:grid-cols-2 antonFont mx-auto">
           <div className="mt-5 py-3 px-5">
-            <h1 className="text-4xl uppercase">{t("Multiverse Community")}</h1>
+            <h1 className="text-4xl uppercase">{t("EDI Platform")}</h1>
             <div>
               <Link to="/community-home">
                 <button className="pink-button uppercase mt-8 text-xl font-thin">
