@@ -5,7 +5,7 @@ export const TWApiKey =
   "Pp-yMCi3csVA2NBc5trHpLHyT5uErD1q-ZDVzriH4gPEhkW-sGdPXT72UFXDStwm6RwHY2ZqwgqKip-dZoCM9Q";
 export const TWClientID = "6def93e4d59f3aab527d02598ea4e399";
 
-export const messageToSIgn = "ThisMessageIsForSigning";
+export const messageToSign = "ThisMessageIsForSigning";
 export const contractAddressVC = "0xAE05e28134d91f66db8195B1AF1aE95a3CFA14FC";
 
 export const apiurl = "https://medi-lx.xyz";

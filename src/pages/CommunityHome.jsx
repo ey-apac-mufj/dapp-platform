@@ -10,7 +10,7 @@ import {
 import {
   editionDropAddress,
   editionDropTokenId,
-  messageToSIgn,
+  messageToSign,
   contractAddressVC,
   vcContractABI,
 } from "../../const/yourDetails";
@@ -32,6 +32,10 @@ import { useTranslation } from "react-i18next";
 import SwitchLanguage from "../components/SwitchLanguage";
 import CryptoJs from "crypto-js";
 
+import { Resolver } from "did-resolver";
+import { getResolver } from "web-did-resolver";
+import { verifyCredential } from "did-jwt-vc";
+
 export default function CommunityHome() {
   const sdk = useSDK(); // Get SDK
   const [signature, setSignature] = useState(null);
@@ -39,6 +43,28 @@ export default function CommunityHome() {
   const address = useAddress();
   const [lastClick, setLastClick] = useState(Date.now());
   const [nftPresent, setNftPresent] = useState(false);
+  const webResolver = getResolver();
+  const resolver = new Resolver({
+    ...webResolver,
+  });
+
+  let vcD = {
+    credentialSubject: {
+      name: "Peter Parker",
+      address: "Brooklyn, USA",
+      Occupation: "News Paper Photographer",
+      id: "did:key:z6MkestBkEwUzv7MxQuUU4zn4E3eS5m4TBjFNXkpudkwjTjE",
+    },
+    issuer: { id: "did:web:musim-mas.mullet.one" },
+    type: ["VerifiableCredential"],
+    "@context": ["https://www.w3.org/2018/credentials/v1"],
+    issuanceDate: "2023-12-07T10:20:27.000Z",
+    expirationDate: "2024-12-07T10:20:27.000Z",
+    proof: {
+      type: "JwtProof2020",
+      jwt: "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM1NjY4MjcsInZjIjp7IkBjb250ZXh0IjpbImh0dHBzOi8vd3d3LnczLm9yZy8yMDE4L2NyZWRlbnRpYWxzL3YxIl0sInR5cGUiOlsiVmVyaWZpYWJsZUNyZWRlbnRpYWwiXSwiY3JlZGVudGlhbFN1YmplY3QiOnsibmFtZSI6IlBldGVyIFBhcmtlciIsImFkZHJlc3MiOiJCcm9va2x5biwgVVNBIiwiT2NjdXBhdGlvbiI6Ik5ld3MgUGFwZXIgUGhvdG9ncmFwaGVyIn19LCJzdWIiOiJkaWQ6a2V5Ono2TWtlc3RCa0V3VXp2N014UXVVVTR6bjRFM2VTNW00VEJqRk5Ya3B1ZGt3alRqRSIsIm5iZiI6MTcwMTk0NDQyNywiaXNzIjoiZGlkOndlYjptdXNpbS1tYXMubXVsbGV0Lm9uZSJ9.r8VdYfZ6IJCOB7_hgpyfXxLUY8zyrdMQpCurf9kKjxwJMiareMXMjfTc5jPpkFe87xLZ31pvjNXWWC--0mojBw",
+    },
+  };
 
   async function decryptVC() {
     const contract = await sdk.getContract(contractAddressVC, vcContractABI);
@@ -50,16 +76,26 @@ export default function CommunityHome() {
     console.log(JSON.parse(originalText));
   }
 
+  async function verify(vc) {
+    try {
+      const verifiedVC = await verifyCredential(vc.proof.jwt, resolver);
+      console.log(verifiedVC.verified);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   useEffect(() => {
     async function signMessage() {
       if (address) {
-        const sign = await sdk.wallet.sign(messageToSIgn);
+        const sign = await sdk.wallet.sign(messageToSign);
         setSignature(sign);
         console.log("this is sign", sign);
       }
     }
     signMessage();
     decryptVC();
+    verify(vcD);
   }, [address]);
 
   useEffect(() => {
