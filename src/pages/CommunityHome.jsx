@@ -16,6 +16,10 @@ import { useTranslation } from "react-i18next";
 import SwitchLanguage from "../components/SwitchLanguage";
 import CustomModal from "../components/CustomModal";
 
+import { Resolver } from "did-resolver";
+import { getResolver } from "web-did-resolver";
+import { verifyCredential } from "did-jwt-vc";
+
 export default function CommunityHome() {
   const { t } = useTranslation();
   const sdk = useSDK();
@@ -27,6 +31,11 @@ export default function CommunityHome() {
   const [currentVC, setCurrentVC] = useState({});
   const [contractLoader, setContractLoader] = useState(false);
   const [enctyptedList, setEncryptedList] = useState([]);
+
+  const webResolver = getResolver();
+  const resolver = new Resolver({
+    ...webResolver,
+  });
 
   useEffect(() => {
     const onClick = () => {
@@ -121,18 +130,22 @@ export default function CommunityHome() {
   const verifyVC = async () => {
     try {
       setLoader(true);
-      const id = toast("Verifying your VC, please wait...", {
-        type: "info",
-        autoClose: false,
-      });
-      console.log("Selected VC", currentVC);
-      toast.update(id, {
-        render: "VC Verified Successfully",
-        type: "success",
-        autoClose: 3000,
-      });
+      const verifiedVC = await verifyCredential(currentVC.proof.jwt, resolver);
+
+      console.log(verifiedVC.verified);
+      if (verifiedVC.verified) {
+        toast.success("VC is verified successfully", {
+          position: "top-right",
+          autoClose: 4000,
+        });
+      } else {
+        toast.error("Unable to Verify VC", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+      }
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
       toast.error("Unable to Verify VC", {
         position: "top-right",
         autoClose: 3000,

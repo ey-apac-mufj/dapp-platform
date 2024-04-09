@@ -28,6 +28,8 @@
     "@web3auth/modal": "^7.2.0",
     "chai": "^4.2.0",
     "crypto-js": "^4.2.0",
+    "did-jwt-vc": "^4.0.4",
+    "did-resolver": "^4.1.0",
     "ethers": "^5.7.2",
     "hardhat": "^2.11.0",
     "hardhat-gas-reporter": "^1.0.8",
@@ -41,7 +43,8 @@
     "react-toastify": "^7.0.4",
     "serve": "^14.2.0",
     "solidity-coverage": "^0.7.21",
-    "universal-cookie": "^6.1.0"
+    "universal-cookie": "^6.1.0",
+    "web-did-resolver": "^2.0.27"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^2",
