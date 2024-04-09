@@ -4,10 +4,15 @@ import {
   useContract,
   useNFT,
   useOwnedNFTs,
+  useSDK,
+  useContractRead,
 } from "@thirdweb-dev/react";
 import {
   editionDropAddress,
   editionDropTokenId,
+  messageToSIgn,
+  contractAddressVC,
+  vcContractABI,
 } from "../../const/yourDetails";
 import CommunityThumbnail from "../components/CommunityThumbnail";
 import com1 from "../images/com1.png";
@@ -25,11 +30,37 @@ import CategoryThumbnail from "../components/CategoryThumbnail";
 
 import { useTranslation } from "react-i18next";
 import SwitchLanguage from "../components/SwitchLanguage";
+import CryptoJs from "crypto-js";
 
 export default function CommunityHome() {
+  const sdk = useSDK(); // Get SDK
+  const [signature, setSignature] = useState(null);
   const { t } = useTranslation();
+  const address = useAddress();
   const [lastClick, setLastClick] = useState(Date.now());
   const [nftPresent, setNftPresent] = useState(false);
+
+  async function decryptVC() {
+    const contract = await sdk.getContract(contractAddressVC, vcContractABI);
+    const data = await contract.call("getCredentials", [address, 1]);
+    console.log(data[0].encryptedCredential);
+    let ciphertext = data[0].encryptedCredential;
+    var bytes = CryptoJs.AES.decrypt(ciphertext, signature);
+    var originalText = bytes.toString(CryptoJs.enc.Utf8);
+    console.log(JSON.parse(originalText));
+  }
+
+  useEffect(() => {
+    async function signMessage() {
+      if (address) {
+        const sign = await sdk.wallet.sign(messageToSIgn);
+        setSignature(sign);
+        console.log("this is sign", sign);
+      }
+    }
+    signMessage();
+    decryptVC();
+  }, [address]);
 
   useEffect(() => {
     const onClick = () => {
@@ -126,7 +157,6 @@ export default function CommunityHome() {
     },
   ];
 
-  const address = useAddress();
   const navigate = useNavigate();
 
   const communityCategory = useRef();
