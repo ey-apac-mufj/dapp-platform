@@ -91,7 +91,7 @@
   "Employer": "雇用主",
   "Talent": "タレント",
   "Instructor": "講師",
-  "Login": "アクセス",
+  "Login": "ログイン",
   "Please wait... Transaction in progress...": "トランザクション進行中...少々お待ちください",
   "Processing...": "処理中...",
   "Your transaction is Successful!": "トランザクションが成功しました！",
@@ -121,5 +121,14 @@
   "Modify offer": "オファーの更新が",
   "Create offer": "オファーの作成が",
   "Please initialize your wallet account": "ウォレットアカウントを登録してください",
-  "Initialize your wallet account": "ウォレットアカウントを登録する"
+  "Initialize your wallet account": "ウォレットアカウントを登録する",
+  "Please connect your wallet": "ウォレットに接続してください",
+  "Login to EDI Platform": "EDIプラットホームにログイン",
+  "VC List": "所有しているVC一覧",
+  "(Encrypted & Stored on blockchain)": "（暗号化してBlockchain上で保管）",
+  "Decrypted VC": "復号化されたVC",
+  "VC Verification Result": "VC検証結果",
+  "(VC-verified user only)": "（VC検証済みユーザのみ）",
+  "Access EDI functions": "EDI機能へ進む",
+  "EDI Dummy Functions": "EDI Dummy機能ページ"
 }

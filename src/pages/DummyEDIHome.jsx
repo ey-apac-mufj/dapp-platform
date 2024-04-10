@@ -26,23 +26,23 @@ export default function DummyEDIHome() {
         </div>
       </nav>
       <div className="container text-center mx-auto px-5 md:px-40 py-5 justify-center">
-        <h5 className="font-medium text-2xl">{t("EDI Dummy機能ページ")}</h5>
+        <h5 className="font-medium text-2xl">{t("EDI Dummy Functions")}</h5>
         <div className="mx-auto mt-4">
           <ConnectWalletButton customClass="connectWalletButton" />
         </div>
         <hr className="h-1 bg-gray-500" />
         {address ? (<div style={{ marginTop: "20px" }}>
           <button className="pink-button px-2 py-2 mb-2">
-            Delivery Order送信
+            Send Delivery Order
           </button>　
           <button className="pink-button px-2 py-2">
-            Delivery Note送信
+            Send Delivery Note
           </button>　
           <button className="pink-button px-2 py-2">
-            Invoice送信
+            Send Invoice
           </button>　
           <button className="pink-button px-2 py-2">
-            Payment Notification送信
+            Send Payment Notification
           </button>
         </div>
         ) : (
