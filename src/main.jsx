@@ -57,11 +57,11 @@ root.render(
             // myWallet(),
             // walletConnectV1({ projectId: walletConnetKey }),
             // localWallet({ persist: true }),
-            web3AuthWallet({
-              chain: ArbitrumSepolia,
-              clientId:
-                "BPZ4m6p1fN1IMpHcED6JK54kAlqFIqTjEvEWrJmh_Ip9ITQQBbLVl55j9USbyGNtKrdQmFCQjhqTCUdFPa154Bk",
-            }),
+            // web3AuthWallet({
+            //   chain: ArbitrumSepolia,
+            //   clientId:
+            //     "BPZ4m6p1fN1IMpHcED6JK54kAlqFIqTjEvEWrJmh_Ip9ITQQBbLVl55j9USbyGNtKrdQmFCQjhqTCUdFPa154Bk",
+            // }),
             googleWeb3Wallet({
               chain: ArbitrumSepolia,
               clientId:

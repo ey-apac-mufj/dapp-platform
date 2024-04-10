@@ -86,6 +86,7 @@ export default function CommunityHome() {
           autoClose: false,
         });
         const _signature = await sdk.wallet.sign(messageToSign);
+        console.log(_signature);
         setSignature(_signature);
         toast.update(id, {
           render: "Logged In Successfully",
@@ -172,43 +173,44 @@ export default function CommunityHome() {
 
       {/* featured Communities */}
       <hr className="h-1 bg-gray-500" />
-
-      <div className="m-4">
-        {signature ? (
-          contractLoader ? (
-            "Loading VC lists"
-          ) : enctyptedList.length ? (
-            <div>
-              {enctyptedList.map((data, index) => {
-                return (
-                  <div className="flex flex-row pb-6 gap-x-5" key={index}>
-                    <div>{index + 1}. &nbsp;&nbsp;&nbsp;&nbsp;</div>
-                    <div className="truncate">{data.encryptedCredential}</div>
-                    <div className="m-0">
-                      <button
-                        className="pink-button px-2 py-2"
-                        onClick={() => {
-                          decryptVC(data.encryptedCredential);
-                        }}
-                      >
-                        DECRYPT
-                      </button>
+      {address && (
+        <div className="m-4">
+          {signature ? (
+            contractLoader ? (
+              "Loading VC lists"
+            ) : enctyptedList.length ? (
+              <div>
+                {enctyptedList.map((data, index) => {
+                  return (
+                    <div className="flex flex-row pb-6 gap-x-5" key={index}>
+                      <div>{index + 1}. &nbsp;&nbsp;&nbsp;&nbsp;</div>
+                      <div className="truncate">{data.encryptedCredential}</div>
+                      <div className="m-0">
+                        <button
+                          className="pink-button px-2 py-2"
+                          onClick={() => {
+                            decryptVC(data.encryptedCredential);
+                          }}
+                        >
+                          DECRYPT
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
+            ) : (
+              "No VC present"
+            )
+          ) : loader ? (
+            "Loading...."
           ) : (
-            "No VC present"
-          )
-        ) : loader ? (
-          "Loading...."
-        ) : (
-          <button className="pink-button" onClick={signMessage}>
-            Login to EDI Platform
-          </button>
-        )}
-      </div>
+            <button className="pink-button" onClick={signMessage}>
+              Login to EDI Platform
+            </button>
+          )}
+        </div>
+      )}
       <CustomModal
         title={"Decrypted VC"}
         open={open}
@@ -220,9 +222,10 @@ export default function CommunityHome() {
         <div
           style={{
             overflow: "auto",
+            textAlign: "left",
           }}
         >
-          <code>{JSON.stringify(currentVC)}</code>
+          <pre>{JSON.stringify(currentVC, null, 4)}</pre>
         </div>
         <div className="m-0 pt-7">
           <button className="pink-button" onClick={verifyVC}>
