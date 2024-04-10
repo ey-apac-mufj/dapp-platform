@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CommunityCategory from "./pages/CommunityCategory";
 import CommunityDetails from "./pages/CommunityDetails";
-import CommunityHome from "./pages/CommunityHome";
+import Login from "./pages/LoginPage";
 import ContractDeposit from "./pages/ContractDeposit";
 import Landing from "./pages/Landing";
 import OfferList from "./pages/OfferList";
@@ -12,6 +12,7 @@ import StudentList from "./pages/StudentList";
 import TalentDetail from "./pages/TalentDetail";
 import "./styles/Home.css";
 import Profile from "./pages/Profile";
+import DummyEDIHome from "./pages/DummyEDIHome";
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
         <Routes>
           {/* <Route path="/old" element={<Home />} /> */}
           <Route path="/" element={<Landing />} />
-          <Route path="/community-home" element={<CommunityHome />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/edi-home" element={<DummyEDIHome />} />
           <Route
             path="/community-category/:category"
             element={<CommunityCategory />}

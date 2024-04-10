@@ -20,7 +20,7 @@ export default function Landing() {
           <div className="mt-5 py-3 px-5">
             <h1 className="text-4xl uppercase">{t("EDI Platform")}</h1>
             <div>
-              <Link to="/community-home">
+              <Link to="/login">
                 <button className="pink-button uppercase mt-8 text-xl font-thin">
                   Enter
                 </button>

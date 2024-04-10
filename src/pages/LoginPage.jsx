@@ -15,12 +15,13 @@ import "react-toastify/dist/ReactToastify.css";
 import { useTranslation } from "react-i18next";
 import SwitchLanguage from "../components/SwitchLanguage";
 import CustomModal from "../components/CustomModal";
+import { Link } from "react-router-dom";
 
 import { Resolver } from "did-resolver";
 import { getResolver } from "web-did-resolver";
 import { verifyCredential } from "did-jwt-vc";
 
-export default function CommunityHome() {
+export default function Login() {
   const { t } = useTranslation();
   const sdk = useSDK();
   const address = useAddress();
@@ -28,6 +29,7 @@ export default function CommunityHome() {
   const [signature, setSignature] = useState("");
   const [loader, setLoader] = useState(false);
   const [open, setOpen] = useState(false);
+  const [isVerified, setVerified] = useState(false);
   const [currentVC, setCurrentVC] = useState({});
   const [contractLoader, setContractLoader] = useState(false);
   const [enctyptedList, setEncryptedList] = useState([]);
@@ -86,7 +88,7 @@ export default function CommunityHome() {
           autoClose: false,
         });
         const _signature = await sdk.wallet.sign(messageToSign);
-        console.log(_signature);
+        console.log("_signature: ", _signature);
         setSignature(_signature);
         toast.update(id, {
           render: "Logged In Successfully",
@@ -137,6 +139,8 @@ export default function CommunityHome() {
           position: "top-right",
           autoClose: 4000,
         });
+        setOpen(false);
+        setVerified(true);
       } else {
         toast.error("Unable to Verify VC", {
           position: "top-right",
@@ -173,59 +177,62 @@ export default function CommunityHome() {
 
       {/* featured Communities */}
       <hr className="h-1 bg-gray-500" />
-      {address && (
-        <div className="m-4">
-          {signature ? (
-            contractLoader ? (
-              "Loading VC lists"
-            ) : enctyptedList.length ? (
-              <div>
-                {enctyptedList.map((data, index) => {
-                  return (
-                    <div className="flex flex-row pb-6 gap-x-5" key={index}>
-                      <div>{index + 1}. &nbsp;&nbsp;&nbsp;&nbsp;</div>
-                      <div className="truncate">{data.encryptedCredential}</div>
-                      <div className="m-0">
-                        <button
-                          className="pink-button px-2 py-2"
-                          onClick={() => {
-                            decryptVC(data.encryptedCredential);
-                          }}
-                        >
-                          DECRYPT
-                        </button>
-                      </div>
+
+      <div className="m-4">
+        {signature ? (
+          contractLoader ? (
+            "Loading VC lists"
+          ) : enctyptedList.length ? (
+            <div>
+              <h4 className="mt-5 text-3xl text-black">
+                {t("VC List")}
+              </h4>
+              <h5>{t("(Encrypted & Stored on blockchain)")}</h5>
+              <br></br>
+              {enctyptedList.map((data, index) => {
+                return (
+                  <div className="flex flex-row pb-6 gap-x-5" key={index}>
+                    <div>{index + 1}. &nbsp;&nbsp;&nbsp;&nbsp;</div>
+                    <div className="truncate">{data.encryptedCredential}</div>
+                    <div className="m-0">
+                      <button
+                        className="pink-button px-2 py-2"
+                        onClick={() => {
+                          decryptVC(data.encryptedCredential);
+                        }}
+                      >
+                        DECRYPT
+                      </button>
                     </div>
-                  );
-                })}
-              </div>
-            ) : (
-              "No VC present"
-            )
-          ) : loader ? (
-            "Loading...."
+                  </div>
+                );
+              })}
+            </div>
           ) : (
-            <button className="pink-button" onClick={signMessage}>
-              Login to EDI Platform
-            </button>
-          )}
-        </div>
-      )}
+            "No VC present"
+          )
+        ) : loader ? (
+          "Loading...."
+        ) : address ? (
+          <button className="pink-button" onClick={signMessage}>
+            {t("Login to EDI Platform")}
+          </button>
+        ) : (
+          <p>{t("Please connect your wallet")}</p>
+        )}
+      </div>
       <CustomModal
-        title={"Decrypted VC"}
+        title={t("Decrypted VC")}
         open={open}
         onCloseModal={() => {
           setOpen(false);
-          setCurrentVC({});
+          // setCurrentVC({});
         }}
       >
-        <div
-          style={{
-            overflow: "auto",
-            textAlign: "left",
-          }}
-        >
-          <pre>{JSON.stringify(currentVC, null, 4)}</pre>
+        <div style={{ overflow: "auto", textAlign: "left" }}>
+          <code>
+            <pre style={{ textAlign: "left" }}>{JSON.stringify(currentVC, null, 2)}</pre>
+          </code>
         </div>
         <div className="m-0 pt-7">
           <button className="pink-button" onClick={verifyVC}>
@@ -250,6 +257,36 @@ export default function CommunityHome() {
             ) : null}
             {loader ? "VERIFYING" : "VERIFY"}
           </button>
+        </div>
+      </CustomModal>
+      <CustomModal
+        title={t("VC Verification Result")}
+        open={isVerified}
+        onCloseModal={() => {
+          setVerified(false);
+        }}
+      >
+        <div style={{ overflow: "auto", textAlign: "left" }}>
+          <code>
+            <pre style={{ textAlign: "left" }}>
+
+              <p>✅VC Schema Verified</p>
+              <p>✅JWT Signature Verified</p>
+              <p>✅Credential Expiration Verified</p>
+              <p>🟨Issuer Domain(https://musim-mas.mullet.one) Verified（開発中）</p>
+              <p>🟨Credential Revokation Verified（開発中）</p>
+              <p>🟨ユーザEDI権限確認（開発中）</p>
+            </pre>
+          </code>
+        </div>
+        <div className="m-0 pt-7">
+          <Link to="/edi-home">
+            <button className="pink-button uppercase mt-8 text-xl font-thin" onClick={() => {
+              setVerified(false);
+            }}>
+              {t("Access EDI functions")}<h5>{t("(VC-verified user only)")}</h5>
+            </button>
+          </Link>
         </div>
       </CustomModal>
       <hr className="h-1 bg-gray-500" />
