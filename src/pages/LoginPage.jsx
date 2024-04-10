@@ -176,51 +176,55 @@ export default function Login() {
       </div>
 
       {/* featured Communities */}
-      <hr className="h-1 bg-gray-500" />
 
-      <div className="m-4">
-        {signature ? (
-          contractLoader ? (
-            "Loading VC lists"
-          ) : enctyptedList.length ? (
-            <div>
-              <h4 className="mt-5 text-3xl text-black">
-                {t("VC List")}
-              </h4>
-              <h5>{t("(Encrypted & Stored on blockchain)")}</h5>
-              <br></br>
-              {enctyptedList.map((data, index) => {
-                return (
-                  <div className="flex flex-row pb-6 gap-x-5" key={index}>
-                    <div>{index + 1}. &nbsp;&nbsp;&nbsp;&nbsp;</div>
-                    <div className="truncate">{data.encryptedCredential}</div>
-                    <div className="m-0">
-                      <button
-                        className="pink-button px-2 py-2"
-                        onClick={() => {
-                          decryptVC(data.encryptedCredential);
-                        }}
-                      >
-                        DECRYPT
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            "No VC present"
-          )
-        ) : loader ? (
-          "Loading...."
-        ) : address ? (
-          <button className="pink-button" onClick={signMessage}>
-            {t("Login to EDI Platform")}
-          </button>
-        ) : (
-          <p>{t("Please connect your wallet")}</p>
-        )}
-      </div>
+      <hr className="h-1 bg-gray-500" />
+      {address ? (
+        <>
+          <div className="m-4">
+            {signature ? (
+              contractLoader ? (
+                "Loading VC lists"
+              ) : enctyptedList.length ? (
+                <div>
+                  <h4 className="mt-5 text-3xl text-black">
+                    {t("VC List")}
+                  </h4>
+                  <h5>{t("(Encrypted & Stored on blockchain)")}</h5>
+                  <br></br>
+                  {enctyptedList.map((data, index) => {
+                    return (
+                      <div className="flex flex-row pb-6 gap-x-5" key={index}>
+                        <div>{index + 1}. &nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <div className="truncate">{data.encryptedCredential}</div>
+                        <div className="m-0">
+                          <button
+                            className="pink-button px-2 py-2"
+                            onClick={() => {
+                              decryptVC(data.encryptedCredential);
+                            }}
+                          >
+                            DECRYPT
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                "No VC present"
+              )
+            ) : loader ? (
+              "Loading...."
+            ) : (
+              <button className="pink-button" onClick={signMessage}>
+                {t("Login to EDI Platform")}
+              </button>
+            )}
+          </div>
+        </>
+      ) : (<></>)}
+
+
       <CustomModal
         title={t("Decrypted VC")}
         open={open}
