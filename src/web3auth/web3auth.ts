@@ -19,7 +19,7 @@ export type Web3AuthConnectionArgs = {};
 
 export class Web3AuthConnector extends Connector<Web3AuthConnectionArgs> {
 	options: Web3AuthConnectorOptions;
-	web3auth?: Web3Auth;
+	web3auth?: Web3AuthNoModal;
 
 	provider!: any;
 	constructor(options: Web3AuthConnectorOptions) {
@@ -45,7 +45,7 @@ export class Web3AuthConnector extends Connector<Web3AuthConnectionArgs> {
 			config: { chainConfig: chainConfig }
 		});
 
-		const web3auth = new Web3AuthNoModal({
+		this.web3auth = new Web3AuthNoModal({
 			clientId: options.clientId,
 			web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET,
 			privateKeyProvider,
@@ -69,14 +69,18 @@ export class Web3AuthConnector extends Connector<Web3AuthConnectionArgs> {
 		// await this.web3auth.initModal();
 		// await this.web3auth.connect();
 		const openloginAdapter = new OpenloginAdapter();
-		web3auth.configureAdapter(openloginAdapter);
-		await web3auth.init();
-		this.provider = await web3auth.connectTo(
-			WALLET_ADAPTERS.OPENLOGIN,
-			{
-			  loginProvider: "google",
-			}
-		);
+		this.web3auth.configureAdapter(openloginAdapter);
+		await this.web3auth.init();
+		if (this.web3auth.connected) {
+			this.provider = this.web3auth?.provider;
+		} else {
+			this.provider = await this.web3auth.connectTo(
+				WALLET_ADAPTERS.OPENLOGIN,
+				{
+				loginProvider: "google",
+				}
+			);
+		}
 	}
 
 	async connect(args?: ConnectParams<Web3AuthConnectionArgs>) {
@@ -103,12 +107,7 @@ export class Web3AuthConnector extends Connector<Web3AuthConnectionArgs> {
 		if (this.provider) {
 			return this.provider;
 		}
-		this.provider = await this.web3auth?.connectTo(
-			WALLET_ADAPTERS.OPENLOGIN,
-			{
-			  loginProvider: "google",
-			}
-		);
+		await this.connect();
 		return this.provider;
 	}
 	isConnected(): Promise<boolean> {
