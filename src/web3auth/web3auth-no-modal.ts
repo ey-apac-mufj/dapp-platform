@@ -8,7 +8,11 @@ import {
 import type { Chain } from "@thirdweb-dev/chains";
 import { Web3AuthNoModal } from "@web3auth/no-modal";
 import { ethers, Signer, utils } from "ethers";
-import { WALLET_ADAPTERS, CHAIN_NAMESPACES } from "@web3auth/base";
+import {
+  WALLET_ADAPTERS,
+  CHAIN_NAMESPACES,
+  WEB3AUTH_NETWORK,
+} from "@web3auth/base";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 
@@ -22,11 +26,10 @@ export type Web3AuthConnectionArgs = {};
 export class Web3AuthConnector extends Connector<Web3AuthConnectionArgs> {
   options: Web3AuthConnectorOptions;
   web3auth?: Web3AuthNoModal;
-
   provider!: any;
+
   constructor(options: Web3AuthConnectorOptions) {
     super();
-
     this.options = options;
   }
 
@@ -53,14 +56,18 @@ export class Web3AuthConnector extends Connector<Web3AuthConnectionArgs> {
     });
     this.web3auth = new Web3AuthNoModal({
       clientId: options.clientId,
-      web3AuthNetwork: "sapphire_devnet", // Web3Auth Network
+      web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET, // Web3Auth Network
       privateKeyProvider,
     });
     this.web3auth.configureAdapter(openloginAdapter);
     await this.web3auth.init();
-    await this.web3auth.connectTo(WALLET_ADAPTERS.OPENLOGIN, {
-      loginProvider: "google",
-    });
+    if (this.web3auth.connected) {
+      this.provider = this.web3auth?.provider;
+    } else {
+      this.provider = await this.web3auth.connectTo(WALLET_ADAPTERS.OPENLOGIN, {
+        loginProvider: "google",
+      });
+    }
   }
 
   async connect(args?: ConnectParams<Web3AuthConnectionArgs>) {
