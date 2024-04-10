@@ -33,9 +33,9 @@ export default function ConnectWalletButton({ customClass = "" }) {
     if (connectionStatus === "disconnected") {
       // console.log("yess disconnected");
       setLoggedInStatus(false);
-      handleMediLogout();
+      // handleMediLogout();
     } else {
-      getUser();
+      // getUser();
     }
   }, [connectionStatus]);
 
