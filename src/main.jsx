@@ -26,6 +26,7 @@ import { walletConnectV1 } from "@thirdweb-dev/react";
 import { LoginProvider } from "./contexts/LoginContext";
 import { I18nextProvider } from "react-i18next";
 import i18n from "./language/i18n";
+import { googleWeb3Wallet } from "./web3auth/web3auth-no-modal";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -58,10 +59,16 @@ root.render(
             // localWallet({ persist: true }),
             web3AuthWallet({
               chain: ArbitrumSepolia,
-              clientId: "BPZ4m6p1fN1IMpHcED6JK54kAlqFIqTjEvEWrJmh_Ip9ITQQBbLVl55j9USbyGNtKrdQmFCQjhqTCUdFPa154Bk",
+              clientId:
+                "BPZ4m6p1fN1IMpHcED6JK54kAlqFIqTjEvEWrJmh_Ip9ITQQBbLVl55j9USbyGNtKrdQmFCQjhqTCUdFPa154Bk",
+            }),
+            googleWeb3Wallet({
+              chain: ArbitrumSepolia,
+              clientId:
+                "BPZ4m6p1fN1IMpHcED6JK54kAlqFIqTjEvEWrJmh_Ip9ITQQBbLVl55j9USbyGNtKrdQmFCQjhqTCUdFPa154Bk",
             }),
             walletConnect({
-              projectId: "b91f7534a3ea99e0f1afac67c7d5ec1d"
+              projectId: "b91f7534a3ea99e0f1afac67c7d5ec1d",
             }),
           ],
         }),
