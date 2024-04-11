@@ -129,6 +129,7 @@
   "Decrypted VC": "復号化されたVC",
   "VC Verification Result": "VC検証結果",
   "(VC-verified user only)": "（VC検証済みユーザのみ）",
-  "Access EDI functions": "EDI機能へ進む",
-  "EDI Dummy Functions": "EDI Dummy機能ページ"
+  "Access All EDI functions": "EDI高級機能へ進む",
+  "EDI Dummy Functions": "EDI高級機能Dummyページ",
+  "Basic EDI Function (No need to verify VC)": "ベーシック機能（VC検証要らない）"
 }

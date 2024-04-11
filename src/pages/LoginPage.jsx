@@ -83,7 +83,7 @@ export default function Login() {
     try {
       if (address) {
         setLoader(true);
-        const id = toast("Logging you in, please wait...", {
+        const id = toast("Verifying signature, please wait...", {
           type: "info",
           autoClose: false,
         });
@@ -181,6 +181,21 @@ export default function Login() {
       {address ? (
         <>
           <div className="m-4">
+            {address && signature ? (<>
+
+              <h4 className="mt-5 text-3xl text-black">
+                {t("Basic EDI Function (No need to verify VC)")}
+              </h4><br></br>
+              <button className="pink-button px-2 py-2 mb-2">
+                Send Delivery Order
+              </button><>　</>
+              <button className="pink-button px-2 py-2">
+                Send Delivery Note
+              </button>
+              <br></br><br></br>
+
+              <hr className="h-1 bg-gray-500" />
+            </>) : (<></>)}
             {signature ? (
               contractLoader ? (
                 "Loading VC lists"
@@ -189,6 +204,9 @@ export default function Login() {
                   <h4 className="mt-5 text-3xl text-black">
                     {t("VC List")}
                   </h4>
+                  <Link to="https://sepolia.arbiscan.io/address/0xcE10ac302b02dEB7f7211148f81bd2D71Bf8b23D#code">
+                    https://sepolia.arbiscan.io/address/0xcE10ac302b02dEB7f7211148f81bd2D71Bf8b23D#code
+                  </Link>
                   <h5>{t("(Encrypted & Stored on blockchain)")}</h5>
                   <br></br>
                   {enctyptedList.map((data, index) => {
@@ -288,7 +306,7 @@ export default function Login() {
             <button className="pink-button uppercase mt-8 text-xl font-thin" onClick={() => {
               setVerified(false);
             }}>
-              {t("Access EDI functions")}<h5>{t("(VC-verified user only)")}</h5>
+              {t("Access All EDI functions")}
             </button>
           </Link>
         </div>
