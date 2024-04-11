@@ -150,7 +150,7 @@ export default function Login() {
     } catch (error) {
       console.log(error.message);
       setOpen(false);
-      setCurrentVC({});
+      alert("Invalid VC!")
       toast({
         render: "Unable to verify VC",
         type: "error",
