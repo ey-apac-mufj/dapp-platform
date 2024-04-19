@@ -6,6 +6,7 @@ export const TWApiKey =
 export const TWClientID = "6def93e4d59f3aab527d02598ea4e399";
 
 export const apiurl = "https://medi-lx.xyz";
+export const vcAPI = "https://vc-api.mullet.one";
 export const activeChain = ArbitrumSepolia;
 
 export const editionDropAddress = "0x8D9919db3CD6aF84e8A12CedC3c5A694Bf026aB8";

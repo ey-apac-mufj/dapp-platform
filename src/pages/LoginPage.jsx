@@ -4,6 +4,7 @@ import {
   vcStoreAddress,
   messageToSign,
   vcContractABI,
+  vcAPI,
 } from "../../const/yourDetails";
 import CryptoJS from "crypto-js";
 import insta from "../images/insta.png";
@@ -17,10 +18,6 @@ import SwitchLanguage from "../components/SwitchLanguage";
 import CustomModal from "../components/CustomModal";
 import { Link } from "react-router-dom";
 
-import { Resolver } from "did-resolver";
-import { getResolver } from "web-did-resolver";
-import { verifyCredential } from "did-jwt-vc";
-
 export default function Login() {
   const { t } = useTranslation();
   const sdk = useSDK();
@@ -33,11 +30,6 @@ export default function Login() {
   const [currentVC, setCurrentVC] = useState({});
   const [contractLoader, setContractLoader] = useState(false);
   const [enctyptedList, setEncryptedList] = useState([]);
-
-  const webResolver = getResolver();
-  const resolver = new Resolver({
-    ...webResolver,
-  });
 
   useEffect(() => {
     const onClick = () => {
@@ -133,8 +125,16 @@ export default function Login() {
   const verifyVC = async () => {
     try {
       setLoader(true);
-      const verifiedVC = await verifyCredential(currentVC.proof.jwt, resolver);
-      if (verifiedVC.verified) {
+      let vcVerify = await fetch(`${vcAPI}/vc/verify`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ vc: currentVC }),
+      });
+      vcVerify = await vcVerify.json();
+      // console.log(verifiedVC);
+      if (vcVerify?.data?.verified) {
         toast.success("VC is verified successfully", {
           position: "top-right",
           autoClose: 4000,
@@ -150,7 +150,7 @@ export default function Login() {
     } catch (error) {
       console.log(error.message);
       setOpen(false);
-      alert("Invalid VC!")
+      alert("Invalid VC!");
       toast({
         render: "Unable to verify VC",
         type: "error",
@@ -181,29 +181,33 @@ export default function Login() {
       {address ? (
         <>
           <div className="m-4">
-            {address && signature ? (<>
+            {address && signature ? (
+              <>
+                <h4 className="mt-5 text-3xl text-black">
+                  {t("Basic EDI Function (No need to verify VC)")}
+                </h4>
+                <br></br>
+                <button className="pink-button px-2 py-2 mb-2">
+                  Send Delivery Order
+                </button>
+                <>　</>
+                <button className="pink-button px-2 py-2">
+                  Send Delivery Note
+                </button>
+                <br></br>
+                <br></br>
 
-              <h4 className="mt-5 text-3xl text-black">
-                {t("Basic EDI Function (No need to verify VC)")}
-              </h4><br></br>
-              <button className="pink-button px-2 py-2 mb-2">
-                Send Delivery Order
-              </button><>　</>
-              <button className="pink-button px-2 py-2">
-                Send Delivery Note
-              </button>
-              <br></br><br></br>
-
-              <hr className="h-1 bg-gray-500" />
-            </>) : (<></>)}
+                <hr className="h-1 bg-gray-500" />
+              </>
+            ) : (
+              <></>
+            )}
             {signature ? (
               contractLoader ? (
                 "Loading VC lists"
               ) : enctyptedList.length ? (
                 <div>
-                  <h4 className="mt-5 text-3xl text-black">
-                    {t("VC List")}
-                  </h4>
+                  <h4 className="mt-5 text-3xl text-black">{t("VC List")}</h4>
                   <Link to="https://sepolia.arbiscan.io/address/0xcE10ac302b02dEB7f7211148f81bd2D71Bf8b23D#code">
                     https://sepolia.arbiscan.io/address/0xcE10ac302b02dEB7f7211148f81bd2D71Bf8b23D#code
                   </Link>
@@ -213,7 +217,9 @@ export default function Login() {
                     return (
                       <div className="flex flex-row pb-6 gap-x-5" key={index}>
                         <div>{index + 1}. &nbsp;&nbsp;&nbsp;&nbsp;</div>
-                        <div className="truncate">{data.encryptedCredential}</div>
+                        <div className="truncate">
+                          {data.encryptedCredential}
+                        </div>
                         <div className="m-0">
                           <button
                             className="pink-button px-2 py-2"
@@ -240,8 +246,9 @@ export default function Login() {
             )}
           </div>
         </>
-      ) : (<></>)}
-
+      ) : (
+        <></>
+      )}
 
       <CustomModal
         title={t("Decrypted VC")}
@@ -253,7 +260,9 @@ export default function Login() {
       >
         <div style={{ overflow: "auto", textAlign: "left" }}>
           <code>
-            <pre style={{ textAlign: "left" }}>{JSON.stringify(currentVC, null, 2)}</pre>
+            <pre style={{ textAlign: "left" }}>
+              {JSON.stringify(currentVC, null, 2)}
+            </pre>
           </code>
         </div>
         <div className="m-0 pt-7">
@@ -291,11 +300,12 @@ export default function Login() {
         <div style={{ overflow: "auto", textAlign: "left" }}>
           <code>
             <pre style={{ textAlign: "left" }}>
-
               <p>✅VC Schema Verified</p>
               <p>✅JWT Signature Verified</p>
               <p>✅Credential Expiration Verified</p>
-              <p>🟨Issuer Domain(https://musim-mas.mullet.one) Verified（開発中）</p>
+              <p>
+                🟨Issuer Domain(https://musim-mas.mullet.one) Verified（開発中）
+              </p>
               <p>🟨Credential Revokation Verified（開発中）</p>
               <p>🟨ユーザEDI権限確認（開発中）</p>
             </pre>
@@ -303,9 +313,12 @@ export default function Login() {
         </div>
         <div className="m-0 pt-7">
           <Link to="/edi-home">
-            <button className="pink-button uppercase mt-8 text-xl font-thin" onClick={() => {
-              setVerified(false);
-            }}>
+            <button
+              className="pink-button uppercase mt-8 text-xl font-thin"
+              onClick={() => {
+                setVerified(false);
+              }}
+            >
               {t("Access All EDI functions")}
             </button>
           </Link>
