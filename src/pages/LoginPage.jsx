@@ -17,6 +17,10 @@ import { useTranslation } from "react-i18next";
 import SwitchLanguage from "../components/SwitchLanguage";
 import CustomModal from "../components/CustomModal";
 import { Link } from "react-router-dom";
+import { Resolver } from "did-resolver";
+import { getResolver } from "web-did-resolver";
+import { verifyCredential } from "did-jwt-vc";
+import _ from "lodash";
 
 export default function Login() {
   const { t } = useTranslation();
@@ -30,6 +34,11 @@ export default function Login() {
   const [currentVC, setCurrentVC] = useState({});
   const [contractLoader, setContractLoader] = useState(false);
   const [enctyptedList, setEncryptedList] = useState([]);
+
+  const webResolver = getResolver();
+  const resolver = new Resolver({
+    ...webResolver,
+  });
 
   useEffect(() => {
     const onClick = () => {
@@ -125,16 +134,11 @@ export default function Login() {
   const verifyVC = async () => {
     try {
       setLoader(true);
-      let vcVerify = await fetch(`${vcAPI}/vc/verify`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ vc: currentVC }),
-      });
-      vcVerify = await vcVerify.json();
+      const verifiedVC = await verifyCredential(currentVC.proof.jwt, resolver);
+      let vcMatching = _.isEqual(currentVC, verifiedVC?.verifiableCredential);
+      console.log(vcMatching);
       // console.log(verifiedVC);
-      if (vcVerify?.data?.verified) {
+      if (verifiedVC?.verified && vcMatching) {
         toast.success("VC is verified successfully", {
           position: "top-right",
           autoClose: 4000,
