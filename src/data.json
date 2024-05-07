@@ -1,48 +1,59 @@
-{
-    "students": [
-        {
-            "id": 1,
-            "name": "Angela Smith",
-            "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-            "walletAddress": "0x....",
-            "image": "student1.png"
-        },
-        {
-            "id": 2,
-            "name": "Clair Roberts",
-            "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-            "walletAddress": "0x....",
-            "image": "student2.png"
-        },
-        {
-            "id": 3,
-            "name": "Peter Parker",
-            "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-            "walletAddress": "0x2....",
-            "image": "student3.png"
-        },
-        {
-            "id": 4,
-            "name": "Bruce Wayne",
-            "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-            "walletAddress": "0x....",
-            "image": "student4.png"
-        }
-    ],
-    "offers": [
-        {
-            "id": 1,
-            "company": "XYZ Corporation Inc",
-            "salary": "$10000",
-            "jobDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam efficitur fermentum sapien, a luctus tellus facilisis a. Integer felis erat, vestibulum ut sollicitudin nec, bibendum at ipsum.",
-            "contract": "0x67shds..."
-        },
-        {
-            "id": 2,
-            "company": "ABC Corporation Inc",
-            "salary": "$9000",
-            "jobDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam efficitur fermentum sapien, a luctus tellus facilisis a. Integer felis erat, vestibulum ut sollicitudin nec, bibendum at ipsum.",
-            "contract": "0x67shds..."
-        }
-    ]
-}
+[
+  {
+    "credentialSubject": {
+      "name": "Peter Parker",
+      "address": "Brooklyn, USA",
+      "Occupation": "News Paper Photographer",
+      "id": "did:key:z6MkestBkEwUzv7MxQuUU4zn4E3eS5m4TBjFNXkpudkwjTjE"
+    },
+    "issuer": {
+      "id": "did:web:musim-mas.mullet.one"
+    },
+    "type": ["VerifiableCredential"],
+    "@context": ["https://www.w3.org/2018/credentials/v1"],
+    "issuanceDate": "2023-12-07T10:20:27.000Z",
+    "expirationDate": "2024-12-07T10:20:27.000Z",
+    "proof": {
+      "type": "JwtProof2020",
+      "jwt": "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM1NjY4MjcsInZjIjp7IkBjb250ZXh0IjpbImh0dHBzOi8vd3d3LnczLm9yZy8yMDE4L2NyZWRlbnRpYWxzL3YxIl0sInR5cGUiOlsiVmVyaWZpYWJsZUNyZWRlbnRpYWwiXSwiY3JlZGVudGlhbFN1YmplY3QiOnsibmFtZSI6IlBldGVyIFBhcmtlciIsImFkZHJlc3MiOiJCcm9va2x5biwgVVNBIiwiT2NjdXBhdGlvbiI6Ik5ld3MgUGFwZXIgUGhvdG9ncmFwaGVyIn19LCJzdWIiOiJkaWQ6a2V5Ono2TWtlc3RCa0V3VXp2N014UXVVVTR6bjRFM2VTNW00VEJqRk5Ya3B1ZGt3alRqRSIsIm5iZiI6MTcwMTk0NDQyNywiaXNzIjoiZGlkOndlYjptdXNpbS1tYXMubXVsbGV0Lm9uZSJ9.r8VdYfZ6IJCOB7_hgpyfXxLUY8zyrdMQpCurf9kKjxwJMiareMXMjfTc5jPpkFe87xLZ31pvjNXWWC--0mojBw"
+    }
+  },
+  {
+    "credentialSubject": {
+      "plantingYear": "[2007,2007,2010]",
+      "rspoId": "1-0459-23-000-00",
+      "totalHectares": "[0.75,0.75,1]",
+      "id": "did:key:z6MkestBkEwUzv7MxQuUU4zn4E3eS5m4TBjFNXkpudkwjTYG"
+    },
+    "issuer": {
+      "id": "did:web:musim-mas.mullet.one"
+    },
+    "type": ["VerifiableCredential"],
+    "@context": ["https://www.w3.org/2018/credentials/v1"],
+    "issuanceDate": "2023-12-07T10:20:27.000Z",
+    "expirationDate": "2024-12-07T10:20:27.000Z",
+    "proof": {
+      "type": "JwtProof2020",
+      "jwt": "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM1NjY4MjcsInZjIjp7IkBjb250ZXh0IjpbImh0dHBzOi8vd3d3LnczLm9yZy8yMDE4L2NyZWRlbnRpYWxzL3YxIl0sInR5cGUiOlsiVmVyaWZpYWJsZUNyZWRlbnRpYWwiXSwiY3JlZGVudGlhbFN1YmplY3QiOnsicGxhbnRpbmdZZWFyIjoiWzIwMDcsMjAwNywyMDEwXSIsInJzcG9JZCI6IjEtMDQ1OS0yMy0wMDAtMDAiLCJ0b3RhbEhlY3RhcmVzIjoiWzAuNzUsMC43NSwxXSJ9fSwic3ViIjoiZGlkOmtleTp6Nk1rZXN0QmtFd1V6djdNeFF1VVU0em40RTNlUzVtNFRCakZOWGtwdWRrd2pUWUciLCJuYmYiOjE3MDE5NDQ0MjcsImlzcyI6ImRpZDp3ZWI6bXVzaW0tbWFzLm11bGxldC5vbmUifQ.qTM-hicAV7A7DrZP93PtW5FNVEa064blhiAv-6NyB2txrdR7H98Uytred7rwwVMBuFDWLhWNrqtrCQtG-mibBQ"
+    }
+  },
+  {
+    "credentialSubject": {
+      "name": "Peter Parkerss",
+      "address": "Brooklyn, USA",
+      "Occupation": "News Paper Photographer",
+      "id": "did:key:z6MkestBkEwUzv7MxQuUU4zn4E3eS5m4TBjFNXkpudkwjTjE"
+    },
+    "issuer": {
+      "id": "did:web:musim-mas.mullet.one"
+    },
+    "type": ["VerifiableCredential"],
+    "@context": ["https://www.w3.org/2018/credentials/v1"],
+    "issuanceDate": "2023-12-07T10:20:27.000Z",
+    "expirationDate": "2024-12-07T10:20:27.000Z",
+    "proof": {
+      "type": "JwtProof2020",
+      "jwt": "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM1NjY4MjcsInZjIjp7IkBjb250ZXh0IjpbImh0dHBzOi8vd3d3LnczLm9yZy8yMDE4L2NyZWRlbnRpYWxzL3YxIl0sInR5cGUiOlsiVmVyaWZpYWJsZUNyZWRlbnRpYWwiXSwiY3JlZGVudGlhbFN1YmplY3QiOnsibmFtZSI6IlBldGVyIFBhcmtlciIsImFkZHJlc3MiOiJCcm9va2x5biwgVVNBIiwiT2NjdXBhdGlvbiI6Ik5ld3MgUGFwZXIgUGhvdG9ncmFwaGVyIn19LCJzdWIiOiJkaWQ6a2V5Ono2TWtlc3RCa0V3VXp2N014UXVVVTR6bjRFM2VTNW00VEJqRk5Ya3B1ZGt3alRqRSIsIm5iZiI6MTcwMTk0NDQyNywiaXNzIjoiZGlkOndlYjptdXNpbS1tYXMubXVsbGV0Lm9uZSJ9.r8VdYfZ6IJCOB7_hgpyfXxLUY8zyrdMQpCurf9kKjxwJMiareMXMjfTc5jPpkFe87xLZ31pvjNXWWC--0mojBw"
+    }
+  }
+]

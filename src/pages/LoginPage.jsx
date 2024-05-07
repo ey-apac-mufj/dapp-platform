@@ -19,6 +19,7 @@ import { Link } from "react-router-dom";
 import { Resolver } from "did-resolver";
 import { getResolver } from "web-did-resolver";
 import { verifyCredential } from "did-jwt-vc";
+import vcData from "../data.json";
 import _ from "lodash";
 
 export default function Login() {
@@ -32,8 +33,9 @@ export default function Login() {
   const [isVerified, setVerified] = useState(false);
   const [currentVC, setCurrentVC] = useState({});
   const [contractLoader, setContractLoader] = useState(false);
-  const [enctyptedList, setEncryptedList] = useState([]);
+  const [enctyptedList, setEncryptedList] = useState(vcData);
 
+  // Resolver for VC Verification
   const webResolver = getResolver();
   const resolver = new Resolver({
     ...webResolver,
@@ -56,29 +58,7 @@ export default function Login() {
     window.showMUFG();
   }, [lastClick]);
 
-  useEffect(() => {
-    if (signature) {
-      initiateContractCall();
-    }
-  }, [signature]);
-
-  const initiateContractCall = async () => {
-    try {
-      setContractLoader(true);
-      const contract = await sdk.getContract(vcStoreAddress, vcContractABI);
-      const data = await contract.call("getCredentials", [address, 1]);
-      setEncryptedList(data);
-    } catch (error) {
-      console.log(error);
-      toast.error("Unable to load VCs", {
-        position: "top-right",
-        autoClose: 3000,
-      });
-    } finally {
-      setContractLoader(false);
-    }
-  };
-
+  // Sign message using user's smart wallet
   const signMessage = async () => {
     try {
       if (address) {
@@ -115,21 +95,13 @@ export default function Login() {
     }
   };
 
-  const decryptVC = (cipherText) => {
-    try {
-      const bytes = CryptoJS.AES.decrypt(cipherText, signature);
-      const originalText = bytes.toString(CryptoJS.enc.Utf8);
-      setCurrentVC(JSON.parse(originalText));
-      setOpen(true);
-    } catch (error) {
-      console.log(error);
-      toast.error("Failed to decrypt your VC!", {
-        position: "top-right",
-        autoClose: 3000,
-      });
-    }
+  // Show vc in a modal
+  const showVc = (data) => {
+    setCurrentVC(data);
+    setOpen(true);
   };
 
+  // Verify VC
   const verifyVC = async () => {
     try {
       setLoader(true);
@@ -178,8 +150,6 @@ export default function Login() {
         </div>
       </div>
 
-      {/* featured Communities */}
-
       <hr className="h-1 bg-gray-500" />
       {address ? (
         <>
@@ -211,26 +181,26 @@ export default function Login() {
               ) : enctyptedList.length ? (
                 <div>
                   <h4 className="mt-5 text-3xl text-black">{t("VC List")}</h4>
-                  <Link to="https://sepolia.arbiscan.io/address/0xcE10ac302b02dEB7f7211148f81bd2D71Bf8b23D#code">
-                    https://sepolia.arbiscan.io/address/0xcE10ac302b02dEB7f7211148f81bd2D71Bf8b23D#code
-                  </Link>
-                  <h5>{t("(Encrypted & Stored on blockchain)")}</h5>
+
                   <br></br>
                   {enctyptedList.map((data, index) => {
                     return (
-                      <div className="flex flex-row pb-6 gap-x-5" key={index}>
+                      <div
+                        className="flex flex-row justify-center items-center pb-6 gap-x-5"
+                        key={index}
+                      >
                         <div>{index + 1}. &nbsp;&nbsp;&nbsp;&nbsp;</div>
                         <div className="truncate">
-                          {data.encryptedCredential}
+                          Verifiable Credential - {index + 1}
                         </div>
                         <div className="m-0">
                           <button
                             className="pink-button px-2 py-2"
                             onClick={() => {
-                              decryptVC(data.encryptedCredential);
+                              showVc(data);
                             }}
                           >
-                            DECRYPT
+                            Show VC
                           </button>
                         </div>
                       </div>

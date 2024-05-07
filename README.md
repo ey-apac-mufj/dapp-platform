@@ -78,7 +78,7 @@ Install the necessary packages
 npm install web-did-resolver did-jwt-vc did-resolver
 ```
 
-Initializing the resolver (`src/pages/LoginPage.jsx` file, line no. 37)
+Initializing the resolver (`src/pages/LoginPage.jsx` file, line no. 39)
 
 ```bash
 const webResolver = getResolver();
@@ -87,12 +87,12 @@ const resolver = new Resolver({
 });
 ```
 
-Verifying VC (`src/pages/LoginPage.jsx` file, line no. 133, `verifyVC()` function)
+Verifying VC (`src/pages/LoginPage.jsx` file, line no. 105, `verifyVC()` function)
 
 ```bash
 const verifiedVC = await verifyCredential(currentVC.proof.jwt, resolver);
 let vcMatching = _.isEqual(currentVC, verifiedVC?.verifiableCredential);
-console.log(vcMatching);
+console.log(vcMatching); // Boolean
 ```
 
 ## Running the app
