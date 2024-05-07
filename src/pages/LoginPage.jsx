@@ -32,8 +32,6 @@ export default function Login() {
   const [open, setOpen] = useState(false);
   const [isVerified, setVerified] = useState(false);
   const [currentVC, setCurrentVC] = useState({});
-  const [contractLoader, setContractLoader] = useState(false);
-  const [enctyptedList, setEncryptedList] = useState(vcData);
 
   // Resolver for VC Verification
   const webResolver = getResolver();
@@ -176,14 +174,12 @@ export default function Login() {
               <></>
             )}
             {signature ? (
-              contractLoader ? (
-                "Loading VC lists"
-              ) : enctyptedList.length ? (
+              vcData.length ? (
                 <div>
                   <h4 className="mt-5 text-3xl text-black">{t("VC List")}</h4>
 
                   <br></br>
-                  {enctyptedList.map((data, index) => {
+                  {vcData.map((data, index) => {
                     return (
                       <div
                         className="flex flex-row justify-center items-center pb-6 gap-x-5"
@@ -224,7 +220,7 @@ export default function Login() {
       )}
 
       <CustomModal
-        title={t("Decrypted VC")}
+        title={t("VC Details")}
         open={open}
         onCloseModal={() => {
           setOpen(false);

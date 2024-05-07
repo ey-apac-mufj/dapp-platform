@@ -127,6 +127,7 @@
   "VC List": "所有しているVC一覧",
   "(Encrypted & Stored on blockchain)": "（暗号化してBlockchain上で保管）",
   "Decrypted VC": "復号化されたVC",
+  "VC Details": "VCの詳細",
   "VC Verification Result": "VC検証結果",
   "(VC-verified user only)": "（VC検証済みユーザのみ）",
   "Access All EDI functions": "EDI高級機能へ進む",
