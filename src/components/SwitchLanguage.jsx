@@ -15,8 +15,8 @@ const SwitchLanguage = () => {
   const getPrefferedLanguage = async () => {
     let preferredLanguage = await cookies.get("preferredLanguage");
     if (!preferredLanguage) {
-      setPreferredLanguage("jp");
-      i18n.changeLanguage("jp");
+      setPreferredLanguage("en");
+      i18n.changeLanguage("en");
     } else {
       setPreferredLanguage(preferredLanguage);
       i18n.changeLanguage(preferredLanguage);

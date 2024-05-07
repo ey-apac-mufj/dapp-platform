@@ -6,26 +6,12 @@ export const LoginContext = createContext({
 });
 
 const userLoggedin = async () => {
+  // Todo: Use login context to manage state
   try {
-    let getUser = await fetch(`${apiurl}/api/get_user`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "GET",
-      credentials: "include",
-    });
-    let getUserRes = await getUser.json();
-    if (getUserRes.status === 200) {
-      return {
-        loggedInStatus: true,
-        userDetails: getUserRes.data,
-      };
-    } else {
-      return {
-        loggedInStatus: false,
-        userDetails: null,
-      };
-    }
+    return {
+      loggedInStatus: true,
+      userDetails: {},
+    };
   } catch (error) {
     return false;
   }

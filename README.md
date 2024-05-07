@@ -1,8 +1,8 @@
-# MULLET DApp Platform
+# DApp Platform
 
-> In this project React.js, React Router and Tailwind CSS are used to develop the UI. Thirdweb (https://thirdweb.com/) library is used for interacting with blockchain.
+This DApp implements ERC4337 smart wallet functionalities using Thirdweb and Web3Auth features. It allows users to sign in with Google account and connect their wallet using WalletConnect.
 
-> In this project user can connect to ERC 4337 wallet using their personal MULLET wallet. Then user can check the list of communities based on the categories. User can enter into a particular category by purchasing the required NFT. Once user have the NFT he/she can enjoy the features of the community.
+In this project React.js, React Router and Tailwind CSS are used to develop the UI. Thirdweb (https://thirdweb.com/) library is used for interacting with blockchain.
 
 ## Getting started
 
@@ -38,6 +38,62 @@ Check `const/yourDetails.js` file and add all the details specified. This includ
 - `editionDropTokenId`: Token ID to claim from the edition drop contract.
 - `magicLinkKey`: Private key for Magic Link (Email based personal wallet system).
 - `walletConnetKey`: Secret token for wallet connect.
+
+## Configuring Thirdweb
+
+Configure the ThirdwebProvider component in your main application file (main.jsx) to use the Thirdweb and Web3Auth features. Please follow `src/main.jsx` and `src/web3auth/web3auth-no-modal.ts` files.
+
+```bash
+<ThirdwebProvider
+    supportedChains={[activeChain]}
+    activeChain={activeChain}
+    supportedWallets={[
+    smartWallet({
+        factoryAddress: TWFactoryAddress,
+        clientId: TWClientID,
+        gasless: true,
+        personalWallets: [
+        googleWeb3Wallet({
+            chain: activeChain,
+            clientId: 'YOUR_GOOGLE_CLIENT_ID',
+        }),
+        walletConnect({
+            projectId: 'YOUR_WALLET_CONNECT_PROJECT_ID',
+        }),
+        ],
+    }),
+    ]}
+>
+    <App />
+</ThirdwebProvider>
+```
+
+## Configuring VC Verification
+
+Configure Web DID Resolver to verify Verifiable Credentials. Please follow `src/pages/LoginPage.jsx` file for more details.
+
+Install the necessary packages
+
+```bash
+npm install web-did-resolver did-jwt-vc did-resolver
+```
+
+Initializing the resolver (`src/pages/LoginPage.jsx` file, line no. 37)
+
+```bash
+const webResolver = getResolver();
+const resolver = new Resolver({
+...webResolver,
+});
+```
+
+Verifying VC (`src/pages/LoginPage.jsx` file, line no. 133, `verifyVC()` function)
+
+```bash
+const verifiedVC = await verifyCredential(currentVC.proof.jwt, resolver);
+let vcMatching = _.isEqual(currentVC, verifiedVC?.verifiableCredential);
+console.log(vcMatching);
+```
 
 ## Running the app
 
