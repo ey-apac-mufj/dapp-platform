@@ -2,6 +2,10 @@
 
 This DApp implements ERC4337 smart wallet functionalities using Thirdweb and Web3Auth features. It allows users to sign in with Google account and connect their wallet using WalletConnect.
 
+This repo also contains the way to verify VC, we assume the VC is already fetched from a database via API or any other method.
+
+A demo is deployed at https://edi.mullet.one
+
 In this project React.js, React Router and Tailwind CSS are used to develop the UI. Thirdweb (https://thirdweb.com/) library is used for interacting with blockchain.
 
 ## Getting started
