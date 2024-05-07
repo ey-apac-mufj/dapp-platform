@@ -23,7 +23,6 @@ import {
   walletConnetKey,
 } from "../const/yourDetails";
 import { walletConnectV1 } from "@thirdweb-dev/react";
-import { LoginProvider } from "./contexts/LoginContext";
 import { I18nextProvider } from "react-i18next";
 import i18n from "./language/i18n";
 import { googleWeb3Wallet } from "./web3auth/web3auth-no-modal";
@@ -78,9 +77,7 @@ root.render(
       ]}
     >
       <I18nextProvider i18n={i18n}>
-        <LoginProvider>
-          <App />
-        </LoginProvider>
+        <App />
       </I18nextProvider>
     </ThirdwebProvider>
   </React.StrictMode>
