@@ -13,13 +13,6 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@ethersproject/abi": "^5.4.7",
-    "@ethersproject/providers": "^5.4.7",
-    "@nomicfoundation/hardhat-chai-matchers": "^1.0.0",
-    "@nomicfoundation/hardhat-network-helpers": "^1.0.0",
-    "@nomicfoundation/hardhat-toolbox": "^1.0.1",
-    "@nomiclabs/hardhat-ethers": "^2.0.0",
-    "@nomiclabs/hardhat-etherscan": "^3.0.0",
     "@thirdweb-dev/chains": "^0.1.12",
     "@thirdweb-dev/react": "^3",
     "@thirdweb-dev/sdk": "^3",
@@ -34,8 +27,6 @@
     "did-jwt-vc": "^4.0.4",
     "did-resolver": "^4.1.0",
     "ethers": "^5.7.2",
-    "hardhat": "^2.11.0",
-    "hardhat-gas-reporter": "^1.0.8",
     "i18next": "^23.4.6",
     "i18next-browser-languagedetector": "^7.1.0",
     "lodash": "^4.17.21",
