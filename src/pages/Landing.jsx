@@ -4,8 +4,6 @@ import community from "../images/community.png";
 import googleplay from "../images/googleplay.png";
 import appstore from "../images/appstore.png";
 import { Link } from "react-router-dom";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import SwitchLanguage from "../components/SwitchLanguage";
 import { useTranslation } from "react-i18next";
 

@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
+import React from "react";
 import ConnectWalletButton from "../components/ConnectWalletButton";
 import { useAddress } from "@thirdweb-dev/react";
-import { LoginContext } from "../contexts/LoginContext";
 import { Link } from "react-router-dom";
 import SwitchLanguage from "../components/SwitchLanguage";
 import { useTranslation } from "react-i18next";
@@ -9,8 +8,6 @@ import { useTranslation } from "react-i18next";
 export default function DummyEDIHome() {
   const address = useAddress();
   const { t } = useTranslation();
-
-  const { loggedInStatus } = useContext(LoginContext);
 
   return (
     <>
@@ -31,25 +28,22 @@ export default function DummyEDIHome() {
           <ConnectWalletButton customClass="connectWalletButton" />
         </div>
         <hr className="h-1 bg-gray-500" />
-        {address ? (<div style={{ marginTop: "20px" }}>
-          <button className="pink-button px-2 py-2 mb-2">
-            Send Delivery Order
-          </button>　
-          <button className="pink-button px-2 py-2">
-            Send Delivery Note
-          </button>　
-          <button className="pink-button px-2 py-2">
-            Send Invoice
-          </button>　
-          <button className="pink-button px-2 py-2">
-            Send Payment Notification
-          </button>
-        </div>
+        {address ? (
+          <div style={{ marginTop: "20px" }}>
+            <button className="pink-button px-2 py-2 mb-2">
+              Send Delivery Order
+            </button>
+            <button className="pink-button px-2 py-2">
+              Send Delivery Note
+            </button>
+            <button className="pink-button px-2 py-2">Send Invoice</button>　
+            <button className="pink-button px-2 py-2">
+              Send Payment Notification
+            </button>
+          </div>
         ) : (
           <div className="bg-red-300 w-full p-5 m-5 text-center text-xl">
-            {t(
-              "Please connect wallet to continue"
-            )}
+            {t("Please connect wallet to continue")}
           </div>
         )}
       </div>

@@ -4,7 +4,6 @@ import {
   vcStoreAddress,
   messageToSign,
   vcContractABI,
-  vcAPI,
 } from "../../const/yourDetails";
 import CryptoJS from "crypto-js";
 import insta from "../images/insta.png";
